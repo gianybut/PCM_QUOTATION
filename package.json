@@ -1,0 +1,26 @@
+{
+  "name": "pcm_quotation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend_start": "cd backend && npm i && npm run dev",
+    "frontend_start": "cd frontend && npm i && npm run dev",
+    "start": "npm i && concurrently \"npm run backend_start\" \"npm run frontend_start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NathCaragao/PCM_QUOTATION.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NathCaragao/PCM_QUOTATION/issues"
+  },
+  "homepage": "https://github.com/NathCaragao/PCM_QUOTATION#readme",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
