@@ -28,7 +28,7 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
       <div className="prose"> {/* Use 'prose' class for better typography */}
         <p className='m-10'>{paragraph1}</p>
       </div>
-      <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 items-center">Edit Paragraph</button>
+      <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto non-printable">Edit Paragraph</button>
 
       {/* Paragraph 1 Modal */}
       {isModalOpen1 && (
