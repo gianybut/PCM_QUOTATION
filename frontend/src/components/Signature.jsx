@@ -79,7 +79,7 @@ const Signature = () => {
       />
       {image && (
         <div>
-          <img src={image} alt="Preview" style={{ maxWidth: '300px' }} />
+          <img src={image} alt="Preview" style={{ maxWidth: '100px' }} />
         </div>
       )}
       <button onClick={handleUpload} disabled={!image}>Upload</button>

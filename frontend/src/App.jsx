@@ -8,13 +8,19 @@ import Signature from "./components/Signature";
 const App = () => {
   return (
     <div className="">
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center m-0 p-0 header-comp">
         <Header></Header>
       </div>
-      <div>
+
+
+      <div className="form-comp">
         <UserForm></UserForm>
-        <Table></Table>
       </div>
+
+      <div>
+      <Table></Table>
+      </div>
+
       <div>
         <ModeOfPayment></ModeOfPayment>
         <BottomText></BottomText>
