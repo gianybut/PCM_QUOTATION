@@ -1,5 +1,8 @@
+import Table from '../src/components/Table';
+
+
 const App = () => {
-  return <div className="container-xl bg-sky-500">App</div>;
+  return <div><Table></Table></div>;
 };
 
 export default App;
