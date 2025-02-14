@@ -3,11 +3,12 @@ import Header from "./components/Header";
 import ModeOfPayment from "./components/PaymentDropdown";
 import UserForm from "./components/UserForm";
 import BottomText from "./components/BottomText";
+import Signature from "./components/Signature";
 
 const App = () => {
   return (
     <div className="">
-      <div>
+      <div className="flex justify-center items-center">
         <Header></Header>
       </div>
       <div>
@@ -17,6 +18,7 @@ const App = () => {
       <div>
         <ModeOfPayment></ModeOfPayment>
         <BottomText></BottomText>
+        <Signature></Signature>
       </div>
     </div>
   );
