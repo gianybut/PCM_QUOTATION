@@ -2,6 +2,7 @@ import Table from "../src/components/Table";
 import Header from "./components/Header";
 import ModeOfPayment from "./components/PaymentDropdown";
 import UserForm from "./components/UserForm";
+import BottomText from "./components/BottomText";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       </div>
       <div>
         <ModeOfPayment></ModeOfPayment>
+        <BottomText></BottomText>
       </div>
     </div>
   );
