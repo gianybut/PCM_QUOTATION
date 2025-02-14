@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 
-// DONT Forget to install lucide react in npm
-// npm install lucide-react
-
 const Table = () => {
   // Sample initial data for dropdowns
   const [units, setUnits] = useState(['pieces', 'kg', 'meters', 'liters']);
@@ -142,7 +139,7 @@ const Table = () => {
 
         {/* Table */}
       <div className="overflow-x-auto">
-        <table className="border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg">
+        <table className=" flex-col min-sm: max-lg: border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg">
           <thead>
             <tr className="bg-amber-300 border-hidden">
               <th className="border p-2 border-hidden">Quantity</th>
