@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+/* Things that will not be included during print */
+@media print {
+    .non-printable {
+        display: none;
+    }
+
+    .table-div {
+        margin: auto;
+    }
+
+    table {
+        width: 80% !important;
+    }
+
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: none; /* Hide the arrow in print */
+        padding-right: 10px; /* Reset padding */
+      }
+
+}

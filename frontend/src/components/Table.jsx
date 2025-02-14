@@ -89,10 +89,10 @@ const Table = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Inventory Table</h2>
+        <h2 className="text-lg font-semibold mb-4 non-printable">Inventory Table</h2>
         
         {/* Controls Container - Horizontal layout */}
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-4 mb-4 non-printable">
           {/* Add Row Button */}
           <button
             onClick={addRow}
@@ -102,7 +102,7 @@ const Table = () => {
           </button>
 
           {/* Units Management */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 non-printable">
             <input
               type="text"
               value={newUnit}
@@ -119,7 +119,7 @@ const Table = () => {
           </div>
 
           {/* Descriptions Management */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 non-printable">
             <input
               type="text"
               value={newDescription}
@@ -139,7 +139,7 @@ const Table = () => {
 
         {/* Table */}
       <div className="overflow-x-auto">
-        <table className=" flex-col min-sm: max-lg: border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg">
+        <table className="border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg table-div ">
           <thead>
             <tr className="bg-amber-300 border-hidden">
               <th className="border p-2 border-hidden">Quantity</th>
@@ -147,26 +147,26 @@ const Table = () => {
               <th className="border p-2 border-hidden">Description</th>
               <th className="border p-2 border-hidden">Price Per Unit</th>
               <th className="border p-2 border-hidden">Total</th>
-              <th className="border p-2 border-hidden">Actions</th>
+              <th className="border p-2 border-hidden non-printable">Actions</th>
             </tr>
           </thead>
           <tbody className='bg-slate-100 border-hidden table-auto overflow-hidden rounded-lg'>
             {tableData.map(row => (
               <tr key={row.id}>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   <input
                     type="number"
                     min="0"
                     value={row.quantity}
                     onChange={(e) => handleChange(row.id, 'quantity', parseFloat(e.target.value) || 0)}
-                    className="w-full p-1 border rounded"
+                    className="w-full p-1 border-b-1 text-center"
                   />
                 </td>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   <select
                     value={row.unit}
                     onChange={(e) => handleChange(row.id, 'unit', e.target.value)}
-                    className="w-full p-1 border rounded"
+                    className="w-full p-1 border-b-1 font-medium"
                   >
                     <option value="">Select Unit</option>
                     {units.map(unit => (
@@ -174,11 +174,11 @@ const Table = () => {
                     ))}
                   </select>
                 </td>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   <select
                     value={row.description}
                     onChange={(e) => handleChange(row.id, 'description', e.target.value)}
-                    className="w-full p-1 border rounded"
+                    className="w-full p-1 border-b-1 font-medium"
                   >
                     <option value="">Select Description</option>
                     {descriptions.map(desc => (
@@ -186,7 +186,7 @@ const Table = () => {
                     ))}
                   </select>
                 </td>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   <div className="flex items-center">
                     <span className="m-1">₱</span>
                     <input
@@ -195,17 +195,17 @@ const Table = () => {
                       step="0.01"
                       value={row.pricePerUnit}
                       onChange={(e) => handleChange(row.id, 'pricePerUnit', parseFloat(e.target.value) || 0)}
-                      className="w-full p-2 border rounded"
+                      className="w-full p-2 border-b-1 text-center"
                     />
                   </div>
                 </td>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   {formatPeso(row.total)}
                 </td>
-                <td className="border p-2">
+                <td className="border p-2 border-hidden">
                   <button
                     onClick={() => deleteRow(row.id)}
-                    className="text-red-500 hover:text-red-900 p-1"
+                    className="text-red-500 hover:text-red-900 p-1 non-printable"
                     disabled={tableData.length === 1}
                     title={tableData.length === 1 ? "Cannot delete last row" : "Delete row"}
                   >

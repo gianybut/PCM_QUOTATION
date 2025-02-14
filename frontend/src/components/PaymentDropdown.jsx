@@ -4,10 +4,10 @@ const PaymentDropdown = () => {
   const [paymentMethod, setPaymentMethod] = useState("Cash on Delivery");
 
   return (
-    <div className="flex items-center space-x-3 justify-baseline m-2 p-24">
+    <div className="space-x-3 justify-baseline m-1 p-10 ">
       <label className="font-semibold text-gray-700">Mode of Payment</label>
       <select
-        className="border border-gray-300 rounded-md p-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border-b-1 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
         value={paymentMethod}
         onChange={(e) => setPaymentMethod(e.target.value)}
       >
