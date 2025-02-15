@@ -10,6 +10,25 @@ const ProductRoute = express.Router();
 //   console.log(`${key} and Php ${value}`);                  -- to access productSizes, treat it like a JSON
 // });
 ProductRoute.get("/", async (req, res) => {
+  const getProductsResult = await ProductsController.showProducts();
+
+  if (getProductsResult) {
+    res.status(StatusCodes.OK).json({
+      message: "Products successfully retrieved.",
+      data: getProductsResult,
+    });
+  } else {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Failed to retrieve Products.", data: [] });
+  }
+});
+
+ProductRoute.get("/:productId", async(req, res) => {
+    const {productId} = req.params;
+})
+
+ProductRoute.get("/ni", async (req, res) => {
   const addProductResult = await ProductsController.createProduct(
     "Bruh Cologne",
     "PERFUME",
@@ -20,10 +39,6 @@ ProductRoute.get("/", async (req, res) => {
     "67b02471f559764001f0ccab",
     null,
     "COLOGNE"
-  );
-
-  const getProductResult = await ProductsController.showOneProduct(
-    "67b02471f559764001f0ccab"
   );
 
   console.log(getProductResult);
