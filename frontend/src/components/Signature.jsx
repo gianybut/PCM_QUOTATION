@@ -89,7 +89,7 @@ const Signature = () => {
       <div className="flex justify-end">
         <button
           onClick={handleClear}
-          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100"
+          className="px-4 py-2 border-hidden hover:bg-gray-100 non-printable"
         >
           Reset to Default
         </button>
