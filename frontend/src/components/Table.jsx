@@ -11,10 +11,10 @@ const Table = () => {
   const [tableData, setTableData] = useState([
     {
       id: 1,
-      quantity: 0,
+      quantity: null,
       unit: '',
       description: '',
-      pricePerUnit: 0,
+      pricePerUnit: null,
       total: 0
     }
   ]);
@@ -119,7 +119,7 @@ const Table = () => {
                   <input type="number" min="0" value={row.quantity} onChange={(e) => handleChange(row.id, 'quantity', parseFloat(e.target.value) || 0)} className="w-full p-1 border-b-1 text-center" />
                 </td>
                 <td className="border p-2 border-hidden">
-                  <select value={row.unit} onChange={(e) => handleChange(row.id, 'unit', e.target.value)} className="w-full p-1 border-b-1 font-medium">
+                  <select value={row.unit} onChange={(e) => handleChange(row.id, 'unit', e.target.value)} className="w-full border-b-1 font-medium custom-select">
                     <option value="">Select Unit</option>
                     {units.map(unit => (
                       <option key={unit} value={unit}>{unit}</option>
@@ -127,7 +127,7 @@ const Table = () => {
                   </select>
                 </td>
                 <td className="border p-2 border-hidden">
-                  <select value={row.description} onChange={(e) => handleChange(row.id, 'description', e.target.value)} className="w-full p-1 border-b-1 font-medium">
+                  <select value={row.description} onChange={(e) => handleChange(row.id, 'description', e.target.value)} className="w-full p-0.5 border-b-1 font-medium custom-select">
                     <option value="">Select Description</option>
                     {descriptions.map(desc => (
                       <option key={desc} value={desc}>{desc}</option>

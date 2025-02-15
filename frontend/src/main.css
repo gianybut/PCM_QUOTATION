@@ -8,6 +8,7 @@
         margin: 0.5in; /* Standard document margin */
         page-break-after: always;
         page-break-before: always;
+        height: 100%;
       }
     
       body {
@@ -49,7 +50,7 @@
     .table-div {
         display: flex;
         justify-content: center;
-        transform: translateY(-190px); /* Move upwards */
+        transform: translateY(-200px); /* Move upwards */
     }
 
     table {
@@ -57,7 +58,7 @@
     }
 
     .mode-payment {
-        transform: translateY(-170px);
+        transform: translateY(-200px);
     }
 
     .bottom-text {

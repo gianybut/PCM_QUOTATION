@@ -6,6 +6,10 @@ import BottomText from "./components/BottomText";
 import Signature from "./components/Signature";
 import Footer from "./components/Footer";
 import SigName from "./components/SigName";
+import PrintBtn from "./components/PrintBtn";
+
+
+
 const App = () => {
   return (
     <div className="app-container">
@@ -16,6 +20,7 @@ const App = () => {
 
       <div className="form-comp">
         <UserForm></UserForm>
+        <PrintBtn></PrintBtn>
       </div>
 
       <div className="">
