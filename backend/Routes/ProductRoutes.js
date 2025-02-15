@@ -75,7 +75,10 @@ ProductRoute.post(
       .escape()
       .trim()
       .toUpperCase(),
-    body("productSizes").exists().isObject(),
+    body("productSizes")
+      .exists()
+      .isObject()
+      .custom((obj) => Object.keys(obj).length > 0),
   ],
   async (req, res) => {
     if (!validationResult(req).isEmpty()) {
