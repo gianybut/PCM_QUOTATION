@@ -6,6 +6,20 @@ const ProductSchema = new Schema({
     unique: true,
     required: true,
   },
+  productType: {
+    type: String,
+    enum: [
+      "PERFUME",
+      "CAR DIFFUSER",
+      "ALCOHOL",
+      "DISH WASHER",
+      "COLOGNE",
+      "FABRIC CONDITIONER",
+      "HAND SOAP",
+      "MISCELLANEOUS",
+    ],
+    required: true,
+  },
   productSizes: {
     type: Map,
     required: true,

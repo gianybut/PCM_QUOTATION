@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 import { StatusCodes } from "http-status-codes";
 import ProductsController from "./Controller/ProductsController.js";
+import ProductModel from "./Model/ProductsModel.js";
 
 // Setup variables
 const app = express();
@@ -25,10 +26,10 @@ await mongoose
     console.log("MongoDB connection failed.");
   });
 
+// getProductResult[0]["_id"].toString() -- this is how to access product ID
 app.get("/products", async (req, res) => {
-  const addProductResult = await ProductsController.createProduct(
-    "Test Product 2",
-    { "50ml": 100 }
+  const getProductResult = await ProductsController.showOneProduct(
+    "67b00934d144d2856777ff24"
   );
   return res.status(StatusCodes.OK).send("OK");
 });
