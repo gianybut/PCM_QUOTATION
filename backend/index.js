@@ -26,6 +26,9 @@ await mongoose
   });
 
 app.get("/products", async (req, res) => {
-  await ProductsController.showProducts();
+  const addProductResult = await ProductsController.createProduct(
+    "Test Product 2",
+    { "50ml": 100 }
+  );
   return res.status(StatusCodes.OK).send("OK");
 });
