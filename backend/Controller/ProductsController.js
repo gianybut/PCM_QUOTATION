@@ -23,9 +23,9 @@ class ProductsController {
    */
   static async showOneProduct(productId) {
     try {
-      const product = await ProductsModel.findById(productId);
+      const productToFind = await ProductsModel.findById(productId);
       console.log("SUCCESSFUL in getting a Product from database.");
-      return product;
+      return productToFind;
     } catch (error) {
       console.log("FAILED in getting a Product from database.");
       return null;
@@ -65,7 +65,28 @@ class ProductsController {
     }
   }
 
-  static async deleteProduct() {}
+  /**
+   * Deletes a Product entry from the database.
+   * @param {string} productId - The productId of the product to be deleted in string form.
+   * @returns {Boolean} true if the product is successfully deleted otherwise, returns false.
+   */
+  static async deleteProduct(productId) {
+    try {
+      const productToDelete = await ProductsModel.findByIdAndDelete(productId);
+      if (productToDelete) {
+        console.log("SUCCESSFUL in deleting a Product from database.");
+        return true;
+      } else {
+        console.log(
+          "FAILED in deleting a Product from database, Product doesn't exist."
+        );
+        return true;
+      }
+    } catch (error) {
+      console.log("FAILED in deleting a Product from database.");
+      return false;
+    }
+  }
 }
 
 export default ProductsController;
