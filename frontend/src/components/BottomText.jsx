@@ -25,23 +25,23 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
 
   return (
     <div className='bottom-text'>
-      <div className="prose"> {/* Use 'prose' class for better typography */}
-        <p className='m-10 whitespace-break-spaces'>{paragraph1}</p>
+      <div className="prose print:break-inside-avoid"> {/* Key change here */}
+        <p className='m-10 whitespace-break-spaces leading-10'>{paragraph1}</p>
       </div>
       <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto translate-y-[-30px] non-printable">
-        
-        Edit Paragraph</button>
+        Edit Paragraph
+      </button>
 
       {/* Paragraph 1 Modal */}
       {isModalOpen1 && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded w-3/4 h-3/4"> {/* Adjust width/height as needed */}
+          <div className="bg-white p-4 rounded w-3/4 h-3/4">
             <textarea
-              className="w-full h-full border border-gray-300 p-2 resize-none" // Style the textarea
+              className="w-full h-full border border-gray-300 p-2 resize-none"
               value={newParagraph1Text}
               onChange={(e) => setNewParagraph1Text(e.target.value)}
             />
-            <div className="mt-2"> {/* Add some spacing */}
+            <div className="mt-2">
               <button onClick={handleSaveParagraph1} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Save</button>
               <button onClick={() => setIsModalOpen1(false)} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
             </div>

@@ -22,18 +22,11 @@ const App = () => {
       <Table></Table>
       </div>
 
-      <div className="">
+  
         <ModeOfPayment></ModeOfPayment>
         <BottomText></BottomText>
         <Signature></Signature>
         <SigName></SigName>
-        
-      </div>
-
-      <div>
-        {/* <Footer></Footer> */}
-      </div>
-
     </div>
   );
 };
