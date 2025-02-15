@@ -24,8 +24,15 @@ class ProductsController {
   static async showOneProduct(productId) {
     try {
       const productToFind = await ProductsModel.findById(productId);
-      console.log("SUCCESSFUL in getting a Product from database.");
-      return productToFind;
+      if (productToFind) {
+        console.log("SUCCESSFUL in getting a Product from database.");
+        return productToFind;
+      } else {
+        console.log(
+          "FAILED in getting a Product from database. Product doesn't exist"
+        );
+        return null;
+      }
     } catch (error) {
       console.log("FAILED in getting a Product from database.");
       return null;
