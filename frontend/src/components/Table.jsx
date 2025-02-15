@@ -153,7 +153,7 @@ const Table = () => {
           <tbody className='bg-slate-100 border-hidden table-auto overflow-hidden rounded-lg'>
             {tableData.map(row => (
               <tr key={row.id}>
-                <td className="border p-2 border-hidden">
+                <td className="border p-0.5 border-hidden">
                   <input
                     type="number"
                     min="0"

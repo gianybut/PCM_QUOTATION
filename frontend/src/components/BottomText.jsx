@@ -26,7 +26,7 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
   return (
     <div className='bottom-text'>
       <div className="prose"> {/* Use 'prose' class for better typography */}
-        <p className='m-10 whitespace-break-spaces para-text'>{paragraph1}</p>
+        <p className='m-10 whitespace-break-spaces'>{paragraph1}</p>
       </div>
       <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto translate-y-[-30px] non-printable">
         
