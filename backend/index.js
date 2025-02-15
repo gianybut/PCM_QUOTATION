@@ -1,9 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-
-import { StatusCodes } from "http-status-codes";
-import ProductsController from "./Controller/ProductsController.js";
-import ProductModel from "./Model/ProductsModel.js";
+import ProductRoute from "./Routes/ProductRoutes.js";
 
 // Setup variables
 const app = express();
@@ -11,6 +8,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 6969;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
+app.use("/products", ProductRoute);
 
 // Making the server live
 await mongoose
@@ -25,11 +23,3 @@ await mongoose
   .catch((err) => {
     console.log("MongoDB connection failed.");
   });
-
-// getProductResult[0]["_id"].toString() -- this is how to access product ID
-// productToUpdate["productSizes"].forEach((key, value) => {
-//   console.log(`${key} and Php ${value}`);                  -- to access productSizes, treat it like a JSON
-// });
-app.get("/products", async (req, res) => {
-  return res.status(StatusCodes.OK).send("OK");
-});
