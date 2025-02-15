@@ -48,7 +48,7 @@ const Signature = () => {
   };
 
   return (
-    <div className="p-4 border-hidden shadow-sm">
+    <div className="p-4 border-none">
       <div className="mb-4">
         <input
           type="file"
@@ -81,12 +81,12 @@ const Signature = () => {
           <img 
             src={image} 
             alt="Signature" 
-            className="size-32 border rounded object-contain bg-white"
+            className="size-32 border-hidden rounded object-contain bg-white"
           />
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-baseline">
         <button
           onClick={handleClear}
           className="px-4 py-2 border-hidden hover:bg-gray-100 non-printable"

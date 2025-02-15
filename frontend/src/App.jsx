@@ -5,6 +5,7 @@ import UserForm from "./components/UserForm";
 import BottomText from "./components/BottomText";
 import Signature from "./components/Signature";
 import Footer from "./components/Footer";
+import SigName from "./components/SigName";
 
 const App = () => {
   return (
@@ -26,10 +27,11 @@ const App = () => {
         <ModeOfPayment></ModeOfPayment>
         <BottomText></BottomText>
         <Signature></Signature>
+        <SigName></SigName>
       </div>
 
       <div>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
       </div>
 
     </div>

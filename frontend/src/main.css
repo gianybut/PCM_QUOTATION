@@ -40,6 +40,10 @@
         display: none;
     }
 
+    .user-input {
+        border: hidden;
+    }
+
     .table-div {
         display: flex;
         justify-content: center;
@@ -56,6 +60,10 @@
 
     .bottom-text {
         transform: translateY(-220px);
+    }
+
+    .sig-name {
+        transform: translateY(-35px);
     }
 
     select {
