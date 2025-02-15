@@ -84,8 +84,22 @@ ProductRoute.post(
         .send("One of the required parameters is missing.");
     }
 
-    const newProductName = 
-    await ProductsController.createProduct()
+    const newProductName = matchedData(req)["productName"];
+    const newProductType = matchedData(req)["productType"];
+    const newProductSizes = matchedData(req)["productSizes"];
+    const newProductInDatabase = await ProductsController.createProduct(
+      newProductName,
+      newProductType,
+      newProductSizes
+    );
+
+    if (newProductInDatabase) {
+      return res.status(StatusCodes.OK).send("Successfully added one product");
+    } else {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send("Failed to add one product");
+    }
   }
 );
 
