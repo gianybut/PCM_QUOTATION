@@ -43,7 +43,7 @@
     .table-div {
         display: flex;
         justify-content: center;
-        transform: translateY(-150px); /* Move upwards */
+        transform: translateY(-190px); /* Move upwards */
     }
 
     table {
