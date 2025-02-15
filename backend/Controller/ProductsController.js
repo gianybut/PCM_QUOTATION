@@ -87,6 +87,58 @@ class ProductsController {
       return false;
     }
   }
+
+  /**
+   * Updates the Product entry from the database matching the productId parameter.
+   * @param {string} productId - The productId of the product to be updated in string form.
+   * @param {string} newProductName - The product's new name, set as null if doesn't need update.
+   * @param {string} newProductType - The product's new product type, MUST BE ONE OF TO THE FOLLOWING VALUES [
+      "PERFUME",
+      "CAR DIFFUSER",
+      "ALCOHOL",
+      "DISH WASHER",
+      "COLOGNE",
+      "FABRIC CONDITIONER",
+      "HAND SOAP",
+      "MISCELLANEOUS",
+    ], set as null if doesn't need update.
+    * @param {JSON} newProductSizes - The product's new size, must be a JSON having following the key:value format "productTypeName" : priceInPhilippinePeso. Example {"85ml":100}, set as null if doesn't need update.
+   * @returns {Boolean} true if the product is successfully update otherwise, returns false.
+   */
+  static async updateProduct(
+    productId,
+    newProductName = null,
+    newProductType = null,
+    newProductSizes = null
+  ) {
+    let productNewDetails = {};
+    if (newProductName) {
+      productNewDetails["productName"] = newProductName;
+    }
+    if (newProductType) {
+      productNewDetails["productType"] = newProductType;
+    }
+    if (newProductSizes) {
+      productNewDetails["productSizes"] = newProductSizes;
+    }
+
+    try {
+      const productToUpdate = await ProductsModel.findByIdAndUpdate(
+        productId,
+        productNewDetails
+      );
+      if (productToUpdate) {
+        console.log("SUCCESSFUL in updating a Product from database.");
+        return true;
+      } else {
+        console.log("FAILED in updating a Product from database.");
+        return false;
+      }
+    } catch (error) {
+      console.log("FAILED in updating a Product from database.");
+      return false;
+    }
+  }
 }
 
 export default ProductsController;
