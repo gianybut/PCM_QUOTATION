@@ -2,7 +2,7 @@ import pcmLogo from '../img/2.png'
 
 const Header = () => {
   return (
-    <div className='flex min-h-[20vh] p-4 items-center mx-auto'>
+    <div className='flex min-h-[20vh] p-4 items-center mx-auto header-div'>
       <img src={pcmLogo} alt="pcm logo" className='size-24 mr-4' />
       <div className='flex flex-col'>
         <h1 className='text-2xl font-bold'>P.C.M. COSMETIC PRODUCTS TRADING</h1>

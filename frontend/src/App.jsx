@@ -4,10 +4,11 @@ import ModeOfPayment from "./components/PaymentDropdown";
 import UserForm from "./components/UserForm";
 import BottomText from "./components/BottomText";
 import Signature from "./components/Signature";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <div className="">
+    <div className="app-container">
       <div className="flex justify-center items-center m-0 p-0 header-comp">
         <Header></Header>
       </div>
@@ -17,15 +18,20 @@ const App = () => {
         <UserForm></UserForm>
       </div>
 
-      <div>
+      <div className="">
       <Table></Table>
       </div>
 
-      <div>
+      <div className="">
         <ModeOfPayment></ModeOfPayment>
         <BottomText></BottomText>
         <Signature></Signature>
       </div>
+
+      <div>
+        <Footer></Footer>
+      </div>
+
     </div>
   );
 };

@@ -1,36 +1,34 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const Signature = () => {
-  const [image, setImage] = useState(null);
+  // Default image URL - replace with your default image path
+  const defaultImage = "/api/placeholder/128/128";
+  const [image, setImage] = useState(defaultImage);
   const fileInputRef = useRef(null);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      // 1. Preview the image (optional but recommended):
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Set the data URL for preview
+        setImage(reader.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
 
-      // 2. Store the file object (for later upload):
-      // You can store the file object directly in state, or if you are uploading right away,
-      // you can send the file directly from here.
-      // setImage(file); // If you're not previewing
-    } else {
-      setImage(null); // Clear preview if no file selected
+  const handleClear = () => {
+    setImage(defaultImage); // Reset to default image instead of null
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
   const handleUpload = () => {
-    if (image) {
-      // Here you would typically use `fetch` or `axios` to send the `image` to your server.
-      // Example using fetch (replace with your actual API endpoint):
-
+    if (image && image !== defaultImage) {
       const formData = new FormData();
-      formData.append('image', image); // 'image' is the name your server expects
+      formData.append('image', image);
 
       fetch('/your-api-endpoint', {
         method: 'POST',
@@ -39,51 +37,63 @@ const Signature = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log('Image uploaded:', data);
-          // Handle success (e.g., show a success message)
+          handleClear();
         })
         .catch((error) => {
           console.error('Error uploading image:', error);
-          // Handle error (e.g., show an error message)
         });
-
-
-      // If you are storing the file object instead of the dataURL:
-      // const formData = new FormData();
-      // formData.append('image', image); // 'image' is the name your server expects
-
-      // fetch('/your-api-endpoint', {
-      //   method: 'POST',
-      //   body: formData,
-      // })
-      // ... (rest of the fetch code)
     } else {
-      alert('Please select an image first.');
+      alert('Please select a new image first.');
     }
   };
 
-
-  const handleClear = () => {
-    setImage(null);
-    if(fileInputRef.current) {
-        fileInputRef.current.value = ''; // clear the input
-    }
-  }
-
   return (
-    <div>
-      <input
-        type="file"
-        accept="image/*" // Optional: restrict to image files
-        onChange={handleImageChange}
-        ref={fileInputRef} // ref for clearing the input
-      />
-      {image && (
-        <div>
-          <img src={image} alt="Preview" style={{ maxWidth: '100px' }} />
+    <div className="p-4 border-hidden shadow-sm">
+      <div className="mb-4">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          ref={fileInputRef}
+          className="hidden"
+          id="image-upload"
+        />
+        <label 
+          htmlFor="image-upload" 
+          className="non-printable cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-5 w-5 mr-2" 
+            viewBox="0 0 20 20" 
+            fill="currentColor"
+          >
+            <path 
+              fillRule="evenodd" 
+              d="M4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 1a1 1 0 011-1h6a1 1 0 110 2H8a1 1 0 01-1-1z" 
+              clipRule="evenodd" 
+            />
+          </svg>
+          <span>Choose Signature</span>
+        </label>
+
+        <div className="mt-2">
+          <img 
+            src={image} 
+            alt="Signature" 
+            className="size-32 border rounded object-contain bg-white"
+          />
         </div>
-      )}
-      <button onClick={handleUpload} disabled={!image}>Upload</button>
-      <button onClick={handleClear}>Clear</button>
+      </div>
+
+      <div className="flex justify-end">
+        <button
+          onClick={handleClear}
+          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100"
+        >
+          Reset to Default
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,17 +1,61 @@
 @import "tailwindcss";
 
-/* Things that will not be included during print */
+/* Print Configuration */
 @media print {
+
+    @page { /* This is the key for setting page margins */
+        size: auto;  /* or 'A4' for A4 paper */
+        margin: 0.5in; /* Standard document margin */
+      }
+    
+      body {
+        margin: 20px; /* Reset body margins - important! */
+      }
+    
+      .app-container { /* If you still have a container, you can center it */
+        width: auto; /* Or a specific width if needed */
+        max-width: 100%; /* Prevent overflow */
+        margin: 0 auto; /* Center the container horizontally */
+      }
+
+    .app-container {
+        width: 100%; /* Ensure full width */
+        margin: auto; /* Remove margins */
+        margin-bottom: 10mm;
+        padding: 10mm; /* Remove padding */
+        font-size: 12pt; /* Adjust font size for print */
+      }
+
+    .header-div {
+        transform: translateY(-80px);
+    }
+    
+    .form-comp {
+        transform: translateY(-160px); /* Move upwards */
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+      
     .non-printable {
         display: none;
     }
 
     .table-div {
-        margin: auto;
+        display: flex;
+        justify-content: center;
+        transform: translateY(-150px); /* Move upwards */
     }
 
     table {
         width: 80% !important;
+    }
+
+    .mode-payment {
+        transform: translateY(-170px);
+    }
+
+    .bottom-text {
+        transform: translateY(-200px);
     }
 
     select {
@@ -23,3 +67,4 @@
       }
 
 }
+

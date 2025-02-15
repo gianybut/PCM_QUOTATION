@@ -138,8 +138,8 @@ const Table = () => {
       </div>
 
         {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg table-div ">
+      <div className="overflow-x-auto table-div">
+        <table className="border-collapse border-hidden w-full bg-white shadow-md table-auto overflow-hidden rounded-lg">
           <thead>
             <tr className="bg-amber-300 border-hidden">
               <th className="border p-2 border-hidden">Quantity</th>
