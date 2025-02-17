@@ -6,12 +6,14 @@ import Signature from "./components/Signature";
 import SigName from "./components/SigName";
 import PrintBtn from "./components/PrintBtn";
 import MainTable from "./components/MainTable";
+import ProductModal from "./components/ProductModal";
 
 const App = () => {
   return (
     <div className="app-container">
       <Header />
       <UserForm />
+      <ProductModal />
       <MainTable />
       <ModeOfPayment />
       <BottomText />

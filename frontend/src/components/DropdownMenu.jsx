@@ -35,7 +35,7 @@ const DropdownMenu = ({
       >
         {getDisplayText(selected)}
       </button>
-
+      
       {isOpen && Array.isArray(options) && options.length > 0 && (
         <div className="absolute z-10 w-48 mt-2 bg-white rounded-md shadow-lg">
           <div className="py-1">
