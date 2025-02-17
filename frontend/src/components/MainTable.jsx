@@ -80,8 +80,6 @@ const MainTable = () => {
   };
 
 
-
-
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <table className="w-full border-collapse">
@@ -152,6 +150,7 @@ const MainTable = () => {
           Grand Total: ₱{rows.reduce((sum, row) => sum + row.total, 0)}
         </p>
       </div>
+
     </div>
   );
 };

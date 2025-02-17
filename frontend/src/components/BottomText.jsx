@@ -28,6 +28,8 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
       <div className="prose print:break-inside-avoid"> {/* Key change here */}
         <p className='m-10 whitespace-break-spaces leading-10'>{paragraph1}</p>
       </div>
+
+      {/* Edit Button */}
       <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto translate-y-[-30px] non-printable">
         Edit Paragraph
       </button>

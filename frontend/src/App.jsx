@@ -7,7 +7,6 @@ import SigName from "./components/SigName";
 import PrintBtn from "./components/PrintBtn";
 import MainTable from "./components/MainTable";
 
-
 const App = () => {
   return (
     <div className="app-container">
@@ -18,7 +17,6 @@ const App = () => {
       <BottomText />
       <Signature />
       <SigName />
-
     </div>
   );
 };
