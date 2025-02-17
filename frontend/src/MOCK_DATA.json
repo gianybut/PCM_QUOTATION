@@ -1,0 +1,34 @@
+[
+
+{
+    "productId": "sw62745fdsf",
+    "productName": "CK ONE",
+    "productType": "PERFUME",
+    "productSizes": {
+        "85mL": 110,
+        "100mL": 300
+    }
+},
+
+{
+    "productId": "sasf4rw43f",
+    "productName": "LACOSTE RED",
+    "productType": "PERFUME",
+    "productSizes": {
+        "85mL": 110,
+        "100mL": 300
+    }
+},
+
+{
+    "productId": "sasf4rw43f",
+    "productName": "XDD",
+    "productType": "PERFUME",
+    "productSizes": {
+        "85mL": 110,
+        "100mL": 300,
+        "300mL": 500
+    }
+}
+
+]
