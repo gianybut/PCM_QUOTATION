@@ -1,13 +1,13 @@
-import Header from "./components/Header";
-import ModeOfPayment from "./components/PaymentDropdown";
-import UserForm from "./components/UserForm";
-import BottomText from "./components/BottomText";
-import Signature from "./components/Signature";
-import SigName from "./components/SigName";
-import PrintBtn from "./components/PrintBtn";
-import MainTable from "./components/MainTable";
-import ProductModal from "./components/ProductModal";
-import AddNewProduct from "./components/AddNewProduct";
+import Header from "./components/Header.jsx";
+import ModeOfPayment from "./components/PaymentDropdown.jsx";
+import UserForm from "./components/UserForm.jsx";
+import BottomText from "./components/BottomText.jsx";
+import Signature from "./components/Signature.jsx";
+import SigName from "./components/SigName.jsx";
+import PrintBtn from "./components/PrintBtn.jsx";
+import MainTable from "./components/MainTable.jsx";
+import ProductModal from "./components/ProductModal.jsx";
+import AddNewProduct from "./components/AddNewProduct.jsx";
 
 const App = () => {
   return (
