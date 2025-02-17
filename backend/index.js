@@ -4,7 +4,7 @@ import ProductRoute from "./Routes/ProductRoutes.js";
 
 // Setup variables
 const app = express();
-const SERVER_PORT = process.env.SERVER_PORT || 6969;
+const SERVER_PORT = process.env.SERVER_PORT || 6942;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
