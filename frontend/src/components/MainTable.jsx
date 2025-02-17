@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Dropdown from "./DropdownMenu";
 import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";

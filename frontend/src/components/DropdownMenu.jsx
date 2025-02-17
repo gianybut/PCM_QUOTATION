@@ -28,7 +28,7 @@ const DropdownMenu = ({
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="inline-block text-left">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex justify-between items-center w-48 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
