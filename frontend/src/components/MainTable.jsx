@@ -123,8 +123,8 @@ const MainTable = () => {
                   onSelect={(selectedProduct) => handleSelectProduct(row.id, selectedProduct)}
                 />
               </td>
-              <td className="border p-2">${row.pricePerUnit}</td>
-              <td className="border p-2">${row.total}</td>
+              <td className="border p-2">₱{row.pricePerUnit}</td>
+              <td className="border p-2">₱{row.total}</td>
               <td className="border p-2">
                 <button
                   onClick={() => removeRow(row.id)}
@@ -149,7 +149,7 @@ const MainTable = () => {
 
       <div className="mt-4 text-right">
         <p className="text-lg font-semibold">
-          Grand Total: ${rows.reduce((sum, row) => sum + row.total, 0)}
+          Grand Total: ₱{rows.reduce((sum, row) => sum + row.total, 0)}
         </p>
       </div>
     </div>
