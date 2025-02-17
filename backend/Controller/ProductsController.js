@@ -3,39 +3,28 @@ import ProductsModel from "../Model/ProductsModel.js";
 class ProductsController {
   /**
    * Retrieves all Product entries from the database.
-   * @returns {Array<JSON> | null} An array containing JSONs, each JSON entry contains one Product details. Returns null instead if operation failed.
+   * @returns {Array<JSON> | null} An array containing JSONs, each JSON entry contains one Product details. Returns null instead if no products are found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showProducts() {
     try {
       const products = await ProductsModel.find({});
-      console.log("SUCCESSFUL in getting Products from database.");
-      return products;
+      return products || null;
     } catch (error) {
-      console.log("FAILED in getting Products from database.");
-      return null;
+      throw error;
     }
   }
 
   /**
    * Retrieves a Product entry from the database.
    * @param {string} productId - The productId of the product to show in string form,
-   * @returns {JSON | null} The JSON entry of the retrieved product, if successfully retrieved. Otherwise returns null.
+   * @returns {JSON | null} The JSON entry of the retrieved product. Otherwise returns null if no product has been found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showOneProduct(productId) {
     try {
       const productToFind = await ProductsModel.findById(productId);
-      if (productToFind) {
-        console.log("SUCCESSFUL in getting a Product from database.");
-        return productToFind;
-      } else {
-        console.log(
-          "FAILED in getting a Product from database. Product doesn't exist"
-        );
-        return null;
-      }
+      return productToFind || null;
     } catch (error) {
-      console.log("FAILED in getting a Product from database.");
-      return null;
+      throw error;
     }
   }
 

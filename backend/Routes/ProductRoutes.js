@@ -2,7 +2,6 @@ import express, { query } from "express";
 import { StatusCodes } from "http-status-codes";
 import ProductsController from "../Controller/ProductsController.js";
 import { matchedData, param, validationResult, body } from "express-validator";
-import ProductModel from "../Model/ProductsModel.js";
 
 // Product routes start with ":/products"
 const ProductRoute = express.Router();
