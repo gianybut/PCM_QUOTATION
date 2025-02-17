@@ -1,13 +1,11 @@
-import Table from "../src/components/Table";
 import Header from "./components/Header";
 import ModeOfPayment from "./components/PaymentDropdown";
 import UserForm from "./components/UserForm";
 import BottomText from "./components/BottomText";
 import Signature from "./components/Signature";
-import Footer from "./components/Footer";
 import SigName from "./components/SigName";
 import PrintBtn from "./components/PrintBtn";
-
+import MainTable from "./components/MainTable";
 
 
 const App = () => {
@@ -24,7 +22,7 @@ const App = () => {
       </div>
 
       <div className="">
-      <Table></Table>
+        <MainTable />
       </div>
 
   
