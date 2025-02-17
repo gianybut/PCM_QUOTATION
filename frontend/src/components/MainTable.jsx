@@ -19,10 +19,19 @@ const MainTable = () => {
 
   // Use extracted data
   const [options, addSize] = useAddSize(extractedSizes);
-  const [productNames, addProductName] = useAddProductName(extractedProductNames);
+  const [productNames, addProductName] = useAddProductName(
+    extractedProductNames
+  );
 
   const [rows, setRows] = useState([
-    { id: 1, quantity: 1, unit: null, description: null, pricePerUnit: 0, total: 0 },
+    {
+      id: 1,
+      quantity: 1,
+      unit: null,
+      description: null,
+      pricePerUnit: 0,
+      total: 0,
+    },
   ]);
 
   // Handle selecting a size
@@ -69,7 +78,17 @@ const MainTable = () => {
   // Add a new row
   const addRow = () => {
     const newId = Math.max(...rows.map((row) => row.id)) + 1;
-    setRows([...rows, { id: newId, quantity: 1, unit: null, description: null, pricePerUnit: 0, total: 0 }]);
+    setRows([
+      ...rows,
+      {
+        id: newId,
+        quantity: 1,
+        unit: null,
+        description: null,
+        pricePerUnit: 0,
+        total: 0,
+      },
+    ]);
   };
 
   // Remove a row
@@ -78,7 +97,6 @@ const MainTable = () => {
       setRows(rows.filter((row) => row.id !== id));
     }
   };
-
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
@@ -101,7 +119,9 @@ const MainTable = () => {
                   type="number"
                   min="1"
                   value={row.quantity}
-                  onChange={(e) => updateRow(row.id, "quantity", parseInt(e.target.value) || 0)}
+                  onChange={(e) =>
+                    updateRow(row.id, "quantity", parseInt(e.target.value) || 0)
+                  }
                   className="w-20 p-1 border rounded"
                 />
               </td>
@@ -109,7 +129,9 @@ const MainTable = () => {
                 <Dropdown
                   label="Select Size"
                   options={options}
-                  onSelect={(selectedOption) => handleSelectSize(row.id, selectedOption)}
+                  onSelect={(selectedOption) =>
+                    handleSelectSize(row.id, selectedOption)
+                  }
                   valueKey="value"
                   labelKey="label"
                 />
@@ -118,7 +140,9 @@ const MainTable = () => {
                 <Dropdown
                   label="Select Product"
                   options={productNames}
-                  onSelect={(selectedProduct) => handleSelectProduct(row.id, selectedProduct)}
+                  onSelect={(selectedProduct) =>
+                    handleSelectProduct(row.id, selectedProduct)
+                  }
                 />
               </td>
               <td className="border p-2">₱{row.pricePerUnit}</td>
@@ -150,7 +174,6 @@ const MainTable = () => {
           Grand Total: ₱{rows.reduce((sum, row) => sum + row.total, 0)}
         </p>
       </div>
-
     </div>
   );
 };

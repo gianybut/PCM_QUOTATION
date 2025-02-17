@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import MOCK_DATA from '../MOCK_DATA.json';
+import React, { useState } from "react";
+import MOCK_DATA from "../MOCK_DATA.json";
 
 const ProductModal = ({ onClose }) => {
   const [products, setProducts] = useState(MOCK_DATA);
-  const [productName, setProductName] = useState('');
-  const [productType, setProductType] = useState('perfume');
-  const [sizes, setSizes] = useState([{ size: '', unit: 'ml', price: '' }]);
+  const [productName, setProductName] = useState("");
+  const [productType, setProductType] = useState("perfume");
+  const [sizes, setSizes] = useState([{ size: "", unit: "ml", price: "" }]);
 
   const generateProductId = () => {
     return Math.random().toString(36).substring(2, 15);
@@ -13,7 +13,7 @@ const ProductModal = ({ onClose }) => {
 
   const handleAddSizeUnit = (e) => {
     e.preventDefault();
-    setSizes([...sizes, { size: '', unit: 'ml', price: '' }]);
+    setSizes([...sizes, { size: "", unit: "ml", price: "" }]);
   };
 
   const handleSizeChange = (index, field, value) => {
@@ -28,7 +28,7 @@ const ProductModal = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Create productSizes object from sizes array
     const productSizes = {};
     sizes.forEach(({ size, unit, price }) => {
@@ -39,30 +39,30 @@ const ProductModal = ({ onClose }) => {
       productId: generateProductId(),
       productName,
       productType,
-      productSizes
+      productSizes,
     };
 
     // Add new product to the existing products array
     setProducts([...products, newProduct]);
-    
+
     // Log the updated products array to see the changes
-    console.log('Updated Products:', [...products, newProduct]);
-    
+    console.log("Updated Products:", [...products, newProduct]);
+
     resetForm();
     onClose();
   };
 
   const resetForm = () => {
-    setProductName('');
-    setProductType('perfume');
-    setSizes([{ size: '', unit: 'ml', price: '' }]);
+    setProductName("");
+    setProductType("perfume");
+    setSizes([{ size: "", unit: "ml", price: "" }]);
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white rounded-lg w-96 p-6">
         <h3 className="text-xl font-bold mb-4">Create New Product</h3>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label className="block text-sm font-medium">Product Name</label>
@@ -96,19 +96,25 @@ const ProductModal = ({ onClose }) => {
 
           {sizes.map((size, index) => (
             <div key={index} className="space-y-2">
-              <label className="block text-sm font-medium">Product Size {index + 1}</label>
+              <label className="block text-sm font-medium">
+                Product Size {index + 1}
+              </label>
               <div className="flex gap-2">
                 <input
                   type="number"
                   value={size.size}
-                  onChange={(e) => handleSizeChange(index, 'size', e.target.value)}
+                  onChange={(e) =>
+                    handleSizeChange(index, "size", e.target.value)
+                  }
                   placeholder="Size"
                   className="w-1/4 p-2 border rounded-md"
                   required
                 />
                 <select
                   value={size.unit}
-                  onChange={(e) => handleSizeChange(index, 'unit', e.target.value)}
+                  onChange={(e) =>
+                    handleSizeChange(index, "unit", e.target.value)
+                  }
                   className="w-1/4 p-2 border rounded-md"
                 >
                   <option value="ml">ml</option>
@@ -119,7 +125,9 @@ const ProductModal = ({ onClose }) => {
                 <input
                   type="number"
                   value={size.price}
-                  onChange={(e) => handleSizeChange(index, 'price', e.target.value)}
+                  onChange={(e) =>
+                    handleSizeChange(index, "price", e.target.value)
+                  }
                   placeholder="Price"
                   className="w-1/2 p-2 border rounded-md"
                   required

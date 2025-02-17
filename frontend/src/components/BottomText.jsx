@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const BottomText = () => {
-  const [paragraph1, setParagraph1] = useState(`The prices stated at the time of the delivery shall apply.
+  const [paragraph1, setParagraph1] =
+    useState(`The prices stated at the time of the delivery shall apply.
 
 The order must be subject to down payment of at least 50% of the total money, cash, gcash (0905-342-9588), or online bank transfer (007678005992 BDO). We are hoping to be in service with you.
 
@@ -24,13 +25,18 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
   };
 
   return (
-    <div className='bottom-text'>
-      <div className="prose print:break-inside-avoid"> {/* Key change here */}
-        <p className='m-10 whitespace-break-spaces leading-10'>{paragraph1}</p>
+    <div className="bottom-text">
+      <div className="prose print:break-inside-avoid">
+        {" "}
+        {/* Key change here */}
+        <p className="m-10 whitespace-break-spaces leading-10">{paragraph1}</p>
       </div>
 
       {/* Edit Button */}
-      <button onClick={handleEditParagraph1} className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto translate-y-[-30px] non-printable">
+      <button
+        onClick={handleEditParagraph1}
+        className="bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded mt-2 flex m-auto translate-y-[-30px] non-printable"
+      >
         Edit Paragraph
       </button>
 
@@ -44,8 +50,18 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
               onChange={(e) => setNewParagraph1Text(e.target.value)}
             />
             <div className="mt-2">
-              <button onClick={handleSaveParagraph1} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Save</button>
-              <button onClick={() => setIsModalOpen1(false)} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+              <button
+                onClick={handleSaveParagraph1}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsModalOpen1(false)}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

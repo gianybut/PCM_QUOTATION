@@ -2,80 +2,79 @@
 
 /* Print Configuration */
 @media print {
+  @page {
+    /* This is the key for setting page margins */
+    size: auto; /* or 'A4' for A4 paper */
+    margin: 0.5in; /* Standard document margin */
+    page-break-after: always;
+    page-break-before: always;
+    height: 100%;
+  }
 
-    @page { /* This is the key for setting page margins */
-        size: auto;  /* or 'A4' for A4 paper */
-        margin: 0.5in; /* Standard document margin */
-        page-break-after: always;
-        page-break-before: always;
-        height: 100%;
-      }
-    
-      body {
-        margin: 20px; /* Reset body margins - important! */
-      }
-    
-      .app-container { /* If you still have a container, you can center it */
-        width: auto; /* Or a specific width if needed */
-        max-width: 100%; /* Prevent overflow */
-        margin: 0 auto; /* Center the container horizontally */
-      }
+  body {
+    margin: 20px; /* Reset body margins - important! */
+  }
 
-    .app-container {
-        width: 100%; /* Ensure full width */
-        margin: auto; /* Remove margins */
-        margin-bottom: 10mm;
-        padding: 10mm; /* Remove padding */
-        font-size: 12pt; /* Adjust font size for print */
-      }
+  .app-container {
+    /* If you still have a container, you can center it */
+    width: auto; /* Or a specific width if needed */
+    max-width: 100%; /* Prevent overflow */
+    margin: 0 auto; /* Center the container horizontally */
+  }
 
-    .header-div {
-        transform: translateY(-80px);
-    }
-    
-    .form-comp {
-        transform: translateY(-190px); /* Move upwards */
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
-      
-    .non-printable {
-        display: none;
-    }
+  .app-container {
+    width: 100%; /* Ensure full width */
+    margin: auto; /* Remove margins */
+    margin-bottom: 10mm;
+    padding: 10mm; /* Remove padding */
+    font-size: 12pt; /* Adjust font size for print */
+  }
 
-    .user-input {
-        border: hidden;
-    }
+  .header-div {
+    transform: translateY(-80px);
+  }
 
-    .table-div {
-        display: flex;
-        justify-content: center;
-        transform: translateY(-200px); /* Move upwards */
-    }
+  .form-comp {
+    transform: translateY(-190px); /* Move upwards */
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 
-    table {
-        width: 80% !important;
-    }
+  .non-printable {
+    display: none;
+  }
 
-    .mode-payment {
-        /* transform: translateY(-200px); */
-    }
+  .user-input {
+    border: hidden;
+  }
 
-    .bottom-text {
-        /* transform: translateY(-220px); */
-    }
+  .table-div {
+    display: flex;
+    justify-content: center;
+    transform: translateY(-200px); /* Move upwards */
+  }
 
-    .sig-name {
-        /* transform: translateY(-35px); */
-    }
+  table {
+    width: 80% !important;
+  }
 
-    select {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-image: none; /* Hide the arrow in print */
-        padding-right: 10px; /* Reset padding */
-      }
+  .mode-payment {
+    /* transform: translateY(-200px); */
+  }
 
+  .bottom-text {
+    /* transform: translateY(-220px); */
+  }
+
+  .sig-name {
+    /* transform: translateY(-35px); */
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none; /* Hide the arrow in print */
+    padding-right: 10px; /* Reset padding */
+  }
 }
-
