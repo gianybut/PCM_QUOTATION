@@ -7,66 +7,58 @@ import { matchedData, param, validationResult, body } from "express-validator";
 const ProductRoute = express.Router();
 ProductRoute.use(express.json());
 
-// getProductResult[0]["_id"].toString() -- this is how to access product ID
-// productToUpdate["productSizes"].forEach((key, value) => {
-//   console.log(`${key} and Php ${value}`);                  -- to access productSizes, treat it like a JSON
-// });
-
 // READ ALL
 ProductRoute.get("/", async (req, res) => {
-  const getProductsResult = await ProductsController.showProducts();
-
   try {
-    if (getProductsResult) {
-      return res.status(StatusCodes.OK).json({
-        message: "Products successfully retrieved.",
-        data: getProductsResult,
-      });
-    } else {
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ message: "Failed to retrieve Products.", data: null });
-    }
+    const getProductsResult = await ProductsController.showProducts();
+
+    return res.status(StatusCodes.OK).json({
+      message: `${getProductsResult.length} Product/s successfully retrieved.`,
+      data: getProductsResult || null,
+    });
   } catch (error) {
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Failed to retrieve Products.", data: null });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "FAILED TO RETRIEVE PRODUCTS. Database connection error.",
+    });
   }
 });
 
 // READ ONE
 ProductRoute.get(
   "/:productId",
-  [param("productId").exists().isString().notEmpty().escape().trim()],
+  [
+    param("productId")
+      .exists()
+      .isString()
+      .notEmpty()
+      .escape()
+      .trim()
+      .isLength({ min: 24, max: 24 })
+      .isHexadecimal(),
+  ],
   async (req, res) => {
     // Error, exit early
     if (!validationResult(req).isEmpty()) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send("One of the required parameters is missing.");
+        .json({ message: "One of the required parameters is missing." });
     }
 
-    const productIdToGet = matchedData(req)["productId"];
-
     try {
+      const productIdToGet = matchedData(req)["productId"];
       const getOneProductResult = await ProductsController.showOneProduct(
         productIdToGet
       );
 
-      if (getOneProductResult) {
-        return res.status(StatusCodes.OK).json({
-          message: "Successfully retrieved one product",
-          data: getOneProductResult,
-        });
-      } else {
-        return res.status(StatusCodes.BAD_REQUEST).json({
-          message: "Failed to retrieve one product",
-          data: null,
-        });
-      }
+      return res.status(StatusCodes.OK).json({
+        message: getOneProductResult
+          ? "Successfully retrieved one product"
+          : "Product doesn't exist.",
+        data: getOneProductResult || null,
+      });
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "Failed to retrieve one product, database connection error.",
+        message: "FAILED TO RETRIEVE ONE PRODUCT. Database connection error.",
         data: null,
       });
     }
@@ -101,25 +93,29 @@ ProductRoute.post(
     if (!validationResult(req).isEmpty()) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send("One of the required parameters is missing.");
+        .json({ message: "One of the required parameters is missing." });
     }
 
-    const newProductName = matchedData(req)["productName"];
-    const newProductType = matchedData(req)["productType"];
-    const newProductSizes = matchedData(req)["productSizes"];
+    try {
+      const newProductName = matchedData(req)["productName"];
+      const newProductType = matchedData(req)["productType"];
+      const newProductSizes = matchedData(req)["productSizes"];
 
-    const newProductInDatabase = await ProductsController.createProduct(
-      newProductName,
-      newProductType,
-      newProductSizes
-    );
+      const newProductInDatabase = await ProductsController.createProduct(
+        newProductName,
+        newProductType,
+        newProductSizes
+      );
 
-    if (newProductInDatabase) {
-      return res.status(StatusCodes.OK).send("Successfully added one product");
-    } else {
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send("Failed to add one product");
+      return res.status(StatusCodes.OK).json({
+        message: newProductInDatabase
+          ? "Successfully added one product"
+          : "Failed to add one product",
+      });
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "FAILED TO ADD ONE PRODUCT. Database connection error.",
+      });
     }
   }
 );
@@ -128,7 +124,14 @@ ProductRoute.post(
 ProductRoute.patch(
   "/update/:productId",
   [
-    param("productId").exists().isString().notEmpty().escape().trim(),
+    param("productId")
+      .exists()
+      .isString()
+      .notEmpty()
+      .escape()
+      .trim()
+      .isLength({ min: 24, max: 24 })
+      .isHexadecimal(),
     body("productName")
       .exists()
       .isString()
@@ -151,17 +154,18 @@ ProductRoute.patch(
   async (req, res) => {
     // Errors in validation, exit early
     if (!validationResult(req).isEmpty()) {
+      console.log(validationResult(req));
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send("One of the required parameters is missing.");
+        .json({ message: "One of the required parameters is missing." });
     }
 
-    const productId = matchedData(req)["productId"];
-    const newProductName = matchedData(req)["productName"];
-    const newProductType = matchedData(req)["productType"];
-    const newProductSizes = matchedData(req)["productSizes"];
-
     try {
+      const productId = matchedData(req)["productId"];
+      const newProductName = matchedData(req)["productName"];
+      const newProductType = matchedData(req)["productType"];
+      const newProductSizes = matchedData(req)["productSizes"];
+
       const updateResult = await ProductsController.updateProduct(
         productId,
         newProductName,
@@ -169,19 +173,15 @@ ProductRoute.patch(
         newProductSizes
       );
 
-      if (updateResult) {
-        return res
-          .status(StatusCodes.OK)
-          .send("Successfully update one product");
-      } else {
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send("Failed to update one product");
-      }
+      return res.status(StatusCodes.OK).json({
+        message: updateResult
+          ? "Successfully updated one product"
+          : "Failed to update one product",
+      });
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send("Failed to connect to database.");
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: "FAILED TO UPDATE PRODUCT. Database connection error.",
+      });
     }
   }
 );
@@ -189,32 +189,37 @@ ProductRoute.patch(
 // DELETE
 ProductRoute.delete(
   "/delete/:productId",
-  [param("productId").exists().isString().notEmpty().escape().trim()],
+  [
+    param("productId")
+      .exists()
+      .isString()
+      .notEmpty()
+      .escape()
+      .trim()
+      .isLength({ min: 24, max: 24 })
+      .isHexadecimal(),
+  ],
   async (req, res) => {
     // Errors in validation, exit early
     if (!validationResult(req).isEmpty()) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send("One of the required parameters is missing.");
+        .json({ message: "One of the required parameters is missing." });
     }
 
-    const productId = matchedData(req)["productId"];
-
     try {
+      const productId = matchedData(req)["productId"];
+
       const deleteResult = await ProductsController.deleteProduct(productId);
-      if (deleteResult) {
-        return res
-          .status(StatusCodes.OK)
-          .send("Successfully deleted one product");
-      } else {
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .send("Failed to delete one product");
-      }
+      return res.status(StatusCodes.OK).json({
+        message: deleteResult
+          ? "Successfully deleted one product"
+          : "Failed to delete one product",
+      });
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_GATEWAY)
-        .send("Database connection error.");
+      return res.status(StatusCodes.BAD_GATEWAY).json({
+        message: "FAILED TO DELETE PRODUCT. Database connection error.",
+      });
     }
   }
 );

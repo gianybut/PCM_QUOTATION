@@ -112,7 +112,6 @@ class ProductsController {
         productId,
         productNewDetails
       );
-      console.log(productToUpdate);
       return productToUpdate ? true : false;
     } catch (error) {
       throw error;
