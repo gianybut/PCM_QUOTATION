@@ -2,27 +2,25 @@ import React, { useState } from "react";
 import Dropdown from "./DropdownMenu";
 import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";
+import MOCK_DATA from "../MOCK_DATA.json"; // Import JSON data
 
 const MainTable = () => {
-  // Sizes and prices
-  const [options, addSize] = useAddSize([
-    { label: "1 Liter", value: 100 },
-    { label: "500ml", value: 50 },
-    { label: "250ml", value: 25 },
-  ]);
+  // Extract product names and sizes from JSON
+  const extractedProductNames = MOCK_DATA.map((item) => ({
+    label: item.productName,
+  }));
 
-  // Product names
-  const [productNames, addProductName] = useAddProductName([
-    { label: "Product A" },
-    { label: "Product B" },
-    { label: "Product C" },
-  ]);
+  const extractedSizes = MOCK_DATA.flatMap((item) =>
+    Object.entries(item.productSizes).map(([size, price]) => ({
+      label: size,
+      value: price,
+    }))
+  );
 
-  const [newProductName, setNewProductName] = useState("");
-  const [newSize, setNewSize] = useState("");
-  const [newPrice, setNewPrice] = useState("");
+  // Use extracted data
+  const [options, addSize] = useAddSize(extractedSizes);
+  const [productNames, addProductName] = useAddProductName(extractedProductNames);
 
-  // Table rows state
   const [rows, setRows] = useState([
     { id: 1, quantity: 1, unit: null, description: null, pricePerUnit: 0, total: 0 },
   ]);
@@ -30,17 +28,16 @@ const MainTable = () => {
   // Handle selecting a size
   const handleSelectSize = (rowId, selectedOption) => {
     setRows((prevRows) =>
-      prevRows.map((row) => {
-        if (row.id === rowId) {
-          return {
-            ...row,
-            unit: selectedOption, // Store the selected unit
-            pricePerUnit: selectedOption.value, // Update price per unit
-            total: row.quantity * selectedOption.value, // Recalculate total
-          };
-        }
-        return row;
-      })
+      prevRows.map((row) =>
+        row.id === rowId
+          ? {
+              ...row,
+              unit: selectedOption,
+              pricePerUnit: selectedOption.value,
+              total: row.quantity * selectedOption.value,
+            }
+          : row
+      )
     );
   };
 
@@ -82,26 +79,8 @@ const MainTable = () => {
     }
   };
 
-  // Add new product name
-  const handleAddProductName = () => {
-    if (addProductName(newProductName)) {
-      setNewProductName("");
-    }
-  };
 
-  // Add new size and price
-  const handleAddSize = () => {
-    if (addSize(newSize, newPrice)) {
-      setNewSize("");
-      setNewPrice("");
-    }
-  };
 
-  // Add new product and size
-  const addNewProduct = () => {
-    handleAddSize();
-    handleAddProductName();
-  };
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
@@ -173,44 +152,6 @@ const MainTable = () => {
           Grand Total: ${rows.reduce((sum, row) => sum + row.total, 0)}
         </p>
       </div>
-
-      {/* Input fields for new size and price */}
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">New Size:</label>
-        <input
-          type="text"
-          className="mt-1 p-2 border rounded-md w-48"
-          value={newSize}
-          onChange={(e) => setNewSize(e.target.value)}
-        />
-      </div>
-      <div className="mt-2">
-        <label className="block text-sm font-medium text-gray-700">New Price:</label>
-        <input
-          type="number"
-          className="mt-1 p-2 border rounded-md w-48"
-          value={newPrice}
-          onChange={(e) => setNewPrice(e.target.value)}
-        />
-      </div>
-
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">New Product Name:</label>
-        <input
-          type="text"
-          className="mt-1 p-2 border rounded-md w-48"
-          value={newProductName}
-          onChange={(e) => setNewProductName(e.target.value)}
-          placeholder="Enter product name"
-        />
-      </div>
-
-      <button
-        onClick={addNewProduct}
-        className="mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-md"
-      >
-        Add New Product
-      </button>
     </div>
   );
 };

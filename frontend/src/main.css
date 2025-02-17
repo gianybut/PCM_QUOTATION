@@ -34,7 +34,7 @@
     }
     
     .form-comp {
-        transform: translateY(-160px); /* Move upwards */
+        transform: translateY(-190px); /* Move upwards */
         padding-bottom: 0;
         margin-bottom: 0;
     }
@@ -58,15 +58,15 @@
     }
 
     .mode-payment {
-        transform: translateY(-200px);
+        /* transform: translateY(-200px); */
     }
 
     .bottom-text {
-        transform: translateY(-220px);
+        /* transform: translateY(-220px); */
     }
 
     .sig-name {
-        transform: translateY(-35px);
+        /* transform: translateY(-35px); */
     }
 
     select {

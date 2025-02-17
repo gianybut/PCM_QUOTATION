@@ -11,25 +11,14 @@ import MainTable from "./components/MainTable";
 const App = () => {
   return (
     <div className="app-container">
-      <div className="flex justify-center items-center m-0 p-0 header-comp">
-        <Header></Header>
-      </div>
+      <Header />
+      <UserForm />
+      <MainTable />
+      <ModeOfPayment />
+      <BottomText />
+      <Signature />
+      <SigName />
 
-
-      <div className="form-comp">
-        <UserForm></UserForm>
-        <PrintBtn></PrintBtn>
-      </div>
-
-      <div className="">
-        <MainTable />
-      </div>
-
-  
-        <ModeOfPayment></ModeOfPayment>
-        <BottomText></BottomText>
-        <Signature></Signature>
-        <SigName></SigName>
     </div>
   );
 };
