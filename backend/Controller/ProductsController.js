@@ -53,10 +53,8 @@ class ProductsController {
 
     try {
       await newProduct.save();
-      console.log("SUCCESSFUL in adding new Product in database.");
       return true;
     } catch (error) {
-      console.log("FAILED in adding new Product in database.");
       return false;
     }
   }
@@ -64,23 +62,14 @@ class ProductsController {
   /**
    * Deletes a Product entry from the database.
    * @param {string} productId - The productId of the product to be deleted in string form.
-   * @returns {Boolean} true if the product is successfully deleted otherwise, returns false.
+   * @returns {Boolean} true if the product is successfully deleted otherwise, returns false. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async deleteProduct(productId) {
     try {
       const productToDelete = await ProductsModel.findByIdAndDelete(productId);
-      if (productToDelete) {
-        console.log("SUCCESSFUL in deleting a Product from database.");
-        return true;
-      } else {
-        console.log(
-          "FAILED in deleting a Product from database, Product doesn't exist."
-        );
-        return true;
-      }
+      return productToDelete ? true : false;
     } catch (error) {
-      console.log("FAILED in deleting a Product from database.");
-      return false;
+      throw error;
     }
   }
 
@@ -123,17 +112,10 @@ class ProductsController {
         productId,
         productNewDetails
       );
-      if (productToUpdate) {
-        console.log("SUCCESSFUL in updating a Product from database.");
-        return true;
-      } else {
-        console.log("FAILED in updating a Product from database.");
-        return false;
-      }
+      console.log(productToUpdate);
+      return productToUpdate ? true : false;
     } catch (error) {
-      console.log(error);
-      console.log("FAILED in updating a Product from database.");
-      return false;
+      throw error;
     }
   }
 }
