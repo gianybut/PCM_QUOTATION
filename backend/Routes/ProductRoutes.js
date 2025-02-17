@@ -188,5 +188,36 @@ ProductRoute.patch(
 );
 
 // DELETE
+ProductRoute.delete(
+  "/delete/:productId",
+  [param("productId").exists().isString().notEmpty().escape().trim()],
+  async (req, res) => {
+    // Errors in validation, exit early
+    if (!validationResult(req).isEmpty()) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .send("One of the required parameters is missing.");
+    }
+
+    const productId = matchedData(req)["productId"];
+
+    try {
+      const deleteResult = await ProductsController.deleteProduct(productId);
+      if (deleteResult) {
+        return res
+          .status(StatusCodes.OK)
+          .send("Successfully deleted one product");
+      } else {
+        return res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .send("Failed to delete one product");
+      }
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_GATEWAY)
+        .send("Database connection error.");
+    }
+  }
+);
 
 export default ProductRoute;
