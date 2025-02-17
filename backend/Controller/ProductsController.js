@@ -142,6 +142,7 @@ class ProductsController {
         return false;
       }
     } catch (error) {
+      console.log(error);
       console.log("FAILED in updating a Product from database.");
       return false;
     }
