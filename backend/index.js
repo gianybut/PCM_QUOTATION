@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import ProductRoute from "./Routes/ProductRoutes.js";
 import SizesRoute from "./Routes/SizesRoute.js";
 
@@ -11,6 +12,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 app.use(express.json());
 app.use("/products", ProductRoute);
 app.use("/sizes", SizesRoute);
+app.use(cors());
 
 // Making the server live
 await mongoose
