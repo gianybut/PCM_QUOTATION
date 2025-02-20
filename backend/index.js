@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import ProductRoute from "./Routes/ProductRoutes.js";
+import SizesRoute from "./Routes/SizesRoute.js";
 
 // Setup variables
 const app = express();
@@ -9,6 +10,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
 app.use("/products", ProductRoute);
+app.use("/sizes", SizesRoute);
 
 // Making the server live
 await mongoose
