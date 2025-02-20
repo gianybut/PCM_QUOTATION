@@ -4,18 +4,18 @@ import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";
 import MOCK_DATA from "../MOCK_DATA.json"; // Import JSON data
 
-const MainTable = () => {
-  // Extract product names and sizes from JSON
-  const extractedProductNames = MOCK_DATA.map((item) => ({
-    label: item.productName,
-  }));
+const MainTable = ({ extractedProductNames, extractedSizes }) => {
+  // // Extract product names and sizes from JSON
+  // const extractedProductNames = MOCK_DATA.map((item) => ({
+  //   label: item.productName,
+  // }));
 
-  const extractedSizes = MOCK_DATA.flatMap((item) =>
-    Object.entries(item.productSizes).map(([size, price]) => ({
-      label: size,
-      value: price,
-    })) 
-  );
+  // const extractedSizes = MOCK_DATA.flatMap((item) =>
+  //   Object.entries(item.productSizes).map(([size, price]) => ({
+  //     label: size,
+  //     value: price,
+  //   }))
+  // );
 
   // Use extracted data
   const [options, addSize] = useAddSize(extractedSizes);
@@ -35,19 +35,8 @@ const MainTable = () => {
   ]);
 
   // Handle selecting a size
-  const handleSelectSize = (rowId, selectedOption) => {
-    setRows((prevRows) =>
-      prevRows.map((row) =>
-        row.id === rowId
-          ? {
-              ...row,
-              unit: selectedOption,
-              pricePerUnit: selectedOption.value,
-              total: row.quantity * selectedOption.value,
-            }
-          : row
-      )
-    );
+  const handleSelectSize = (sizes) => {
+    sizes.forEach(() => {});
   };
 
   // Handle selecting a product
@@ -145,7 +134,8 @@ const MainTable = () => {
                   }
                 />
               </td>
-              <td className="border p-2">₱
+              <td className="border p-2">
+                ₱
                 <input type="number" className="text-center" />
               </td>
               <td className="border p-2">₱{row.total}</td>
