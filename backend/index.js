@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import ProductRoute from "./Routes/ProductRoutes.js";
 import SizesRoute from "./Routes/SizesRoute.js";
 
@@ -9,6 +10,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 6942;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/products", ProductRoute);
 app.use("/sizes", SizesRoute);
 
