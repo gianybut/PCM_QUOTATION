@@ -2,107 +2,52 @@ import { useEffect, useId, useState } from "react";
 import Dropdown from "./DropdownMenu";
 import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";
-import MOCK_DATA from "../MOCK_DATA.json"; // Import JSON data
-import TableRow from "./Table/TableRow.jsx";
-import TableBody from "./Table/TableBody.jsx";
+import TableRow from "./TableRow.jsx";
+import axios from "axios";
 
-const MainTable = ({ extractedProductNames, extractedSizes }) => {
-  // // Extract product names and sizes from JSON
-  // const extractedProductNames = MOCK_DATA.map((item) => ({
-  //   label: item.productName,
-  // }));
+const MainTable = () => {
+  const BACKEND_SERVER_URL = "http://localhost:6942";
+  const [products, setProducts] = useState([]);
+  const [sizes, setSizes] = useState([]);
 
-  // const extractedSizes = MOCK_DATA.flatMap((item) =>
-  //   Object.entries(item.productSizes).map(([size, price]) => ({
-  //     label: size,
-  //     value: price,
-  //   }))
-  // );
-
-  // Use extracted data
-  const [options, addSize] = useAddSize(extractedSizes);
-  const [productNames, addProductName] = useAddProductName(
-    extractedProductNames
-  );
-
-  const [rowIdToDelete, setRowIdToDelete] = useState(null);
-
-  useEffect(() => {}, [rowIdToDelete]);
-
-  const [rows, setRows] = useState([
-    {
-      id: 1,
-      quantity: 1,
-      unit: null,
-      description: null,
-      pricePerUnit: 0,
-      total: 0,
-    },
-  ]);
-
-  // Handle selecting a size
-  const handleSelectSize = (rowId, selectedOption) => {
-    setRows((prevRows) =>
-      prevRows.map((row) =>
-        row.id === rowId
-          ? {
-              ...row,
-              unit: selectedOption,
-              pricePerUnit: selectedOption.value,
-              total: row.quantity * selectedOption.value,
-            }
-          : row
-      )
-    );
-  };
-
-  // Handle selecting a product
-  const handleSelectProduct = (rowId, selectedProduct) => {
-    setRows((prevRows) =>
-      prevRows.map((row) =>
-        row.id === rowId ? { ...row, description: selectedProduct.label } : row
-      )
-    );
-  };
-
-  // Handle quantity change
-  const updateRow = (id, field, value) => {
-    setRows((prevRows) =>
-      prevRows.map((row) => {
-        if (row.id === id) {
-          const updatedRow = { ...row, [field]: value };
-          if (field === "quantity") {
-            updatedRow.total = value * row.pricePerUnit;
-          }
-          return updatedRow;
-        }
-        return row;
+  useEffect(() => {
+    // Retrieve products
+    axios
+      .get(`${BACKEND_SERVER_URL}/products`)
+      .then((productsRetrieveResult) => {
+        setProducts(productsRetrieveResult.data["data"]);
       })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+    // Retrieve sizes
+    axios
+      .get(`${BACKEND_SERVER_URL}/sizes`)
+      .then((sizesRetrieveResult) => {
+        setSizes(sizesRetrieveResult.data["data"]);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+  }, []);
+
+  const [rows, setRows] = useState([{ id: crypto.randomUUID, total: 0 }]);
+
+  const addRow = () => {
+    setRows([...rows, { id: crypto.randomUUID(), total: 0 }]);
+  };
+
+  const deleteRow = (rowId) => {
+    setRows(rows.filter((id) => id !== rowId));
+  };
+
+  const updateTotal = (rowId, newTotal) => {
+    setRows(
+      rows.map((row) => (row.id === rowId ? { ...row, total: newTotal } : row))
     );
   };
 
-  // Add a new row
-  const addRow = () => {
-    const newId = Math.max(...rows.map((row) => row.id)) + 1;
-    setRows([
-      ...rows,
-      {
-        id: newId,
-        quantity: 1,
-        unit: null,
-        description: null,
-        pricePerUnit: 0,
-        total: 0,
-      },
-    ]);
-  };
-
-  // Remove a row
-  const removeRow = (id) => {
-    if (rows.length > 1) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
+  const grandTotal = rows.reduce((sum, row) => sum + row.total, 0);
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
@@ -117,16 +62,22 @@ const MainTable = ({ extractedProductNames, extractedSizes }) => {
             <th className="border p-2 text-left non-printable">Actions</th>
           </tr>
         </thead>
-        {/* <tbody>
-          <TableRow key={useId()} rowDeleteHandler={setRowIdToDelete} />
-        </tbody> */}
-        <TableBody TableRow={TableRow} />
+        <tbody>
+          {rows.map((rowId) => (
+            <TableRow key={rowId} rowId={rowId} rowDeleteHandler={deleteRow} />
+          ))}
+        </tbody>
       </table>
-
+      <div>
+        <button
+          onClick={addRow}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full non-printable"
+        >
+          Add Row
+        </button>
+      </div>
       <div className="mt-4 text-right">
-        <p className="text-lg font-semibold">
-          Grand Total: ₱{rows.reduce((sum, row) => sum + row.total, 0)}
-        </p>
+        <p className="text-lg font-semibold">Grand Total: ₱{grandTotal}</p>
       </div>
     </div>
   );

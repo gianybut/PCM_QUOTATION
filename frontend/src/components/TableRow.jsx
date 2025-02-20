@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TableRow = ({ rowId }) => {
+const TableRow = ({ rowId, rowDeleteHandler }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
   const [rowProductValue, setRowProductValue] = useState(0);
 
@@ -55,7 +55,7 @@ const TableRow = ({ rowId }) => {
         <td className="border p-2 non-printable">
           <button
             onClick={() => {
-              // rowDeleteHandler(rowId);
+              rowDeleteHandler(rowId);
             }}
             className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
           >
