@@ -3,6 +3,7 @@ import Dropdown from "./DropdownMenu";
 import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";
 import MOCK_DATA from "../MOCK_DATA.json"; // Import JSON data
+import TableRow from "./Table/TableRow.jsx";
 
 const MainTable = ({ extractedProductNames, extractedSizes }) => {
   // // Extract product names and sizes from JSON
@@ -35,8 +36,19 @@ const MainTable = ({ extractedProductNames, extractedSizes }) => {
   ]);
 
   // Handle selecting a size
-  const handleSelectSize = (sizes) => {
-    sizes.forEach(() => {});
+  const handleSelectSize = (rowId, selectedOption) => {
+    setRows((prevRows) =>
+      prevRows.map((row) =>
+        row.id === rowId
+          ? {
+              ...row,
+              unit: selectedOption,
+              pricePerUnit: selectedOption.value,
+              total: row.quantity * selectedOption.value,
+            }
+          : row
+      )
+    );
   };
 
   // Handle selecting a product
@@ -101,58 +113,11 @@ const MainTable = ({ extractedProductNames, extractedSizes }) => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.id}>
-              <td className="border p-2">
-                <input
-                  type="number"
-                  min="1"
-                  value={row.quantity}
-                  onChange={(e) =>
-                    updateRow(row.id, "quantity", parseInt(e.target.value) || 0)
-                  }
-                  className="w-20 p-1 border rounded"
-                />
-              </td>
-              <td className="border p-2">
-                <Dropdown
-                  label="Select Size"
-                  options={options}
-                  onSelect={(selectedOption) =>
-                    handleSelectSize(row.id, selectedOption)
-                  }
-                  valueKey="value"
-                  labelKey="label"
-                />
-              </td>
-              <td className="border p-2">
-                <Dropdown
-                  label="Select Product"
-                  options={productNames}
-                  onSelect={(selectedProduct) =>
-                    handleSelectProduct(row.id, selectedProduct)
-                  }
-                />
-              </td>
-              <td className="border p-2">
-                ₱
-                <input type="number" className="text-center" />
-              </td>
-              <td className="border p-2">₱{row.total}</td>
-              <td className="border p-2 non-printable">
-                <button
-                  onClick={() => removeRow(row.id)}
-                  className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          ))}
+          <TableRow key="1" />
         </tbody>
       </table>
 
-      <div cl ssName="mt-4">
+      <div className="mt-4">
         <button
           onClick={addRow}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 non-printable"
