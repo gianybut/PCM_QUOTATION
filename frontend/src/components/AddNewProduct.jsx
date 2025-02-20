@@ -8,7 +8,7 @@ const AddNewProduct = () => {
         <div className="w-48 h-24 p-4">
       <button 
         onClick={() => setShowModal(true)} 
-        className="bg-blue-500 text-white p-2 rounded"
+        className="bg-blue-500 text-white p-2 rounded non-printable"
       >
         Add New Product
       </button>

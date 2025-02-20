@@ -93,7 +93,7 @@ const ProductModal = ({ onClose }) => {
               <option value="miscellaneous">MISCELLANEOUS</option>
             </select>
           </div>
-
+    
 
           <div className="flex gap-2">
             <button
