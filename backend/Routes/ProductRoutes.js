@@ -84,10 +84,6 @@ ProductRoute.post(
       .escape()
       .trim()
       .toUpperCase(),
-    body("productSizes")
-      .exists()
-      .isObject()
-      .custom((obj) => Object.keys(obj).length > 0),
   ],
   async (req, res) => {
     if (!validationResult(req).isEmpty()) {
@@ -99,12 +95,10 @@ ProductRoute.post(
     try {
       const newProductName = matchedData(req)["productName"];
       const newProductType = matchedData(req)["productType"];
-      const newProductSizes = matchedData(req)["productSizes"];
 
       const newProductInDatabase = await ProductsController.createProduct(
         newProductName,
-        newProductType,
-        newProductSizes
+        newProductType
       );
 
       return res.status(StatusCodes.OK).json({
@@ -146,10 +140,6 @@ ProductRoute.patch(
       .escape()
       .trim()
       .toUpperCase(),
-    body("productSizes")
-      .exists()
-      .isObject()
-      .custom((obj) => Object.keys(obj).length > 0),
   ],
   async (req, res) => {
     // Errors in validation, exit early
@@ -164,13 +154,11 @@ ProductRoute.patch(
       const productId = matchedData(req)["productId"];
       const newProductName = matchedData(req)["productName"];
       const newProductType = matchedData(req)["productType"];
-      const newProductSizes = matchedData(req)["productSizes"];
 
       const updateResult = await ProductsController.updateProduct(
         productId,
         newProductName,
-        newProductType,
-        newProductSizes
+        newProductType
       );
 
       return res.status(StatusCodes.OK).json({
