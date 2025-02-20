@@ -41,14 +41,12 @@ class ProductsController {
       "HAND SOAP",
       "MISCELLANEOUS",
     ], (must be all capital letters)
-   * @param {JSON} newProductSizes - An object containing key:value pairs of product sizes and their price (in Philippine Pesos). Example = {"85ml" : 100}
    * @returns {Boolean} true if operation succeeded in adding new product, otherwise false.
    */
-  static async createProduct(newProductName, newProductType, newProductSizes) {
+  static async createProduct(newProductName, newProductType) {
     const newProduct = new ProductsModel({
       productName: newProductName,
       productType: newProductType,
-      productSizes: newProductSizes,
     });
 
     try {
@@ -87,14 +85,12 @@ class ProductsController {
       "HAND SOAP",
       "MISCELLANEOUS",
     ], set as null if doesn't need update.
-    * @param {JSON} newProductSizes - The product's new size, must be a JSON having following the key:value format "productTypeName" : priceInPhilippinePeso. Example {"85ml":100}, set as null if doesn't need update.
    * @returns {Boolean} true if the product is successfully update otherwise, returns false.
    */
   static async updateProduct(
     productId,
     newProductName = null,
-    newProductType = null,
-    newProductSizes = null
+    newProductType = null
   ) {
     let productNewDetails = {};
     if (newProductName) {
@@ -102,9 +98,6 @@ class ProductsController {
     }
     if (newProductType) {
       productNewDetails["productType"] = newProductType;
-    }
-    if (newProductSizes) {
-      productNewDetails["productSizes"] = newProductSizes;
     }
 
     try {

@@ -19,11 +19,7 @@ const ProductSchema = new Schema({
       "MISCELLANEOUS",
     ],
     required: true,
-  },
-  productSizes: {
-    type: Map,
-    required: true,
-  },
+  }
 });
 
 const ProductModel = mongoose.model("Product", ProductSchema);
