@@ -8,10 +8,35 @@ import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
 import ProductModal from "./components/ProductModal.jsx";
 import AddNewProduct from "./components/AddNewProduct.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const App = () => {
-  useEffect(() => {}, []);
+  const BACKEND_SERVER_URL = "http://localhost:6942";
+
+  const [products, setProducts] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
+  useEffect(() => {
+    // Retrieve products
+    axios
+      .get(`${BACKEND_SERVER_URL}/products`)
+      .then((productsRetrieveResult) => {
+        setProducts(productsRetrieveResult.data["data"]);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+    // Retrieve sizes
+    axios
+      .get(`${BACKEND_SERVER_URL}/sizes`)
+      .then((sizesRetrieveResult) => {
+        setSizes(sizesRetrieveResult.data["data"]);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+  }, []);
 
   return (
     <div className="app-container">
