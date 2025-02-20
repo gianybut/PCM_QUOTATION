@@ -55,7 +55,7 @@ const TableRow = ({ rowId }) => {
         <td className="border p-2 non-printable">
           <button
             onClick={() => {
-              // removeRow(row.id)
+              // rowDeleteHandler(rowId);
             }}
             className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
           >
