@@ -18,6 +18,7 @@ const App = () => {
   const [sizes, setSizes] = useState([]);
 
   useEffect(() => {
+    document.title = "PCM Quotation System";
     // Retrieve products
     axios
       .get(`${BACKEND_SERVER_URL}/products`)
