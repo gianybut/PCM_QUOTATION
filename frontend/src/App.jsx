@@ -8,8 +8,11 @@ import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
 import ProductModal from "./components/ProductModal.jsx";
 import AddNewProduct from "./components/AddNewProduct.jsx";
+import { useEffect } from "react";
 
 const App = () => {
+  useEffect(() => {}, []);
+
   return (
     <div className="app-container">
       <Header />
