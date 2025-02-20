@@ -94,55 +94,6 @@ const ProductModal = ({ onClose }) => {
             </select>
           </div>
 
-          {sizes.map((size, index) => (
-            <div key={index} className="space-y-2">
-              <label className="block text-sm font-medium">
-                Product Size {index + 1}
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="number"
-                  value={size.size}
-                  onChange={(e) =>
-                    handleSizeChange(index, "size", e.target.value)
-                  }
-                  placeholder="Size"
-                  className="w-1/4 p-2 border rounded-md"
-                  required
-                />
-                <select
-                  value={size.unit}
-                  onChange={(e) =>
-                    handleSizeChange(index, "unit", e.target.value)
-                  }
-                  className="w-1/4 p-2 border rounded-md"
-                >
-                  <option value="ml">ml</option>
-                  <option value="liters">Liters</option>
-                  <option value="gal">gal</option>
-                  <option value="g">g</option>
-                </select>
-                <input
-                  type="number"
-                  value={size.price}
-                  onChange={(e) =>
-                    handleSizeChange(index, "price", e.target.value)
-                  }
-                  placeholder="Price"
-                  className="w-1/2 p-2 border rounded-md"
-                  required
-                />
-              </div>
-            </div>
-          ))}
-
-          <button
-            type="button"
-            onClick={handleAddSizeUnit}
-            className="w-full p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-          >
-            Add New Size Unit
-          </button>
 
           <div className="flex gap-2">
             <button
