@@ -42,7 +42,10 @@ const App = () => {
   return (
     <div className="app-container">
       <Header />
-      <UserForm />
+
+    <div>
+    <UserForm/>
+    </div>
 
       <div className="flex flex-col justify-center items-center">
         <AddNewProduct />
