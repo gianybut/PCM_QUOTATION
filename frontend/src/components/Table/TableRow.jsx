@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const TableRow = ({ rowId }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
+  const [rowProductValue, setRowProductValue] = useState(0);
+
   return (
     <>
       <tr key={rowId}>
@@ -40,9 +42,16 @@ const TableRow = ({ rowId }) => {
         </td>
         <td className="border p-2">
           ₱
-          <input type="number" className="text-center" />
+          <input
+            type="number"
+            className="text-center"
+            value={rowProductValue}
+            onChange={(e) => {
+              setRowProductValue(parseFloat(e.target.value));
+            }}
+          />
         </td>
-        <td className="border p-2">₱{/*row.total*/}</td>
+        <td className="border p-2">₱{rowQuantity * rowProductValue}</td>
         <td className="border p-2 non-printable">
           <button
             onClick={() => {
