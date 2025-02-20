@@ -43,15 +43,15 @@ const App = () => {
     <div className="app-container">
       <Header />
 
-    <div>
-    <UserForm/>
-    </div>
+      <div>
+        <UserForm />
+      </div>
 
       <div className="flex flex-col justify-center items-center">
         <AddNewProduct />
       </div>
 
-      <MainTable />
+      <MainTable extractedProductNames={products} extractedSizes={sizes} />
       <ModeOfPayment />
       <BottomText />
       <Signature />
