@@ -14,6 +14,9 @@ import AddNewSize from "./components/AddNewSize.jsx";
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
+  
+  // open modal sample
+  const [isOpen, setIsOpen] = useState(false);
 
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
