@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MOCK_DATA from "../MOCK_DATA.json";
+import axios from "axios";
 
 const ProductModal = ({ onClose }) => {
   const [products, setProducts] = useState(MOCK_DATA);
@@ -9,6 +10,17 @@ const ProductModal = ({ onClose }) => {
 
   const generateProductId = () => {
     return Math.random().toString(36).substring(2, 15);
+  };
+
+  const addProduct = async (newProductName, newProductType) => {
+    const addProductResult = await axios.post(
+      "http://localhost:6942/products/create",
+      { productName: newProductName, productType: newProductType }
+    );
+
+    if (addProductResult) {
+      alert("ADDED NEW PRODUCT");
+    }
   };
 
   const handleAddSizeUnit = (e) => {
@@ -26,28 +38,14 @@ const ProductModal = ({ onClose }) => {
     setSizes(newSizes);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create productSizes object from sizes array
-    const productSizes = {};
-    sizes.forEach(({ size, unit, price }) => {
-      productSizes[`${size}${unit}`] = Number(price);
-    });
-
     const newProduct = {
-      productId: generateProductId(),
-      productName,
-      productType,
-      productSizes,
+      productName: productName,
+      productType: productType,
     };
-
-    // Add new product to the existing products array
-    setProducts([...products, newProduct]);
-
-    // Log the updated products array to see the changes
-    console.log("Updated Products:", [...products, newProduct]);
-
+    await addProduct(productName, productType);
     resetForm();
     onClose();
   };
@@ -55,7 +53,6 @@ const ProductModal = ({ onClose }) => {
   const resetForm = () => {
     setProductName("");
     setProductType("perfume");
-    setSizes([{ size: "", unit: "ml", price: "" }]);
   };
 
   return (
@@ -98,6 +95,7 @@ const ProductModal = ({ onClose }) => {
             <button
               type="submit"
               className="flex-1 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={handleSubmit}
             >
               Create Product
             </button>
