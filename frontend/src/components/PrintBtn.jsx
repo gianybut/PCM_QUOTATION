@@ -7,7 +7,7 @@ const PrintBtn = () => {
     }
 
   return (
-    <div className='w-48 h-24 p-4'>
+    <div className='w-48 h-24 p-2'>
         <button onClick={handlePrint}
         className='bg-green-500 text-white p-2 rounded non-printable'
         >Print</button>

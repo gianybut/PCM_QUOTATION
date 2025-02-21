@@ -3,6 +3,9 @@ import React, { useState } from "react";
 const ProductSizeModal = ({ onClose, onSave }) => {
   const [productSize, setProductSize] = useState("");
 
+
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (productSize.trim() === "") {
@@ -35,6 +38,7 @@ const ProductSizeModal = ({ onClose, onSave }) => {
             >
               Save
             </button>
+            
             <button
               type="button"
               onClick={onClose}
