@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu.jsx";
 
-const TableRow = ({ rowId, rowDeleteHandler, updateRowValue, sizes }) => {
+const TableRow = ({
+  rowId,
+  rowDeleteHandler,
+  updateRowValue,
+  sizes,
+  products,
+}) => {
   const [rowQuantity, setRowQuantity] = useState(1);
   const [rowProductValue, setRowProductValue] = useState(0);
   const total = rowQuantity * rowProductValue;
@@ -38,7 +44,13 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue, sizes }) => {
       <td className="border p-2">
         <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" />
       </td>
-      <td className="border p-2">y</td>
+      <td className="border p-2">
+        <DropdownMenu
+          label="Select Product"
+          options={products}
+          labelKey="productName"
+        />
+      </td>
       <td className="border p-2">
         ₱
         <input

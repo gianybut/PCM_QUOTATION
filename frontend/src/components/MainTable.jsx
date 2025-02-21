@@ -16,7 +16,10 @@ const MainTable = () => {
     axios
       .get(`${BACKEND_SERVER_URL}/products`)
       .then((productsRetrieveResult) => {
-        setProducts(productsRetrieveResult.data["data"]);
+        const sortedProducts = productsRetrieveResult.data["data"].sort(
+          (a, b) => a["productType"].localeCompare(b["productType"])
+        );
+        setProducts(sortedProducts);
       })
       .catch((error) => {
         alert("ERROR OCCURED! REFRESH PAGE.");
@@ -25,7 +28,10 @@ const MainTable = () => {
     axios
       .get(`${BACKEND_SERVER_URL}/sizes`)
       .then((sizesRetrieveResult) => {
-        setSizes(sizesRetrieveResult.data["data"]);
+        const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
+          a["sizeName"].localeCompare(b["sizeName"])
+        );
+        setSizes(sortedSizes);
       })
       .catch((error) => {
         alert("ERROR OCCURED! REFRESH PAGE.");
@@ -69,6 +75,7 @@ const MainTable = () => {
               rowDeleteHandler={deleteRow}
               updateRowValue={updateTotal}
               sizes={sizes}
+              products={products}
             />
           ))}
         </tbody>
