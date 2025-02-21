@@ -14,7 +14,7 @@ const MainTable = () => {
     Object.entries(item.productSizes).map(([size, price]) => ({
       label: size,
       value: price,
-    }))
+    })) 
   );
 
   // Use extracted data
@@ -108,7 +108,7 @@ const MainTable = () => {
             <th className="border p-2 text-left">Description</th>
             <th className="border p-2 text-left">Price per Unit</th>
             <th className="border p-2 text-left">Total</th>
-            <th className="border p-2 text-left">Actions</th>
+            <th className="border p-2 text-left non-printable">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -145,12 +145,14 @@ const MainTable = () => {
                   }
                 />
               </td>
-              <td className="border p-2">₱{row.pricePerUnit}</td>
+              <td className="border p-2">₱
+                <input type="number" className="text-center" />
+              </td>
               <td className="border p-2">₱{row.total}</td>
-              <td className="border p-2">
+              <td className="border p-2 non-printable">
                 <button
                   onClick={() => removeRow(row.id)}
-                  className="px-2 py-1 text-sm text-red-600 hover:text-red-800"
+                  className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
                 >
                   Remove
                 </button>
@@ -160,10 +162,10 @@ const MainTable = () => {
         </tbody>
       </table>
 
-      <div className="mt-4">
+      <div cl ssName="mt-4">
         <button
           onClick={addRow}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 non-printable"
         >
           Add Row
         </button>
