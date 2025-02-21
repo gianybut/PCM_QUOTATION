@@ -3,7 +3,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import ProductRoute from "./Routes/ProductRoutes.js";
 import SizesRoute from "./Routes/SizesRoute.js";
+import axios from "axios";
 
+import PRODUCTS from "./PRODUCTS.json" with { type: "json" };
+import ProductsController from "./Controller/ProductsController.js";
 // Setup variables
 const app = express();
 const SERVER_PORT = process.env.SERVER_PORT || 6942;
@@ -27,3 +30,13 @@ await mongoose
   .catch((err) => {
     console.log("MongoDB connection failed.");
   });
+
+app.get("/addAllProducts", async (req, res) => {
+
+  
+  PRODUCTS.forEach(async (p) => {
+    await axios.post("http://localhost:6942/products/create", {productName: p["productName"], productType: p["productType"]});
+  });
+
+  return res.send("OK");
+});
