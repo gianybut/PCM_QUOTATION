@@ -26,7 +26,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app-container">
+    <div className="app-container container-xl px-4">
       <Header />
 
       <div>

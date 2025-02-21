@@ -10,4 +10,8 @@
     page-break-before: always;
     height: 100%;
   }
+
+  .non-printable {
+    display: none;
+  }
 }
