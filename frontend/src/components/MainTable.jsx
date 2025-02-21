@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import { useEffect, useId, useState } from "react";
+import Dropdown from "./DropdownMenu";
+import useAddSize from "../hooks/addSize";
+import useAddProductName from "../hooks/addProductName";
+import axios from "axios";
 
 const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
@@ -57,6 +61,27 @@ const MainTable = () => {
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [rows, setRows] = useState([{ id: crypto.randomUUID(), total: 0 }]);
+
+  useEffect(() => {
+    // Retrieve products
+    axios
+      .get(`${BACKEND_SERVER_URL}/products`)
+      .then((productsRetrieveResult) => {
+        setProducts(productsRetrieveResult.data["data"]);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+    // Retrieve sizes
+    axios
+      .get(`${BACKEND_SERVER_URL}/sizes`)
+      .then((sizesRetrieveResult) => {
+        setSizes(sizesRetrieveResult.data["data"]);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+  }, []);
 
   const addRow = () => {
     setRows((prev) => [...prev, { id: crypto.randomUUID(), total: 0 }]);
