@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TableRow = ({ rowId, rowDeleteHandler }) => {
+const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
   const [rowProductValue, setRowProductValue] = useState(0);
 
@@ -48,6 +48,7 @@ const TableRow = ({ rowId, rowDeleteHandler }) => {
             value={rowProductValue}
             onChange={(e) => {
               setRowProductValue(parseFloat(e.target.value));
+              updateRowValue(rowId, parseFloat(rowProductValue * rowQuantity));
             }}
           />
         </td>

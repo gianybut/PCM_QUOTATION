@@ -31,23 +31,29 @@ const MainTable = () => {
       });
   }, []);
 
-  const [rows, setRows] = useState([{ id: crypto.randomUUID, total: 0 }]);
+  const [rows, setRows] = useState([{ id: crypto.randomUUID(), total: 0 }]);
 
   const addRow = () => {
     setRows([...rows, { id: crypto.randomUUID(), total: 0 }]);
   };
 
   const deleteRow = (rowId) => {
-    setRows(rows.filter((id) => id !== rowId));
+    setRows((prevRows) => prevRows.filter((row) => row.id !== rowId));
   };
 
   const updateTotal = (rowId, newTotal) => {
-    setRows(
-      rows.map((row) => (row.id === rowId ? { ...row, total: newTotal } : row))
+    setRows((prevRows) =>
+      prevRows.map((row) =>
+        row.id === rowId ? { ...row, total: newTotal } : row
+      )
     );
   };
 
-  const grandTotal = rows.reduce((sum, row) => sum + row.total, 0);
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  useEffect(() => {
+    setGrandTotal(rows.reduce((sum, row) => sum + row.total, 0));
+  }, [rows]);
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
@@ -63,8 +69,13 @@ const MainTable = () => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((rowId) => (
-            <TableRow key={rowId} rowId={rowId} rowDeleteHandler={deleteRow} />
+          {rows.map((currentRow) => (
+            <TableRow
+              key={currentRow.id}
+              rowId={currentRow.id}
+              rowDeleteHandler={deleteRow}
+              updateRowValue={updateTotal}
+            />
           ))}
         </tbody>
       </table>
