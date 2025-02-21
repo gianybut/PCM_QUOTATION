@@ -10,6 +10,7 @@ import ProductModal from "./components/ProductModal.jsx";
 import AddNewProduct from "./components/AddNewProduct.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AddNewSize from "./components/AddNewSize.jsx";
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
@@ -47,10 +48,13 @@ const App = () => {
     </div>
 
       <div className="flex flex-row justify-center items-center">
-        <AddNewProduct /> <PrintBtn />
+        <AddNewProduct /> <AddNewSize /> <PrintBtn />
       </div>
 
-      <MainTable />
+      <div className="flex flex-row items-center">
+        <MainTable />
+      </div>
+
       <ModeOfPayment />
       <BottomText />
       <Signature />

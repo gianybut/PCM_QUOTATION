@@ -54,8 +54,10 @@
 
   .table-div {
     display: flex;
-    justify-content: center;
-    transform: translateY(-180px); /* Move upwards */
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    /* transform: translateY(-180px); */
   }
 
   table {
