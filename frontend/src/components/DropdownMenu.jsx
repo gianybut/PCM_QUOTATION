@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const DropdownMenu = ({ 
-  label = 'Select', 
-  options = [], 
-  onSelect, 
+const DropdownMenu = ({
+  label = "Select",
+  options = [],
+  onSelect,
   defaultValue,
-  valueKey = 'value',
-  labelKey = 'label'
+  valueKey = "value",
+  labelKey = "label",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(defaultValue || null);
@@ -21,7 +21,7 @@ const DropdownMenu = ({
 
   const getDisplayText = (option) => {
     if (!option) return label;
-    if (typeof option === 'object') {
+    if (typeof option === "object") {
       return option[labelKey];
     }
     return option;
@@ -35,12 +35,12 @@ const DropdownMenu = ({
       >
         {getDisplayText(selected)}
       </button>
-      
+
       {isOpen && Array.isArray(options) && options.length > 0 && (
         <div className="absolute z-10 w-48 mt-2 bg-white rounded-md shadow-lg">
           <div className="py-1">
             {options.map((option, index) => (
-              <button 
+              <button
                 key={index}
                 onClick={() => handleSelect(option)}
                 className="block w-full px-4 py-2 text-sm text-gray-700 text-left hover:bg-gray-100 focus:outline-none"

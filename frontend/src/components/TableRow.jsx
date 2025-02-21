@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu.jsx";
 
-const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
+const TableRow = ({ rowId, rowDeleteHandler, updateRowValue, sizes }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
   const [rowProductValue, setRowProductValue] = useState(0);
   const total = rowQuantity * rowProductValue;
@@ -36,7 +36,7 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
         />
       </td>
       <td className="border p-2">
-        <DropdownMenu />
+        <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" />
       </td>
       <td className="border p-2">y</td>
       <td className="border p-2">

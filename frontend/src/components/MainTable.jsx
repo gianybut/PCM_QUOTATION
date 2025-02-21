@@ -68,6 +68,7 @@ const MainTable = () => {
               rowId={currentRow.id}
               rowDeleteHandler={deleteRow}
               updateRowValue={updateTotal}
+              sizes={sizes}
             />
           ))}
         </tbody>
