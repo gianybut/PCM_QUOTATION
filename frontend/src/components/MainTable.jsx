@@ -1,59 +1,78 @@
-import { useEffect, useId, useState } from "react";
-import Dropdown from "./DropdownMenu";
-import useAddSize from "../hooks/addSize";
-import useAddProductName from "../hooks/addProductName";
-import TableRow from "./TableRow.jsx";
-import axios from "axios";
+import React, { useState } from "react";
+
+const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
+  const [rowQuantity, setRowQuantity] = useState(1);
+  const [rowProductValue, setRowProductValue] = useState(0);
+  const total = rowQuantity * rowProductValue;
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseFloat(e.target.value) || 1;
+    setRowQuantity(newQuantity);
+    updateRowValue(rowId, newQuantity * rowProductValue);
+  };
+
+  const handleProductValueChange = (e) => {
+    const newValue = parseFloat(e.target.value) || 0;
+    setRowProductValue(newValue);
+    updateRowValue(rowId, rowQuantity * newValue);
+  };
+
+  return (
+    <tr>
+      <td className="border p-2">
+        <input
+          type="number"
+          min="1"
+          value={rowQuantity}
+          onChange={handleQuantityChange}
+          className="w-20 p-1 border rounded"
+        />
+      </td>
+      <td className="border p-2">y</td>
+      <td className="border p-2">y</td>
+      <td className="border p-2">
+        ₱
+        <input
+          type="number"
+          className="text-center"
+          value={rowProductValue}
+          onChange={handleProductValueChange}
+        />
+      </td>
+      <td className="border p-2">₱{total}</td>
+      <td className="border p-2 non-printable">
+        <button
+          onClick={() => rowDeleteHandler(rowId)}
+          className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
+        >
+          Remove
+        </button>
+      </td>
+    </tr>
+  );
+};
 
 const MainTable = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
-
-  useEffect(() => {
-    // Retrieve products
-    axios
-      .get(`${BACKEND_SERVER_URL}/products`)
-      .then((productsRetrieveResult) => {
-        setProducts(productsRetrieveResult.data["data"]);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
-      });
-    // Retrieve sizes
-    axios
-      .get(`${BACKEND_SERVER_URL}/sizes`)
-      .then((sizesRetrieveResult) => {
-        setSizes(sizesRetrieveResult.data["data"]);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
-      });
-  }, []);
-
   const [rows, setRows] = useState([{ id: crypto.randomUUID(), total: 0 }]);
 
   const addRow = () => {
-    setRows([...rows, { id: crypto.randomUUID(), total: 0 }]);
+    setRows((prev) => [...prev, { id: crypto.randomUUID(), total: 0 }]);
   };
 
   const deleteRow = (rowId) => {
-    setRows((prevRows) => prevRows.filter((row) => row.id !== rowId));
+    setRows((prev) => prev.filter((row) => row.id !== rowId));
   };
 
   const updateTotal = (rowId, newTotal) => {
-    setRows((prevRows) =>
-      prevRows.map((row) =>
-        row.id === rowId ? { ...row, total: newTotal } : row
-      )
+    setRows((prev) =>
+      prev.map((row) => (row.id === rowId ? { ...row, total: newTotal } : row))
     );
   };
 
-  const [grandTotal, setGrandTotal] = useState(0);
-
-  useEffect(() => {
-    setGrandTotal(rows.reduce((sum, row) => sum + row.total, 0));
-  }, [rows]);
+  const grandTotal = rows.reduce((sum, row) => sum + (row.total || 0), 0);
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">

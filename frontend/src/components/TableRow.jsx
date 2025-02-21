@@ -13,7 +13,7 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
             min="1"
             value={rowQuantity}
             onChange={(e) => {
-              setRowQuantity(parseInt(e.target.value) || 1);
+              setRowQuantity(parseFloat(e.target.value) || 1);
             }}
             className="w-20 p-1 border rounded"
           />
@@ -52,7 +52,9 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
             }}
           />
         </td>
-        <td className="border p-2">₱{rowQuantity * rowProductValue}</td>
+        <td className="border p-2">
+          ₱{parseFloat(rowProductValue * rowQuantity)}
+        </td>
         <td className="border p-2 non-printable">
           <button
             onClick={() => {
