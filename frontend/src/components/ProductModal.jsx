@@ -7,8 +7,6 @@ const ProductModal = ({ onClose }) => {
   const [productType, setProductType] = useState("perfume");
   const [sizes, setSizes] = useState([{ size: "", unit: "ml", price: "" }]);
 
-
-
   const generateProductId = () => {
     return Math.random().toString(36).substring(2, 15);
   };
@@ -95,7 +93,6 @@ const ProductModal = ({ onClose }) => {
               <option value="miscellaneous">MISCELLANEOUS</option>
             </select>
           </div>
-    
 
           <div className="flex gap-2">
             <button
@@ -106,7 +103,7 @@ const ProductModal = ({ onClose }) => {
             </button>
             <button
               type="button"
-              onClick={onClose}
+              onClick={(e) => onClose(false)}
               className="flex-1 p-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
             >
               Cancel

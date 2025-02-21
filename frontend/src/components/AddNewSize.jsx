@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import ProductSizeModal from "./ProductSizeModal";
 
 const AddNewSize = () => {
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    return (
-        <div className="w-48 h-24 p-2">
-      <button 
-        onClick={() => setShowModal(true)} 
+  return (
+    <div className="w-48 h-24 p-2">
+      <button
+        onClick={() => setShowModal(true)}
         className="bg-blue-500 text-white p-2 rounded non-printable"
       >
         Add New Size
@@ -16,9 +16,9 @@ const AddNewSize = () => {
       {showModal && (
         <div className="">
           <div className="p-4 rounded shadow-md">
-            <ProductSizeModal />
-            <button 
-              onClick={() => setShowModal(false)} 
+            <ProductSizeModal onClose={setShowModal} />
+            <button
+              onClick={() => setShowModal(false)}
               className="mt-4 bg-red-500 text-white p-2 rounded"
             >
               Close
@@ -27,7 +27,7 @@ const AddNewSize = () => {
         </div>
       )}
     </div>
-    );
+  );
 };
 
 export default AddNewSize;

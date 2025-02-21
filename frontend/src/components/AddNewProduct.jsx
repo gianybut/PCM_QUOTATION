@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import ProductModal from "./ProductModal";
 
 const AddNewProduct = () => {
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    return (
-        <div className="w-48 h-24 p-2">
-      <button 
-        onClick={() => setShowModal(true)} 
+  return (
+    <div className="w-48 h-24 p-2">
+      <button
+        onClick={() => setShowModal(true)}
         className="bg-blue-500 text-white p-2 rounded non-printable"
       >
         Add New Product
@@ -16,9 +16,9 @@ const AddNewProduct = () => {
       {showModal && (
         <div className="">
           <div className="p-4 rounded shadow-md">
-            <ProductModal />
-            <button 
-              onClick={() => setShowModal(false)} 
+            <ProductModal onClose={setShowModal} />
+            <button
+              onClick={(e) => setShowModal(false)}
               className="mt-4 bg-red-500 text-white p-2 rounded"
             >
               Close
@@ -27,7 +27,7 @@ const AddNewProduct = () => {
         </div>
       )}
     </div>
-    );
+  );
 };
 
 export default AddNewProduct;

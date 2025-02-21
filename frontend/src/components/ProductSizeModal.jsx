@@ -15,7 +15,7 @@ const ProductSizeModal = ({ onClose, onSave }) => {
 
   const handleClose = () => {
     if (onClose) {
-      onClose(); // If onClose function is provided, execute it
+      onClose(false); // If onClose function is provided, execute it
     } else {
       window.location.href = "./App.jsx"; // Otherwise, go back to the previous page
     }
@@ -43,7 +43,7 @@ const ProductSizeModal = ({ onClose, onSave }) => {
             >
               Save
             </button>
-            
+
             <button
               type="button"
               onClick={handleClose} // Use handleClose instead of onClose directly
