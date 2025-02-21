@@ -46,8 +46,8 @@ const App = () => {
     <UserForm/>
     </div>
 
-      <div className="flex flex-col justify-center items-center">
-        <AddNewProduct />
+      <div className="flex flex-row justify-center items-center">
+        <AddNewProduct /> <PrintBtn />
       </div>
 
       <MainTable />

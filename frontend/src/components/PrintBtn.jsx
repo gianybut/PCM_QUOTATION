@@ -7,8 +7,10 @@ const PrintBtn = () => {
     }
 
   return (
-    <div>
-        <button onClick={handlePrint}>Print</button>
+    <div className='w-48 h-24 p-4'>
+        <button onClick={handlePrint}
+        className='bg-blue-500 text-white p-2 rounded non-printable'
+        >Print</button>
     </div>
   )
 }
