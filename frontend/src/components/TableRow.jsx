@@ -6,13 +6,13 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
   const total = rowQuantity * rowProductValue;
 
   const handleQuantityChange = (e) => {
-    const newQuantity = parseFloat(e.target.value) || 1;
+    const newQuantity = Math.max(1, parseFloat(e.target.value) || 1);
     setRowQuantity(newQuantity);
     updateRowValue(rowId, newQuantity * rowProductValue);
   };
 
   const handleProductValueChange = (e) => {
-    const newValue = parseFloat(e.target.value) || 0;
+    const newValue = Math.max(0, parseFloat(e.target.value) || 0);
     setRowProductValue(newValue);
     updateRowValue(rowId, rowQuantity * newValue);
   };
@@ -23,8 +23,14 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
         <input
           type="number"
           min="1"
+          step="1"
           value={rowQuantity}
           onChange={handleQuantityChange}
+          onKeyDown={(e) => {
+            if (e.key === "-" || e.key === "e") {
+              e.preventDefault();
+            }
+          }}
           className="w-20 p-1 border rounded"
         />
       </td>
@@ -34,9 +40,16 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
         ₱
         <input
           type="number"
-          className="text-center"
+          min="0"
+          step="any"
           value={rowProductValue}
           onChange={handleProductValueChange}
+          onKeyDown={(e) => {
+            if (e.key === "-" || e.key === "e") {
+              e.preventDefault();
+            }
+          }}
+          className="text-center"
         />
       </td>
       <td className="border p-2">₱{total}</td>
