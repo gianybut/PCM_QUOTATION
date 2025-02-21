@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DropdownMenu from "./DropdownMenu.jsx";
 
 const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
   const [rowQuantity, setRowQuantity] = useState(1);
@@ -24,7 +25,7 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
           type="number"
           min="1"
           step="1"
-          value={rowQuantity}
+          value={parseInt(rowQuantity)}
           onChange={handleQuantityChange}
           onKeyDown={(e) => {
             if (e.key === "-" || e.key === "e") {
@@ -34,7 +35,9 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
           className="w-20 p-1 border rounded"
         />
       </td>
-      <td className="border p-2">y</td>
+      <td className="border p-2">
+        <DropdownMenu />
+      </td>
       <td className="border p-2">y</td>
       <td className="border p-2">
         ₱
@@ -42,7 +45,7 @@ const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
           type="number"
           min="0"
           step="any"
-          value={rowProductValue}
+          value={parseFloat(rowProductValue)}
           onChange={handleProductValueChange}
           onKeyDown={(e) => {
             if (e.key === "-" || e.key === "e") {
