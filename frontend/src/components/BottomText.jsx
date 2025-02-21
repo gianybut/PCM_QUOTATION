@@ -25,8 +25,8 @@ Thank you for giving us the opportunity to submit this offer and hoping to recei
   };
 
   return (
-    <div className="bottom-text">
-      <div className="prose print:break-inside-avoid">
+    <div className="bottom-text bg-red-300">
+      <div className="prose ">
         {" "}
         {/* Key change here */}
         <p className="m-10 whitespace-break-spaces leading-10">{paragraph1}</p>
