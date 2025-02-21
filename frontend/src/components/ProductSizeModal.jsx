@@ -1,15 +1,29 @@
+import axios from "axios";
 import React, { useState } from "react";
 
-const ProductSizeModal = ({ onClose, onSave }) => {
+const ProductSizeModal = ({ onClose }) => {
   const [productSize, setProductSize] = useState("");
+
+  const addSize = async (newSizeName) => {
+    const addSizeResult = await axios.post(
+      "http://localhost:6942/sizes/create",
+      { sizeName: newSizeName }
+    );
+
+    if (addSizeResult) {
+      alert("ADDED NEW SIZE");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (productSize.trim() === "") {
+    const sizeToAdd = productSize.trim();
+    if (sizeToAdd === "") {
       alert("Please enter a valid product size.");
       return;
     }
-    onSave(productSize);
+
+    addSize(sizeToAdd);
     handleClose(); // Close modal or go back
   };
 
