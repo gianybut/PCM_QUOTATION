@@ -2,59 +2,8 @@ import { useEffect, useId, useState } from "react";
 import Dropdown from "./DropdownMenu";
 import useAddSize from "../hooks/addSize";
 import useAddProductName from "../hooks/addProductName";
+import TableRow from "./TableRow.jsx";
 import axios from "axios";
-
-const TableRow = ({ rowId, rowDeleteHandler, updateRowValue }) => {
-  const [rowQuantity, setRowQuantity] = useState(1);
-  const [rowProductValue, setRowProductValue] = useState(0);
-  const total = rowQuantity * rowProductValue;
-
-  const handleQuantityChange = (e) => {
-    const newQuantity = parseFloat(e.target.value) || 1;
-    setRowQuantity(newQuantity);
-    updateRowValue(rowId, newQuantity * rowProductValue);
-  };
-
-  const handleProductValueChange = (e) => {
-    const newValue = parseFloat(e.target.value) || 0;
-    setRowProductValue(newValue);
-    updateRowValue(rowId, rowQuantity * newValue);
-  };
-
-  return (
-    <tr>
-      <td className="border p-2">
-        <input
-          type="number"
-          min="1"
-          value={rowQuantity}
-          onChange={handleQuantityChange}
-          className="w-20 p-1 border rounded"
-        />
-      </td>
-      <td className="border p-2">y</td>
-      <td className="border p-2">y</td>
-      <td className="border p-2">
-        ₱
-        <input
-          type="number"
-          className="text-center"
-          value={rowProductValue}
-          onChange={handleProductValueChange}
-        />
-      </td>
-      <td className="border p-2">₱{total}</td>
-      <td className="border p-2 non-printable">
-        <button
-          onClick={() => rowDeleteHandler(rowId)}
-          className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"
-        >
-          Remove
-        </button>
-      </td>
-    </tr>
-  );
-};
 
 const MainTable = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
