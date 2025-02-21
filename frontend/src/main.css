@@ -60,6 +60,10 @@
     /* transform: translateY(-180px); */
   }
 
+  .mode-payment {
+    border: hidden;
+  }
+
   table {
     width: 80% !important;
   }
