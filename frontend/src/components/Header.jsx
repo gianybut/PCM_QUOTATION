@@ -1,4 +1,4 @@
-import pcmLogo from '../img/2.png'
+import pcmLogo from '../img/pcm_logo.jpg'
 
 const Header = () => {
   return (
