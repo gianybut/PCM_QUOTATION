@@ -1,0 +1,496 @@
+[
+  {
+    "productName": "B2 - eclat d' arpege (M)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B7 - Bvlgari Extreme (M)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B12 - Aqua di Gio",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B13 - Banana Republic (M)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B15 - Mont Blanc Legend",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B16 - Clinique Happy (M)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B17 - Lacoste Green",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B19 - Lacoste Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B21 - Diesel Brave",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B22 - Lacoste Black",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B25 - Versace Eros",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B27 - Lacoste White",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B28 - Dior Farenheit",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B32 - Lacoste Red",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B35 - CK One",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B36 - Dunhill Desire Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B41 - Tommy Summer",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B42 - Bleu De Chanel",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B1 - Davidoff Cool Water (M)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B3 - Ralph Lauren Polo Red",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B4 - Diesel Fuel",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B5 Invictus Aqua",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B6 - Bvlgari Aqua Amara",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B8 - Ralph Lauren Polo Sport",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B9 - Ralph Lauren Polo Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B10 - 1 Million",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B11 - VIP Black",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B14 - CK Eternity",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B20 - First Instinct",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B23 - Ralph Lauren Polo Black",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B24 - Issey Miyake",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B26 - Tommy Boy",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B29 - Intenso",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B30 - Invictus Intense",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B31 - D&G Light Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B33 - Versace Dylan Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B34 Ferrari Black",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B37 Swiss Army",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B38 - Drakkar",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B39 - Creed Aventus",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "B40 - Hugo Boss",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G3 - Bvlgari Omnia Amethyste",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G6 - Banana Replublic (W)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G7 - Clinique Happy (W)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G9 - Victoria Secret: Vanilla Chocolate",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G13 - Moonlight by Ariana Grande",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G15 - Meow by Katy Perry",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G16 - Cloud by Ariana Grande",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G17 - Victoria Secret: Pure Seduction",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G20 - Parris Hilton by Parris Hilton",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G24 - Gucci Rush",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G28 - Victoria Secret: Bombshell",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G31 - Sweet Like Candy by Ariana Grande",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G34 - Incanto Charm",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G33 - Victoria Secret Romantic Wish",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G36 - Lacoste Pink",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G39 - Ari by Ariana Grande",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G40 - Angel's Smile (Angel's Breathe)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G41 - Jovan White Mask",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G45 - Victoria Secret: Vanilla Lace",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G49 - Viva La Juicy",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G53 - Girlfriend by Justin Bieber",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G54 - Anna Sui Romantica",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G55 - Victoria Secret: Scandalous",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G56 - Victoria Secret: Strawberry & Champagne",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G47 - VIP Rose",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G48 - Ralph Lauren Blue",
+    "productType": "Perfume"
+  },
+  
+  {
+    "productName": "G50 - Chanel Chance",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G57 - Victoria Secret: Velvet Petals",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G60 - Victoria Secret: Bare Vanilla",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G1 - Tommy Girl",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G2 - Elizabeth Arden: Green Tea",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G4 - Can Can by Paris Hilton",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G5 - Secret Charm",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G8 - Eclat d' Arpege (W)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G10 - 8 New York",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G11 - Cucumber Melon",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G12 - Moon Sparkle",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G14 - Versace Bright Crystal",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G18 - Sexy Little Things",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G19 - Jo Malone: Peony & Blush Suede",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G21 - Sweet Baby Powder",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G22 - Sweet Pea",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G23 - Victoria Secret: Amber Romance",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G25 - Sea Island",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G26 - Selena Gomez",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G27 - Victoria Secret: Coconut Passion",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G29 - Incanto Shine",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G30 - Jo Malone: English Pear",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G32 - D&G Light Blue",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G35 Fantasy",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G37 - Chanel No.5",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G38 - Victoria Secret: Love Spell",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G42 - Blueberry Weekend",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G43 - DK NY De Delicious",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G44 - Gucci Bamboo",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G46 - Davidoff Cool Water (W)",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G58 - Jimmy Choo",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G59 - Killer Queen",
+    "productType": "Perfume"
+  }
+]
