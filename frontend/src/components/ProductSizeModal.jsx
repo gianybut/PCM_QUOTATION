@@ -3,9 +3,6 @@ import React, { useState } from "react";
 const ProductSizeModal = ({ onClose, onSave }) => {
   const [productSize, setProductSize] = useState("");
 
-
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (productSize.trim() === "") {
@@ -13,7 +10,15 @@ const ProductSizeModal = ({ onClose, onSave }) => {
       return;
     }
     onSave(productSize);
-    onClose();
+    handleClose(); // Close modal or go back
+  };
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose(); // If onClose function is provided, execute it
+    } else {
+      window.location.href = "./App.jsx"; // Otherwise, go back to the previous page
+    }
   };
 
   return (
@@ -41,7 +46,7 @@ const ProductSizeModal = ({ onClose, onSave }) => {
             
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose} // Use handleClose instead of onClose directly
               className="flex-1 p-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
             >
               Close
