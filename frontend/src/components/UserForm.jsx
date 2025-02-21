@@ -62,7 +62,7 @@ const UserForm = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-3 m-10 px-5">
+    <div className="flex flex-col space-y-3 px-5">
       {/* Name Field */}
       <div className="flex items-center space-x-3">
         <label htmlFor="name" className="w-24 font-semibold">
@@ -107,7 +107,11 @@ const UserForm = () => {
           className="font-bold"
         />
 
-        <EditableText value={intro} onChange={setIntro} />
+        <EditableText
+          value={intro}
+          onChange={setIntro}
+          className="text-justify"
+        />
       </div>
     </div>
   );

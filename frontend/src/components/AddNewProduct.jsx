@@ -5,7 +5,7 @@ const AddNewProduct = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="w-48 h-24 p-2">
+    <div className="">
       <button
         onClick={() => setShowModal(true)}
         className="bg-blue-500 text-white p-2 rounded non-printable"

@@ -29,12 +29,14 @@ const App = () => {
     <div className="app-container container-xl px-4">
       <Header />
 
-      <div>
+      <div className="bg-blue-300">
         <UserForm />
       </div>
 
-      <div className="flex flex-row justify-center items-center">
-        <AddNewProduct /> <AddNewSize /> <PrintBtn />
+      <div className="flex justify-center gap-16 items-center mx-auto my-4 bg-yellow-300">
+        <AddNewProduct />
+        <AddNewSize />
+        <PrintBtn />
       </div>
 
       <div className="flex flex-row items-center">

@@ -80,14 +80,14 @@ const ProductModal = ({ onClose }) => {
               onChange={(e) => setProductType(e.target.value)}
               className="w-full p-2 border rounded-md"
             >
-              <option value="perfume">PERFUME</option>
-              <option value="carDiffuser">CAR DIFFUSER</option>
-              <option value="alcohol">ALCOHOL</option>
-              <option value="dishWasher">DISH WASHER</option>
-              <option value="cologne">COLOGNE</option>
-              <option value="fabCon">FABRIC CONDITIONER</option>
-              <option value="handSoap">HAND SOAP</option>
-              <option value="miscellaneous">MISCELLANEOUS</option>
+              <option value="PERFUME">PERFUME</option>
+              <option value="CAR DIFFUSER">CAR DIFFUSER</option>
+              <option value="ALCOHOL">ALCOHOL</option>
+              <option value="DISH WASHER">DISH WASHER</option>
+              <option value="COLOGNE">COLOGNE</option>
+              <option value="FABRIC CONDITIONER">FABRIC CONDITIONER</option>
+              <option value="HAND SOAP">HAND SOAP</option>
+              <option value="MISCELLANEOUS">MISCELLANEOUS</option>
             </select>
           </div>
 

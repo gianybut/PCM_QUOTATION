@@ -51,7 +51,7 @@ const TableRow = ({
           labelKey="productName"
         />
       </td>
-      <td className="border p-2">
+      <td className="border p-1">
         ₱
         <input
           type="number"
