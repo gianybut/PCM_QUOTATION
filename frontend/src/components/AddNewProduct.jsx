@@ -14,7 +14,7 @@ const AddNewProduct = () => {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="">
           <div className="p-4 rounded shadow-md">
             <ProductModal />
             <button 
