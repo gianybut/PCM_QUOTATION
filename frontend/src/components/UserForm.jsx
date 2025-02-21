@@ -100,7 +100,7 @@ const UserForm = () => {
       </div>
 
       {/* Editable Text Fields */}
-      <div className="space-y-3">
+      <div className="space-y-3 mt-12">
         <EditableText
           value={greeting}
           onChange={setGreeting}
