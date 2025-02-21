@@ -1,33 +1,33 @@
 import express, { query } from "express";
 import { StatusCodes } from "http-status-codes";
-import ProductsController from "../Controller/ProductsController.js";
+import SizesController from "../Controller/SizesController.js";
 import { matchedData, param, validationResult, body } from "express-validator";
 
-// Product routes start with ":/products"
-const ProductRoute = express.Router();
-ProductRoute.use(express.json());
+// Size routes start with ":/sizes"
+const SizesRoute = express.Router();
+SizesRoute.use(express.json());
 
 // READ ALL
-ProductRoute.get("/", async (req, res) => {
+SizesRoute.get("/", async (req, res) => {
   try {
-    const getProductsResult = await ProductsController.showProducts();
+    const getSizessResult = await SizesController.showSizes();
 
     return res.status(StatusCodes.OK).json({
-      message: `${getProductsResult.length} Product/s successfully retrieved.`,
-      data: getProductsResult || null,
+      message: `${getSizessResult.length} Size/s successfully retrieved.`,
+      data: getSizessResult || null,
     });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: "FAILED TO RETRIEVE PRODUCTS. Database connection error.",
+      message: "FAILED TO RETRIEVE SIZES. Database connection error.",
     });
   }
 });
 
 // READ ONE
-ProductRoute.get(
-  "/:productId",
+SizesRoute.get(
+  "/:sizeId",
   [
-    param("productId")
+    param("sizeId")
       .exists()
       .isString()
       .notEmpty()
@@ -45,20 +45,18 @@ ProductRoute.get(
     }
 
     try {
-      const productIdToGet = matchedData(req)["productId"];
-      const getOneProductResult = await ProductsController.showOneProduct(
-        productIdToGet
-      );
+      const sizeIdToGet = matchedData(req)["sizeId"];
+      const getOneSizeResult = await SizesController.showOneSize(sizeIdToGet);
 
       return res.status(StatusCodes.OK).json({
-        message: getOneProductResult
-          ? "Successfully retrieved one product"
-          : "Product doesn't exist.",
-        data: getOneProductResult || null,
+        message: getOneSizeResult
+          ? "Successfully retrieved one size"
+          : "Size doesn't exist.",
+        data: getOneSizeResult || null,
       });
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "FAILED TO RETRIEVE ONE PRODUCT. Database connection error.",
+        message: "FAILED TO RETRIEVE ONE SIZE. Database connection error.",
         data: null,
       });
     }
@@ -67,23 +65,16 @@ ProductRoute.get(
 
 // CREATE
 // Product sizes - ml, l, gallon, g
-ProductRoute.post(
+SizesRoute.post(
   "/create",
   [
-    body("productName")
+    body("sizeName")
       .exists()
       .isString()
       .notEmpty()
       .escape()
       .trim()
-      .toUpperCase(),
-    body("productType")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
+      .toLowerCase(),
   ],
   async (req, res) => {
     if (!validationResult(req).isEmpty()) {
@@ -93,32 +84,28 @@ ProductRoute.post(
     }
 
     try {
-      const newProductName = matchedData(req)["productName"];
-      const newProductType = matchedData(req)["productType"];
+      const newSizeName = matchedData(req)["sizeName"];
 
-      const newProductInDatabase = await ProductsController.createProduct(
-        newProductName,
-        newProductType
-      );
+      const newSizeInDatabase = await SizesController.createSize(newSizeName);
 
       return res.status(StatusCodes.OK).json({
-        message: newProductInDatabase
-          ? "Successfully added one product"
-          : "Failed to add one product",
+        message: newSizeInDatabase
+          ? "Successfully added one size"
+          : "Failed to add one size",
       });
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "FAILED TO ADD ONE PRODUCT. Database connection error.",
+        message: "FAILED TO ADD ONE SIZE. Database connection error.",
       });
     }
   }
 );
 
 // UPDATE
-ProductRoute.patch(
-  "/update/:productId",
+SizesRoute.patch(
+  "/update/:sizeId",
   [
-    param("productId")
+    param("sizeId")
       .exists()
       .isString()
       .notEmpty()
@@ -126,20 +113,13 @@ ProductRoute.patch(
       .trim()
       .isLength({ min: 24, max: 24 })
       .isHexadecimal(),
-    body("productName")
+    body("sizeName")
       .exists()
       .isString()
       .notEmpty()
       .escape()
       .trim()
-      .toUpperCase(),
-    body("productType")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
+      .toLowerCase(),
   ],
   async (req, res) => {
     // Errors in validation, exit early
@@ -151,34 +131,32 @@ ProductRoute.patch(
     }
 
     try {
-      const productId = matchedData(req)["productId"];
-      const newProductName = matchedData(req)["productName"];
-      const newProductType = matchedData(req)["productType"];
+      const sizeId = matchedData(req)["sizeId"];
+      const newSizeName = matchedData(req)["sizeName"];
 
-      const updateResult = await ProductsController.updateProduct(
-        productId,
-        newProductName,
-        newProductType
+      const updateResult = await SizesController.updateSize(
+        sizeId,
+        newSizeName
       );
 
       return res.status(StatusCodes.OK).json({
         message: updateResult
-          ? "Successfully updated one product"
-          : "Failed to update one product",
+          ? "Successfully updated one size"
+          : "Failed to update one size",
       });
     } catch (error) {
       return res.status(StatusCodes.BAD_REQUEST).json({
-        message: "FAILED TO UPDATE PRODUCT. Database connection error.",
+        message: "FAILED TO UPDATE SIZE. Database connection error.",
       });
     }
   }
 );
 
 // DELETE
-ProductRoute.delete(
-  "/delete/:productId",
+SizesRoute.delete(
+  "/delete/:sizeId",
   [
-    param("productId")
+    param("sizeId")
       .exists()
       .isString()
       .notEmpty()
@@ -196,20 +174,20 @@ ProductRoute.delete(
     }
 
     try {
-      const productId = matchedData(req)["productId"];
+      const sizeId = matchedData(req)["sizeId"];
 
-      const deleteResult = await ProductsController.deleteProduct(productId);
+      const deleteResult = await SizesController.deleteSize(sizeId);
       return res.status(StatusCodes.OK).json({
         message: deleteResult
-          ? "Successfully deleted one product"
-          : "Failed to delete one product",
+          ? "Successfully deleted one size"
+          : "Failed to delete one size",
       });
     } catch (error) {
       return res.status(StatusCodes.BAD_GATEWAY).json({
-        message: "FAILED TO DELETE PRODUCT. Database connection error.",
+        message: "FAILED TO DELETE SIZE. Database connection error.",
       });
     }
   }
 );
 
-export default ProductRoute;
+export default SizesRoute;
