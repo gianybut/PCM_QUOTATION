@@ -7,6 +7,8 @@ const ProductModal = ({ onClose }) => {
   const [productType, setProductType] = useState("perfume");
   const [sizes, setSizes] = useState([{ size: "", unit: "ml", price: "" }]);
 
+
+
   const generateProductId = () => {
     return Math.random().toString(36).substring(2, 15);
   };

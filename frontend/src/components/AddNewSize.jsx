@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ProductModal from "./ProductModal";
+import ProductSizeModal from "./ProductSizeModal";
 
-const AddNewProduct = () => {
+const AddNewSize = () => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -10,13 +10,13 @@ const AddNewProduct = () => {
         onClick={() => setShowModal(true)} 
         className="bg-blue-500 text-white p-2 rounded non-printable"
       >
-        Add New Product
+        Add New Size
       </button>
 
       {showModal && (
         <div className="">
           <div className="p-4 rounded shadow-md">
-            <ProductModal />
+            <ProductSizeModal />
             <button 
               onClick={() => setShowModal(false)} 
               className="mt-4 bg-red-500 text-white p-2 rounded"
@@ -30,4 +30,4 @@ const AddNewProduct = () => {
     );
 };
 
-export default AddNewProduct;
+export default AddNewSize;

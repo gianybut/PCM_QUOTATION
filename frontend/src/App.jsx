@@ -8,9 +8,19 @@ import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
 import ProductModal from "./components/ProductModal.jsx";
 import AddNewProduct from "./components/AddNewProduct.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AddNewSize from "./components/AddNewSize.jsx";
 
 const App = () => {
+  const BACKEND_SERVER_URL = "http://localhost:6942";
+
+  // open modal sample
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [products, setProducts] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
   useEffect(() => {
     document.title = "PCM Quotation System";
   }, []);
@@ -23,11 +33,14 @@ const App = () => {
         <UserForm />
       </div>
 
-      <div className="flex flex-col justify-center items-center">
-        <AddNewProduct />
+      <div className="flex flex-row justify-center items-center">
+        <AddNewProduct /> <AddNewSize /> <PrintBtn />
       </div>
 
-      <MainTable />
+      <div className="flex flex-row items-center">
+        <MainTable />
+      </div>
+
       <ModeOfPayment />
       <BottomText />
       <Signature />

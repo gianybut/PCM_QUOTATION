@@ -54,8 +54,13 @@
 
   .table-div {
     display: flex;
-    justify-content: center;
-    transform: translateY(-180px); /* Move upwards */
+    flex-direction: row;
+    align-items: center;
+    /* transform: translateY(-180px); */
+  }
+
+  .mode-payment {
+    border: hidden;
   }
 
   table {
