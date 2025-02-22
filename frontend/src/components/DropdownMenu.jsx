@@ -37,7 +37,7 @@ const DropdownMenu = ({
       </button>
 
       {isOpen && Array.isArray(options) && options.length > 0 && (
-        <div className="absolute z-10 w-48 mt-2 bg-white rounded-md shadow-lg">
+        <div className="absolute z-10 w-48 mt-2 bg-white rounded-md shadow-lg overflow-y-scroll max-h-60">
           <div className="py-1">
             {options.map((option, index) => (
               <button
