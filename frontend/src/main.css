@@ -17,6 +17,9 @@
 
   input,
   button {
-    @apply border-none;
+    @apply border-none text-center;
   }
+}
+input {
+  @apply text-center;
 }
