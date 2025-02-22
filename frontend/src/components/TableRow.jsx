@@ -25,7 +25,7 @@ const TableRow = ({
   };
 
   return (
-    <tr>
+    <tr className="">
       <td className="border p-2">
         <input
           type="number"
@@ -51,8 +51,8 @@ const TableRow = ({
           labelKey="productName"
         />
       </td>
-      <td className="border p-1">
-        ₱
+      <td className="border p-1 text-center whitespace-nowrap">
+        <span className="print:ml-4">₱</span>
         <input
           type="number"
           min="0"
@@ -64,7 +64,7 @@ const TableRow = ({
               e.preventDefault();
             }
           }}
-          className="text-center"
+          className="text-center w-auto"
         />
       </td>
       <td className="border p-2">₱{total}</td>

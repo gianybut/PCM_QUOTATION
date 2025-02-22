@@ -55,7 +55,7 @@ const MainTable = () => {
   const grandTotal = rows.reduce((sum, row) => sum + (row.total || 0), 0);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-0">
+    <div className="w-full max-w-5xl mx-auto p-0 ">
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-gray-100">
