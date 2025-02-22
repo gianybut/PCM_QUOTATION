@@ -6,7 +6,6 @@ import SizesRoute from "./Routes/SizesRoute.js";
 import axios from "axios";
 
 import PRODUCTS from "./PRODUCTS.json" with { type: "json" };
-import ProductsController from "./Controller/ProductsController.js";
 // Setup variables
 const app = express();
 const SERVER_PORT = process.env.SERVER_PORT || 6942;
@@ -31,7 +30,7 @@ await mongoose
     console.log("MongoDB connection failed.");
   });
 
-app.get("/addAllProducts", async (req, res) => {
+app.get("/addAllProductsAndSizes", async (req, res) => {
 
   
   PRODUCTS.forEach(async (p) => {

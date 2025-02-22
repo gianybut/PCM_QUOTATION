@@ -31,7 +31,6 @@ ProductRoute.get(
       .exists()
       .isString()
       .notEmpty()
-      .escape()
       .trim()
       .isLength({ min: 24, max: 24 })
       .isHexadecimal(),
@@ -70,20 +69,8 @@ ProductRoute.get(
 ProductRoute.post(
   "/create",
   [
-    body("productName")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
-    body("productType")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
+    body("productName").exists().isString().notEmpty().trim().toUpperCase(),
+    body("productType").exists().isString().notEmpty().trim().toUpperCase(),
   ],
   async (req, res) => {
     if (!validationResult(req).isEmpty()) {
@@ -122,24 +109,11 @@ ProductRoute.patch(
       .exists()
       .isString()
       .notEmpty()
-      .escape()
       .trim()
       .isLength({ min: 24, max: 24 })
       .isHexadecimal(),
-    body("productName")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
-    body("productType")
-      .exists()
-      .isString()
-      .notEmpty()
-      .escape()
-      .trim()
-      .toUpperCase(),
+    body("productName").exists().isString().notEmpty().trim().toUpperCase(),
+    body("productType").exists().isString().notEmpty().trim().toUpperCase(),
   ],
   async (req, res) => {
     // Errors in validation, exit early
@@ -182,7 +156,6 @@ ProductRoute.delete(
       .exists()
       .isString()
       .notEmpty()
-      .escape()
       .trim()
       .isLength({ min: 24, max: 24 })
       .isHexadecimal(),
