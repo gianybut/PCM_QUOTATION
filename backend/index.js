@@ -6,6 +6,7 @@ import SizesRoute from "./Routes/SizesRoute.js";
 import axios from "axios";
 
 import PRODUCTS from "./PRODUCTS.json" with { type: "json" };
+import SIZES from "./SIZES.json" with { type: "json" };
 // Setup variables
 const app = express();
 const SERVER_PORT = process.env.SERVER_PORT || 6942;
@@ -31,11 +32,12 @@ await mongoose
   });
 
 app.get("/addAllProductsAndSizes", async (req, res) => {
-
-  
   PRODUCTS.forEach(async (p) => {
     await axios.post("http://localhost:6942/products/create", {productName: p["productName"], productType: p["productType"]});
   });
 
+  SIZES.forEach(async (s) => {
+    await axios.post("http://localhost:6942/sizes/create", {sizeName: s["sizeName"]});
+  });
   return res.send("OK");
 });
