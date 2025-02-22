@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const SigName = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [firstName, setFirstName] = useState('GLEICEL D. TAGLE');
-  const [lastName, setLastName] = useState('ADMIN HEAD');
+  const [firstName, setFirstName] = useState("GLEICEL D. TAGLE");
+  const [lastName, setLastName] = useState("ADMIN HEAD");
   const [tempFirst, setTempFirst] = useState(firstName);
   const [tempLast, setTempLast] = useState(lastName);
 
@@ -25,10 +25,10 @@ const SigName = () => {
         <div className="flex items-start">
           <div className="flex flex-col">
             <span className="text-sm font-medium">{firstName}</span>
-            <br/>
-            <span className="text-sm font-medium">{lastName}</span>
+            <br />
+            <span className="text-sm font-medium -mt-4">{lastName}</span>
           </div>
-          <button 
+          <button
             onClick={() => setIsEditing(true)}
             className="ml-4 px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded non-printable"
           >
@@ -55,13 +55,13 @@ const SigName = () => {
             />
           </div>
           <div className="flex space-x-2">
-            <button 
+            <button
               onClick={handleSave}
               className="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
             >
               Save
             </button>
-            <button 
+            <button
               onClick={handleCancel}
               className="px-4 py-1 bg-gray-200 hover:bg-gray-300 rounded"
             >
