@@ -67,7 +67,7 @@ const TableRow = ({
           className="text-center w-auto"
         />
       </td>
-      <td className="border p-2">₱{total}</td>
+      <td className="border p-2 text-center">₱{total}</td>
       <td className="border p-2 non-printable">
         <button
           onClick={() => rowDeleteHandler(rowId)}
