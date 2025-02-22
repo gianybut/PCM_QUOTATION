@@ -41,10 +41,10 @@ const TableRow = ({
           className="w-20 p-1 border rounded"
         />
       </td>
-      <td className="border p-2">
+      <td className="border p-2 text-center">
         <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" />
       </td>
-      <td className="border p-2">
+      <td className="border p-2 text-center">
         <DropdownMenu
           label="Select Product"
           options={products}

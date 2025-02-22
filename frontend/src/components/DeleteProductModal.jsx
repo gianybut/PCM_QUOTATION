@@ -36,7 +36,7 @@ const DeleteProductModal = ({ onClose, products }) => {
               >
                 <span>{product["productName"]}</span>
                 <button
-                  className="text-red-500"
+                  className="text-red-500 hover:text-red-300"
                   onClick={() => {
                     if (
                       confirm(
