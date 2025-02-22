@@ -14,4 +14,9 @@
   .non-printable {
     display: none;
   }
+
+  input,
+  button {
+    @apply border-none;
+  }
 }
