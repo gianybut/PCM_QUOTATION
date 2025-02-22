@@ -11,6 +11,7 @@ import AddNewProduct from "./components/AddNewProduct.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AddNewSize from "./components/AddNewSize.jsx";
+import DeleteProduct from "./components/DeleteProduct.jsx";
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
@@ -63,6 +64,7 @@ const App = () => {
       <div className="flex justify-center gap-16 items-center mx-auto my-4">
         <AddNewProduct />
         <AddNewSize />
+        <DeleteProduct products={products} />
         <PrintBtn />
       </div>
 
