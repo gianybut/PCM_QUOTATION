@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 const Signature = () => {
   // Default image URL - replace with your default image path
   const defaultImage = "/api/placeholder/128/128";
-  const [image, setImage] = useState(defaultImage);
+  const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleImageChange = (event) => {
@@ -19,7 +19,7 @@ const Signature = () => {
   };
 
   const handleClear = () => {
-    setImage(defaultImage); // Reset to default image instead of null
+    setImage(null); // Reset to default image instead of null
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -80,8 +80,9 @@ const Signature = () => {
         <div className="mt-2">
           <img
             src={image}
-            alt="Signature"
-            className="size-32 border-hidden rounded object-contain bg-white"
+            className={`${
+              image ? `size-32 ` : ""
+            } border-hidden rounded object-contain bg-white`}
           />
         </div>
       </div>
