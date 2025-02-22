@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AddNewSize from "./components/AddNewSize.jsx";
 import DeleteProduct from "./components/DeleteProduct.jsx";
+import DeleteSize from "./components/DeleteSize.jsx";
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
@@ -65,6 +66,7 @@ const App = () => {
         <AddNewProduct />
         <AddNewSize />
         <DeleteProduct products={products} />
+        <DeleteSize sizes={sizes} />
         <PrintBtn />
       </div>
 

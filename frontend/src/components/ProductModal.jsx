@@ -13,14 +13,18 @@ const ProductModal = ({ onClose }) => {
   };
 
   const addProduct = async (newProductName, newProductType) => {
-    const addProductResult = await axios.post(
-      "http://localhost:6942/products/create",
-      { productName: newProductName, productType: newProductType }
-    );
-
-    if (addProductResult) {
-      alert("ADDED NEW PRODUCT");
-    }
+    const addProductResult = await axios
+      .post("http://localhost:6942/products/create", {
+        productName: newProductName,
+        productType: newProductType,
+      })
+      .then((result) => {
+        alert(JSON.stringify(result));
+        alert("ADDED NEW PRODUCT");
+      })
+      .catch((error) => {
+        alert("FAILED TO ADD A PRODUCT, REFRESH PAGE.");
+      });
   };
 
   const handleAddSizeUnit = (e) => {
@@ -48,6 +52,7 @@ const ProductModal = ({ onClose }) => {
     await addProduct(productName, productType);
     resetForm();
     onClose();
+    window.location.reload();
   };
 
   const resetForm = () => {
