@@ -5,38 +5,9 @@ import useAddProductName from "../hooks/addProductName";
 import TableRow from "./TableRow.jsx";
 import axios from "axios";
 
-const MainTable = () => {
+const MainTable = ({ products, sizes }) => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
-  const [products, setProducts] = useState([]);
-  const [sizes, setSizes] = useState([]);
   const [rows, setRows] = useState([{ id: crypto.randomUUID(), total: 0 }]);
-
-  useEffect(() => {
-    // Retrieve products
-    axios
-      .get(`${BACKEND_SERVER_URL}/products`)
-      .then((productsRetrieveResult) => {
-        const sortedProducts = productsRetrieveResult.data["data"].sort(
-          (a, b) => a["productType"].localeCompare(b["productType"])
-        );
-        setProducts(sortedProducts);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
-      });
-    // Retrieve sizes
-    axios
-      .get(`${BACKEND_SERVER_URL}/sizes`)
-      .then((sizesRetrieveResult) => {
-        const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
-          a["sizeName"].localeCompare(b["sizeName"])
-        );
-        setSizes(sortedSizes);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
-      });
-  }, []);
 
   const addRow = () => {
     setRows((prev) => [...prev, { id: crypto.randomUUID(), total: 0 }]);

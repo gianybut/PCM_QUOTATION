@@ -25,6 +25,33 @@ const App = () => {
     document.title = "PCM Quotation System";
   }, []);
 
+  useEffect(() => {
+    // Retrieve products
+    axios
+      .get(`${BACKEND_SERVER_URL}/products`)
+      .then((productsRetrieveResult) => {
+        const sortedProducts = productsRetrieveResult.data["data"].sort(
+          (a, b) => a["productType"].localeCompare(b["productType"])
+        );
+        setProducts(sortedProducts);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+    // Retrieve sizes
+    axios
+      .get(`${BACKEND_SERVER_URL}/sizes`)
+      .then((sizesRetrieveResult) => {
+        const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
+          a["sizeName"].localeCompare(b["sizeName"])
+        );
+        setSizes(sortedSizes);
+      })
+      .catch((error) => {
+        alert("ERROR OCCURED! REFRESH PAGE.");
+      });
+  }, []);
+
   return (
     <div className="app-container container-xl px-4">
       <Header />
@@ -40,7 +67,7 @@ const App = () => {
       </div>
 
       <div className="flex flex-row items-center">
-        <MainTable />
+        <MainTable products={products} sizes={sizes} />
       </div>
 
       <ModeOfPayment />
