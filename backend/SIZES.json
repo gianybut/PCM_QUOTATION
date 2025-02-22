@@ -1,49 +1,49 @@
 [
-    {
-        "sizeName": "1 Gal (3.7)"
-    },
+  {
+    "sizeName": "1 Gal (3.7)"
+  },
 
-    {
-        "sizeName": "1 Gal (3.2)"
-    },
+  {
+    "sizeName": "1 Gal (3.2)"   
+  },
 
-    {
-        "sizeName": "1 Liter"
-    },
+  {
+    "sizeName": "1 Liter"
+  },
 
-    {
-        "sizeName": "500ml (pump)"
-    },
+  {
+    "sizeName": "500ml (pump)"
+  },
 
-    {
-        "sizeName": "500ml (flip)"
-    },
+  {
+    "sizeName": "500ml (flip)"
+  },
 
-    {
-        "sizeName": "100ml"
-    },
+  {
+    "sizeName": "100ml"
+  },
 
-    {
-        "sizeName": "85ml"
-    },
+  {
+    "sizeName": "85ml"
+  },
 
-    {
-        "sizeName": "60ml"
-    },
+  {
+    "sizeName": "60ml"
+  },
 
-    {
-        "sizeName": "50ml"
-    },
+  {
+    "sizeName": "50ml"
+  },
 
-    {
-        "sizeName": "10ml"
-    },
+  {
+    "sizeName": "10ml"
+  },
 
-    {
-        "sizeName": "3ml"
-    },
+  {
+    "sizeName": "3ml"
+  },
 
-    {
-        "sizeName": "130g"
-    }
+  {
+    "sizeName": "130g"
+  }
 ]
