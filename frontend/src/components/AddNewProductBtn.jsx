@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ProductModal from "./ProductModal";
 import ProductSizeModal from "./ProductSizeModal.jsx";
 
-const AddNewProduct = () => {
+const AddNewProductBtn = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentModal, setCurrentModal] = useState("Product");
 
@@ -47,4 +47,4 @@ const AddNewProduct = () => {
   );
 };
 
-export default AddNewProduct;
+export default AddNewProductBtn;

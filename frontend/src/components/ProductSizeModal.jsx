@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 const ProductSizeModal = ({ onClose, changeModalSignal }) => {
   const [productSize, setProductSize] = useState("");
+  const [sizeForType, setSizeForType] = useState("PERFUME");
 
   const addSize = async (newSizeName) => {
     const addSizeResult = await axios.post(
@@ -49,6 +50,7 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="block text-sm font-medium">Size Name</label>
           <input
             type="text"
             value={productSize}
@@ -57,6 +59,28 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
             className="w-full p-2 border rounded-md"
             required
           />
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">
+              Size for what Product Type
+            </label>
+            <select
+              value={sizeForType}
+              onChange={(e) => {
+                setSizeForType(e.target.value);
+              }}
+              className="w-full p-2 border rounded-md"
+            >
+              <option value="PERFUME">PERFUME</option>
+              <option value="CAR DIFFUSER">CAR DIFFUSER</option>
+              <option value="ALCOHOL">ALCOHOL</option>
+              <option value="DISH WASHER">DISH WASHER</option>
+              <option value="COLOGNE">COLOGNE</option>
+              <option value="FABRIC CONDITIONER">FABRIC CONDITIONER</option>
+              <option value="HAND SOAP">HAND SOAP</option>
+              <option value="MISCELLANEOUS">MISCELLANEOUS</option>
+            </select>
+          </div>
 
           <div className="flex gap-2">
             <button

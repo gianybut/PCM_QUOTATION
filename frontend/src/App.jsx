@@ -6,11 +6,9 @@ import Signature from "./components/Signature.jsx";
 import SigName from "./components/SigName.jsx";
 import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
-import ProductModal from "./components/ProductModal.jsx";
-import AddNewProduct from "./components/AddNewProduct.jsx";
+import AddNewProductBtn from "./components/AddNewProductBtn.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AddNewSize from "./components/AddNewSize.jsx";
 import DeleteProduct from "./components/DeleteProduct.jsx";
 import DeleteSize from "./components/DeleteSize.jsx";
 
@@ -83,7 +81,7 @@ const App = () => {
               />
             </svg>
 
-            <AddNewProduct />
+            <AddNewProductBtn />
             <DeleteProduct products={products} />
             <DeleteSize sizes={sizes} />
             <PrintBtn />
