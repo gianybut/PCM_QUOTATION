@@ -37,7 +37,7 @@ app.get("/addAllProductsAndSizes", async (req, res) => {
   });
 
   SIZES.forEach(async (s) => {
-    await axios.post("http://localhost:6942/sizes/create", {sizeName: s["sizeName"]});
+    await axios.post("http://localhost:6942/sizes/create", {sizeName: s["sizeName"], sizeFor: s["sizeFor"]});
   });
   return res.send("OK");
 });

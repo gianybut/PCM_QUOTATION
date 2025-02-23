@@ -5,10 +5,10 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
   const [productSize, setProductSize] = useState("");
   const [sizeForType, setSizeForType] = useState("PERFUME");
 
-  const addSize = async (newSizeName) => {
+  const addSize = async (newSizeName, newSizeForType) => {
     const addSizeResult = await axios.post(
       "http://localhost:6942/sizes/create",
-      { sizeName: newSizeName }
+      { sizeName: newSizeName, sizeForType: newSizeForType }
     );
 
     if (addSizeResult) {
@@ -19,8 +19,9 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const sizeToAdd = productSize.trim();
-    if (sizeToAdd === "") {
-      alert("Please enter a valid product size.");
+    const sizeForType = sizeForType.trim();
+    if (sizeToAdd === "" || sizeForType === "") {
+      alert("Please enter requirements.");
       return;
     }
 

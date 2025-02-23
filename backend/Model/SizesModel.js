@@ -6,6 +6,20 @@ const SizeSchema = new Schema({
     unique: true,
     required: true,
   },
+  sizeFor: {
+    type: String,
+    enum: [
+      "PERFUME",
+      "CAR DIFFUSER",
+      "ALCOHOL",
+      "DISH WASHER",
+      "COLOGNE",
+      "FABRIC CONDITIONER",
+      "HAND SOAP",
+      "MISCELLANEOUS",
+    ],
+    required: true,
+  },
 });
 
 const SizesModel = mongoose.model("Size", SizeSchema);

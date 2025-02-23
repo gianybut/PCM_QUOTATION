@@ -75,6 +75,13 @@ SizesRoute.post(
       .escape()
       .trim()
       .toLowerCase(),
+    body("sizeFor")
+      .exists()
+      .isString()
+      .notEmpty()
+      .escape()
+      .trim()
+      .toUpperCase(),
   ],
   async (req, res) => {
     if (!validationResult(req).isEmpty()) {
@@ -84,9 +91,15 @@ SizesRoute.post(
     }
 
     try {
-      const newSizeName = matchedData(req)["sizeName"];
+      const newSizeName = `${matchedData(req)["sizeName"]} (${
+        matchedData(req)["sizeFor"]
+      })`;
+      const newSizeFor = matchedData(req)["sizeFor"];
 
-      const newSizeInDatabase = await SizesController.createSize(newSizeName);
+      const newSizeInDatabase = await SizesController.createSize(
+        newSizeName,
+        newSizeFor
+      );
 
       return res.status(StatusCodes.OK).json({
         message: newSizeInDatabase
@@ -120,6 +133,13 @@ SizesRoute.patch(
       .escape()
       .trim()
       .toLowerCase(),
+    body("sizeFor")
+      .exists()
+      .isString()
+      .notEmpty()
+      .escape()
+      .trim()
+      .toUpperCase(),
   ],
   async (req, res) => {
     // Errors in validation, exit early
@@ -132,11 +152,15 @@ SizesRoute.patch(
 
     try {
       const sizeId = matchedData(req)["sizeId"];
-      const newSizeName = matchedData(req)["sizeName"];
+      const newSizeName = `${matchedData(req)["sizeName"]} (${
+        matchedData(req)["sizeFor"]
+      })`;
+      const newSizeFor = matchedData(req)["sizeFor"];
 
       const updateResult = await SizesController.updateSize(
         sizeId,
-        newSizeName
+        newSizeName,
+        newSizeFor
       );
 
       return res.status(StatusCodes.OK).json({
