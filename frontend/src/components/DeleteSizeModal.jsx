@@ -36,7 +36,7 @@ const DeleteSizeModal = ({ onClose, sizes }) => {
               >
                 <span>{size["sizeName"]}</span>
                 <button
-                  className="text-red-500"
+                  className="text-red-500 hover:text-red-300"
                   onClick={() => {
                     if (
                       confirm(
