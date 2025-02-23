@@ -50,15 +50,17 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block text-sm font-medium">Size Name</label>
-          <input
-            type="text"
-            value={productSize}
-            onChange={(e) => setProductSize(e.target.value)}
-            placeholder="Enter product size"
-            className="w-full p-2 border rounded-md"
-            required
-          />
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">Size Name</label>
+            <input
+              type="text"
+              value={productSize}
+              onChange={(e) => setProductSize(e.target.value)}
+              placeholder="Enter product size"
+              className="w-full p-2 border rounded-md"
+              required
+            />
+          </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium">
@@ -87,7 +89,7 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
               type="submit"
               className="flex-1 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Save
+              Create Size
             </button>
 
             <button
