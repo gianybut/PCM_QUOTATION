@@ -1,17 +1,17 @@
 [
   {
     "sizeName": "1 Gal (3.7)",
-    "sizeFor": "Dishwashing-liquid"
+    "sizeFor": "DISH WASHER"
   },
 
   {
     "sizeName": "1 Gal (3.2)",
-    "sizeFor": "Dishwashing-liquid"   
+    "sizeFor": "DISH WASHER"
   },
 
   {
     "sizeName": "1 Liter",
-    "sizeFor": "Dishwashing-liquid"
+    "sizeFor": "DISH WASHER"
   },
 
   {
@@ -41,6 +41,6 @@
 
   {
     "sizeName": "130g",
-    "sizeFor": "Hand-soap"
+    "sizeFor": "HAND SOAP"
   }
 ]
