@@ -23,6 +23,8 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
 
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
+
   useEffect(() => {
     document.title = "PCM Quotation System";
   }, []);
@@ -63,11 +65,32 @@ const App = () => {
       </div>
 
       <div className="flex justify-center gap-16 items-center mx-auto my-4">
-        <AddNewProduct />
-        <AddNewSize />
-        <DeleteProduct products={products} />
-        <DeleteSize sizes={sizes} />
-        <PrintBtn />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-9 rounded-md p-1 text-white bg-red-300 non-printable"
+          onClick={() => setSettingsOpen((currentValue) => !currentValue)}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+        {isSettingsOpen ? (
+          <>
+            <AddNewProduct />
+            <AddNewSize />
+            <DeleteProduct products={products} />
+            <DeleteSize sizes={sizes} />
+            <PrintBtn />
+          </>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="flex flex-row items-center">
