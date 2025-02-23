@@ -1,50 +1,46 @@
 [
   {
     "sizeName": "1 Gal (3.7)",
-    "sizeFor": ""
+    "sizeFor": "Dishwashing-liquid"
   },
 
   {
-    "sizeName": "1 Gal (3.2)"   
+    "sizeName": "1 Gal (3.2)",
+    "sizeFor": "Dishwashing-liquid"   
   },
 
   {
-    "sizeName": "1 Liter"
+    "sizeName": "1 Liter",
+    "sizeFor": "Dishwashing-liquid"
   },
 
   {
-    "sizeName": "500ml (pump)"
+    "sizeName": "100ml",
+    "sizeFor": "Cologne"
   },
 
   {
-    "sizeName": "500ml (flip)"
+    "sizeName": "85ml",
+    "sizeFor": "Perfume"
   },
 
   {
-    "sizeName": "100ml"
+    "sizeName": "60ml",
+    "sizeFor": "Cologne"
   },
 
   {
-    "sizeName": "85ml"
+    "sizeName": "50ml",
+    "sizeFor": "Cologne"
   },
 
   {
-    "sizeName": "60ml"
+    "sizeName": "3ml",
+    "sizeFor": "Perfume"
   },
 
   {
-    "sizeName": "50ml"
-  },
-
-  {
-    "sizeName": "10ml"
-  },
-
-  {
-    "sizeName": "3ml"
-  },
-
-  {
-    "sizeName": "130g"
+    "sizeName": "130g",
+    "sizeFor": "Hand-soap"
   }
 ]
