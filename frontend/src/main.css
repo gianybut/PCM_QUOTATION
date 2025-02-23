@@ -19,6 +19,12 @@
   button {
     @apply border-none text-center;
   }
+  select {
+    appearance: none;
+  }
+  * {
+    @apply text-black;
+  }
 }
 input {
   @apply text-center;
