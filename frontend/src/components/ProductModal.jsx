@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MOCK_DATA from "../MOCK_DATA.json";
 import axios from "axios";
 
-const ProductModal = ({ onClose }) => {
+const ProductModal = ({ onClose, changeModalSignal }) => {
   const [products, setProducts] = useState(MOCK_DATA);
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("perfume");
@@ -62,8 +62,16 @@ const ProductModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg w-96 p-6">
-        <h3 className="text-xl font-bold mb-4">Create New Product</h3>
+      <div className="bg-white rounded-lg w-112 p-6">
+        <div className="flex align-text-bottom justify-between mb-6 py-3">
+          <h3 className="text-xl font-bold">Create New Product</h3>
+          <a
+            className="underline text-blue-400 my-auto hover:cursor-pointer"
+            onClick={changeModalSignal}
+          >
+            Create Product instead?
+          </a>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">

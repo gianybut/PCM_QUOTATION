@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const ProductSizeModal = ({ onClose }) => {
+const ProductSizeModal = ({ onClose, changeModalSignal }) => {
   const [productSize, setProductSize] = useState("");
 
   const addSize = async (newSizeName) => {
@@ -37,8 +37,16 @@ const ProductSizeModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg w-80 p-6">
-        <h3 className="text-lg font-bold mb-4">Enter Product Size</h3>
+      <div className="bg-white rounded-lg w-112 p-6">
+        <div className="flex align-text-bottom justify-between mb-6 py-3">
+          <h3 className="text-xl font-bold">Create New Size</h3>
+          <a
+            className="underline text-blue-400 my-auto hover:cursor-pointer"
+            onClick={changeModalSignal}
+          >
+            Create Product instead?
+          </a>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
