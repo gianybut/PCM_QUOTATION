@@ -44,7 +44,7 @@ const TableRow = ({
         />
       </td>
       <td className="border p-2 text-center">
-        <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" />
+        <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" dependencyKey="sizeFor" dependencyValue={selectedProduct ? selectedProduct["productType"] : ""} />
       </td>
       <td className="border p-2 text-center">
         <DropdownMenu
