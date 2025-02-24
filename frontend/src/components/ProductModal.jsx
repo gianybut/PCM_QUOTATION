@@ -19,7 +19,6 @@ const ProductModal = ({ onClose, changeModalSignal }) => {
         productType: newProductType,
       })
       .then((result) => {
-        alert(JSON.stringify(result));
         alert("ADDED NEW PRODUCT");
       })
       .catch((error) => {
