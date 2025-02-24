@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteProduct from "./components/DeleteProduct.jsx";
 import DeleteSize from "./components/DeleteSize.jsx";
+import iconUrl from "./img/pcm_logo.jpg"
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
@@ -25,6 +26,11 @@ const App = () => {
 
   useEffect(() => {
     document.title = "PCM Quotation System";
+
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = iconUrl;
+    }
   }, []);
 
   useEffect(() => {
