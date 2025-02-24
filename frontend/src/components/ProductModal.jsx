@@ -68,7 +68,7 @@ const ProductModal = ({ onClose, changeModalSignal }) => {
             className="underline text-blue-400 my-auto hover:cursor-pointer"
             onClick={changeModalSignal}
           >
-            Create Product instead?
+            Create Size instead?
           </a>
         </div>
 

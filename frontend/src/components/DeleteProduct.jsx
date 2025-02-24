@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import DeleteProductModal from "./DeleteProductModal.jsx";
+import DeleteSizeModal from "./DeleteSizeModal.jsx";
 
-const DeleteProduct = ({ products }) => {
+const DeleteProduct = ({ products, sizes }) => {
   const [showModal, setShowModal] = useState(false);
+  const [currentModal, setCurrentModal] = useState("Product");
 
   return (
     <>
@@ -11,13 +13,29 @@ const DeleteProduct = ({ products }) => {
           onClick={() => setShowModal(true)}
           className="bg-red-500 text-white p-2 rounded non-printable"
         >
-          Delete a Product
+          Delete a Product/Size
         </button>
 
         {showModal && (
           <div className="">
             <div className="p-4 rounded shadow-md">
-              <DeleteProductModal onClose={setShowModal} products={products} />
+              {currentModal == "Product" ? (
+                <DeleteProductModal
+                  onClose={setShowModal}
+                  products={products}
+                  changeModalSignal={() => {
+                    setCurrentModal("Size");
+                  }}
+                />
+              ) : (
+                <DeleteSizeModal
+                  onClose={setShowModal}
+                  sizes={sizes}
+                  changeModalSignal={() => {
+                    setCurrentModal("Product");
+                  }}
+                />
+              )}
               <button
                 onClick={(e) => setShowModal(false)}
                 className="mt-4 bg-red-500 text-white p-2 rounded"

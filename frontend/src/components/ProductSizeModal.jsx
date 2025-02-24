@@ -6,27 +6,33 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
   const [sizeForType, setSizeForType] = useState("PERFUME");
 
   const addSize = async (newSizeName, newSizeForType) => {
-    const addSizeResult = await axios.post(
-      "http://localhost:6942/sizes/create",
-      { sizeName: newSizeName, sizeForType: newSizeForType }
-    );
-
-    if (addSizeResult) {
-      alert("ADDED NEW SIZE");
-    }
+    await axios
+      .post("http://localhost:6942/sizes/create", {
+        sizeName: newSizeName,
+        sizeFor: newSizeForType,
+      })
+      .then((result) => {
+        if (result) alert("ADDED NEW SIZE");
+        else alert("Size already exists.");
+      })
+      .catch((error) => {
+        alert("FAILED TO ADD NEW SIZE, REFRESH PAGE");
+        window.location.reload();
+      });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const sizeToAdd = productSize.trim();
-    const sizeForType = sizeForType.trim();
-    if (sizeToAdd === "" || sizeForType === "") {
+    const newSizeForType = sizeForType.trim();
+    if (sizeToAdd === "" || newSizeForType === "") {
       alert("Please enter requirements.");
       return;
     }
-
-    addSize(sizeToAdd);
-    handleClose(); // Close modal or go back
+    await addSize(sizeToAdd, newSizeForType);
+    onClose(); // Close modal or go back
+    window.location.reload();
   };
 
   const handleClose = () => {
@@ -52,12 +58,12 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-sm font-medium">Size Name</label>
+            <label className="block text-sm font-medium">Size</label>
             <input
               type="text"
               value={productSize}
               onChange={(e) => setProductSize(e.target.value)}
-              placeholder="Enter product size"
+              placeholder="Enter Size"
               className="w-full p-2 border rounded-md"
               required
             />
@@ -89,6 +95,7 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
             <button
               type="submit"
               className="flex-1 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={handleSubmit}
             >
               Create Size
             </button>

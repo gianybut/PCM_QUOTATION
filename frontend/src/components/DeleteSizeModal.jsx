@@ -2,7 +2,7 @@ import React, { useId, useState } from "react";
 import axios from "axios";
 import trashIcon from "../img/trash.png";
 
-const DeleteSizeModal = ({ onClose, sizes }) => {
+const DeleteSizeModal = ({ onClose, sizes,changeModalSignal }) => {
   const BACKEND_URL = "http://localhost:6942";
 
   const deleteSize = async (sizeId) => {
@@ -25,7 +25,15 @@ const DeleteSizeModal = ({ onClose, sizes }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
       <div className="bg-white rounded-lg w-[75%] p-6 overflow-y-scroll max-h-[75%]">
-        <h3 className="text-xl font-bold mb-4 text-center">Delete a Size</h3>
+      <div className="flex align-text-bottom justify-between mb-6 py-3">
+          <h3 className="text-xl font-bold">Delete a Size</h3>
+          <a
+            className="underline text-blue-400 my-auto hover:cursor-pointer"
+            onClick={changeModalSignal}
+          >
+            Delete Product instead?
+          </a>
+        </div>
 
         <div className="">
           {sizes.map((size) => {

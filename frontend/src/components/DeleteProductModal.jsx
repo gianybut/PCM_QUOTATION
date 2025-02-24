@@ -1,7 +1,7 @@
 import React, { useId, useState } from "react";
 import axios from "axios";
 
-const DeleteProductModal = ({ onClose, products }) => {
+const DeleteProductModal = ({ onClose, products, changeModalSignal }) => {
   const BACKEND_URL = "http://localhost:6942";
 
   const deleteProduct = async (productId) => {
@@ -24,11 +24,18 @@ const DeleteProductModal = ({ onClose, products }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
       <div className="bg-white rounded-lg w-[75%] p-6 overflow-y-scroll max-h-[75%]">
-        <h3 className="text-xl font-bold mb-4 text-center">Delete a Product</h3>
+      <div className="flex align-text-bottom justify-between mb-6 py-3">
+          <h3 className="text-xl font-bold">Delete a Product</h3>
+          <a
+            className="underline text-blue-400 my-auto hover:cursor-pointer"
+            onClick={changeModalSignal}
+          >
+            Delete Size instead?
+          </a>
+        </div>
 
         <div className="">
           {products.map((product) => {
-            console.log(product);
             return (
               <div
                 key={product["_id"]}
