@@ -71,7 +71,7 @@ const UserForm = () => {
         <input
           type="text"
           id="name"
-          className="border-b-1 p-2 w-72 focus:ring-2 focus:ring-blue-500 user-input"
+          className="border-b-1 p-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
         />
       </div>
 
@@ -83,7 +83,7 @@ const UserForm = () => {
         <input
           type="text"
           id="address"
-          className="border-b-1 p-2 w-72 focus:ring-2 focus:ring-blue-500 user-input"
+          className="border-b-1 p-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
         />
       </div>
 

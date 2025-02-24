@@ -31,7 +31,6 @@ const TableRow = ({
       <td className="border p-2">
         <input
           type="number"
-          min="1"
           step="1"
           value={parseInt(rowQuantity)}
           onChange={handleQuantityChange}
@@ -44,7 +43,15 @@ const TableRow = ({
         />
       </td>
       <td className="border p-2 text-center">
-        <DropdownMenu label="Select Size" options={sizes} labelKey="sizeName" dependencyKey="sizeFor" dependencyValue={selectedProduct ? selectedProduct["productType"] : ""} />
+        <DropdownMenu
+          label="Select Size"
+          options={sizes}
+          labelKey="sizeName"
+          dependencyKey="sizeFor"
+          dependencyValue={
+            selectedProduct ? selectedProduct["productType"] : ""
+          }
+        />
       </td>
       <td className="border p-2 text-center">
         <DropdownMenu
@@ -58,7 +65,6 @@ const TableRow = ({
         <span className="print:ml-4">₱</span>
         <input
           type="number"
-          min="0"
           step="any"
           value={parseFloat(rowProductValue)}
           onChange={handleProductValueChange}
