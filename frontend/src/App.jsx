@@ -44,7 +44,8 @@ const App = () => {
         setProducts(sortedProducts);
       })
       .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
+        alert("ERROR OCCURED! REFRESHING PAGE.");
+        window.location.reload();
       });
     // Retrieve sizes
     axios
