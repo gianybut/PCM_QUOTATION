@@ -7,6 +7,8 @@ const DropdownMenu = ({
   defaultValue,
   valueKey = "value",
   labelKey = "label",
+  dependencyValue = null,
+  dependencyKey = null,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(defaultValue || null);
@@ -29,6 +31,7 @@ const DropdownMenu = ({
     setSelected(option);
     setIsOpen(false);
     if (onSelect) {
+      console.log(JSON.stringify(option));
       onSelect(option);
     }
   };

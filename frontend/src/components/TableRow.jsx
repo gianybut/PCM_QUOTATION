@@ -24,6 +24,8 @@ const TableRow = ({
     updateRowValue(rowId, rowQuantity * newValue);
   };
 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   return (
     <tr className="">
       <td className="border p-2">
@@ -49,6 +51,7 @@ const TableRow = ({
           label="Select Product"
           options={products}
           labelKey="productName"
+          onSelect={setSelectedProduct}
         />
       </td>
       <td className="border p-1 text-center whitespace-nowrap">
