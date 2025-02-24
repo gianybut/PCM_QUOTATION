@@ -4,7 +4,7 @@
 @media print {
   @page {
     /* This is the key for setting page margins */
-    size: auto; /* or 'A4' for A4 paper */
+    size: 8.5in 13in; /* or 'A4' for A4 paper */
     margin-top: 0.5in; /* Standard document margin*/
     page-break-after: always;
     page-break-before: always;
