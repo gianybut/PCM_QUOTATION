@@ -51,6 +51,7 @@ const TableRow = ({
           dependencyValue={
             selectedProduct ? selectedProduct["productType"] : ""
           }
+          hasSearch={false}
         />
       </td>
       <td className="border p-2 text-center">
@@ -59,6 +60,7 @@ const TableRow = ({
           options={products}
           labelKey="productName"
           onSelect={setSelectedProduct}
+          hasSearch={true}
         />
       </td>
       <td className="border p-1 text-center whitespace-nowrap">

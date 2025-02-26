@@ -9,15 +9,18 @@ const DropdownMenu = ({
   labelKey = "label",
   dependencyValue = null,
   dependencyKey = null,
+  hasSearch,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(defaultValue || null);
   const dropdownRef = useRef(null);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        setFilter("");
       }
     };
 
@@ -25,13 +28,12 @@ const DropdownMenu = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [filter]);
 
   const handleSelect = (option) => {
     setSelected(option);
     setIsOpen(false);
     if (onSelect) {
-      console.log(JSON.stringify(option));
       onSelect(option);
     }
   };
@@ -56,27 +58,51 @@ const DropdownMenu = ({
       {isOpen && Array.isArray(options) && options.length > 0 && (
         <div className="absolute z-10 w-48 mt-2 bg-white rounded-md shadow-lg overflow-y-scroll max-h-60">
           <div className="py-1">
-            {options.filter((option) => {
-              if(dependencyKey) {
-                return dependencyValue === option[dependencyKey];
-              }
+            {hasSearch ? (
+              <div className="sticky top-0 bg-white z-10">
+                <input
+                  type="search"
+                  className="p-1 block w-full text-sm focus:bg-gray-300 border"
+                  placeholder="Search"
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            {options
+              .filter((option) => {
+                if (dependencyKey) {
+                  return dependencyValue === option[dependencyKey];
+                }
 
-              return true;
-            })
-            .map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleSelect(option)}
-                className="block w-full px-4 py-2 text-sm text-gray-700 text-left hover:bg-gray-100 focus:outline-none"
-              >
-                <span>{getDisplayText(option)}</span>
-                {option[valueKey] && (
-                  <span className="float-right text-gray-500">
-                    ₱{option[valueKey]}
-                  </span>
-                )}
-              </button>
-            ))}
+                return true;
+              })
+              .filter((option) => {
+                if (hasSearch && filter !== "") {
+                  return (
+                    String(option[labelKey])
+                      .toUpperCase()
+                      .indexOf(String(filter).toUpperCase()) > -1
+                  );
+                }
+
+                return true;
+              })
+              .map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSelect(option)}
+                  className="block w-full px-4 py-2 text-sm text-gray-700 text-left hover:bg-gray-100 focus:outline-none"
+                >
+                  <span>{getDisplayText(option)}</span>
+                  {option[valueKey] && (
+                    <span className="float-right text-gray-500">
+                      ₱{option[valueKey]}
+                    </span>
+                  )}
+                </button>
+              ))}
           </div>
         </div>
       )}
