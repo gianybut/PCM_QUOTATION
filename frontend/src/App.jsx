@@ -52,7 +52,7 @@ const App = () => {
       .get(`${BACKEND_SERVER_URL}/sizes`)
       .then((sizesRetrieveResult) => {
         const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
-          a["sizeName"].localeCompare(b["sizeName"])
+          a["sizeFor"].localeCompare(b["sizeFor"])
         );
         setSizes(sortedSizes);
       })
