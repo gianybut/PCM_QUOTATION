@@ -37,7 +37,7 @@ const App = () => {
   useEffect(() => {
     // Retrieve products
     axios
-      .get(`${BACKEND_SERVER_URL}/products`)
+      .get(`/products`)
       .then((productsRetrieveResult) => {
         const sortedProducts = productsRetrieveResult.data["data"].sort(
           (a, b) => a["productType"].localeCompare(b["productType"])
@@ -50,7 +50,7 @@ const App = () => {
       });
     // Retrieve sizes
     axios
-      .get(`${BACKEND_SERVER_URL}/sizes`)
+      .get(`/sizes`)
       .then((sizesRetrieveResult) => {
         const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
           a["sizeFor"].localeCompare(b["sizeFor"])
