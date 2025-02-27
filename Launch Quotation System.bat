@@ -1,6 +1,6 @@
 @echo off
 REM Change to your desired directory path
-cd /d "C:\Users\Caragao\Desktop\OJT\Quotation System (Feb 2025)\PCM_QUOTATION"
+cd /d "C:\SoftwareSystem\PCM_QUOTATION"
 
 REM Set PowerShell execution policy and run npm commands
 powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
