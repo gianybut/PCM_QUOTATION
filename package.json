@@ -8,7 +8,7 @@
     "frontend_start": "cd frontend && npm i && npm run dev",
     "start": "npm i && concurrently \"npm run backend_start\" \"npm run frontend_start\"",
     "build": "npm i && cd frontend && npm i && npm run build",
-    "prodStart": "cd backend && node --watch --env-file .env index.js"
+    "prodStart": "cd backend && npm i && node index.js"
   },
   "repository": {
     "type": "git",
