@@ -11,10 +11,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteProduct from "./components/DeleteProduct.jsx";
 import DeleteSize from "./components/DeleteSize.jsx";
-import iconUrl from "./img/pcm_logo.jpg"
+import iconUrl from "./img/pcm_logo.jpg";
 
 const App = () => {
-  const BACKEND_SERVER_URL = "http://localhost:6942";
+  const BACKEND_SERVER_URL =
+    "http:https://pcm-quotation-system.onrender.com/opt/render/project/src/backend:6942";
 
   // open modal sample
   const [isOpen, setIsOpen] = useState(false);
@@ -70,9 +71,9 @@ const App = () => {
       </div>
 
       <div className="flex justify-center gap-16 items-center mx-auto my-4">
-            <AddNewProductBtn />
-            <DeleteProduct products={products} sizes={sizes} />
-            <PrintBtn />
+        <AddNewProductBtn />
+        <DeleteProduct products={products} sizes={sizes} />
+        <PrintBtn />
       </div>
 
       <div className="flex flex-row items-center">
