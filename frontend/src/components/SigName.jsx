@@ -20,15 +20,17 @@ const SigName = () => {
   };
 
   return (
-    <div className="p-4 sig-name text-center">
+    <div className="p-4 sig-name text-center break-inside-avoid page-break">
       {!isEditing ? (
-        <div className="flex items-start">
-          <div className="flex flex-col">
-            <span className="text-sm font-medium -mt-4 print:-mt-8">
+        <div className="flex items-start break-inside-avoid">
+          <div className="flex flex-col break-inside-avoid">
+            <span className="text-sm font-medium -mt-4 print:-mt-16 break-inside-avoid">
               {firstName}
             </span>
             <br />
-            <span className="text-sm font-medium -mt-4">{lastName}</span>
+            <span className="text-sm font-medium -mt-4 break-inside-avoid">
+              {lastName}
+            </span>
           </div>
           <button
             onClick={() => setIsEditing(true)}

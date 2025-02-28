@@ -4,11 +4,16 @@
 @media print {
   @page {
     /* This is the key for setting page margins */
-    size: 8.5in 13in; /* or 'A4' for A4 paper */
-    margin-top: 0.5in; /* Standard document margin*/
+    size: 8.5in 13in portrait; /* Ensure the correct page size */
+    margin: 0.5in; /* Standard margin */
     page-break-after: always;
     page-break-before: always;
     height: 100%;
+  }
+
+  body {
+    width: 8.5in;
+    height: 13in;
   }
 
   .non-printable {
