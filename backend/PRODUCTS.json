@@ -35,6 +35,11 @@
   },
 
   {
+    "productName": "B18 - Jovan Red",
+    "productType": "Perfume"
+  },
+
+  {
     "productName": "B19 - Lacoste Blue",
     "productType": "Perfume"
   },
@@ -140,7 +145,7 @@
   },
 
   {
-    "productName": "B20 - First Instinct",
+    "productName": "B20 - First Instinct: Abercombie",
     "productType": "Perfume"
   },
 
@@ -210,7 +215,7 @@
   },
 
   {
-    "productName": "G6 - Banana Replublic (W)",
+    "productName": "G6 - Banana Republic (W)",
     "productType": "Perfume"
   },
 
@@ -301,6 +306,16 @@
 
   {
     "productName": "G49 - Viva La Juicy",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G51 - Chloe",
+    "productType": "Perfume"
+  },
+
+  {
+    "productName": "G52 - Pink Chiffon",
     "productType": "Perfume"
   },
 
@@ -492,5 +507,10 @@
   {
     "productName": "G59 - Killer Queen",
     "productType": "Perfume"
-  }
+  },
+
+  {
+    "productName": "B43 - Dior Savauge",
+    "productType": "Perfume"
+  },
 ]
