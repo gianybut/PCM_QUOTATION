@@ -17,6 +17,7 @@ SizesRoute.get("/", async (req, res) => {
       data: getSizessResult || null,
     });
   } catch (error) {
+    console.error("GET /sizes error:", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "FAILED TO RETRIEVE SIZES. Database connection error.",
     });

@@ -28,7 +28,7 @@ await mongoose
     });
   })
   .catch((err) => {
-    console.log("MongoDB connection failed.");
+    console.error("MongoDB connection failed:", err);
   });
 
 app.get("/addAllProductsAndSizes", async (req, res) => {

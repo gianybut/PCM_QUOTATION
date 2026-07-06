@@ -17,6 +17,7 @@ ProductRoute.get("/", async (req, res) => {
       data: getProductsResult || null,
     });
   } catch (error) {
+    console.error("GET /products error:", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "FAILED TO RETRIEVE PRODUCTS. Database connection error.",
     });
