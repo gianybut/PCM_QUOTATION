@@ -4,11 +4,11 @@ const BottomText = () => {
   const [paragraph1, setParagraph1] =
     useState(`The prices stated at the time of the delivery shall apply.
 
-The order must be subject to down payment of at least 50% of the total money, cash, gcash (0905-342-9588), or online bank transfer (007678005992 BDO). We are hoping to be in service with you.
+The order must be subject to down payment of at least 50% of the total money, cash, gcash (0905-342-9588), or online bank transfer (007670239783 Rakim Daurong BDO). We are hoping to be in service with you.
 
 The delivery fee shall be paid by the client.
 
-There will be additional 6% payment for Sales Invoice and Official Receipt for total contracting price.
+There will be additional 6% payment for Sales Invoice for total contracting price.
 
 Thank you for giving us the opportunity to submit this offer and hoping to receive your valued order soonest. God bless you! More power!`);
 

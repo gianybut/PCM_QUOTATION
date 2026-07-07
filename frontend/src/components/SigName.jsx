@@ -3,7 +3,7 @@ import { useState } from "react";
 const SigName = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState("GLEICEL D. TAGLE");
-  const [lastName, setLastName] = useState("ADMIN HEAD");
+  const [lastName, setLastName] = useState("ADMIN");
   const [tempFirst, setTempFirst] = useState(firstName);
   const [tempLast, setTempLast] = useState(lastName);
 
@@ -23,12 +23,18 @@ const SigName = () => {
     <div className="p-4 sig-name text-center break-inside-avoid page-break">
       {!isEditing ? (
         <div className="flex items-start break-inside-avoid">
-          <div className="flex flex-col break-inside-avoid">
-            <span className="text-sm font-medium -mt-4 print:-mt-16 break-inside-avoid">
+          <div className="flex flex-col items-start break-inside-avoid">
+            <span className="text-sm font-bold text-left print:-mt-16 break-inside-avoid">
+              Prepared by:
+            </span>
+            <br />
+            <br />
+            <br />
+            <span className="text-sm font-medium text-left -mt-4 break-inside-avoid">
               {firstName}
             </span>
             <br />
-            <span className="text-sm font-medium -mt-4 break-inside-avoid">
+            <span className="text-sm font-medium text-left -mt-4 break-inside-avoid">
               {lastName}
             </span>
           </div>
