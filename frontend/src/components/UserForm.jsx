@@ -62,7 +62,19 @@ const UserForm = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-3 px-5">
+    <div className="flex flex-col space-y-1 px-5">
+      {/* To Field */}
+      <div className="flex items-center space-x-3">
+        <label htmlFor="to" className="w-24 font-semibold">
+          To
+        </label>
+        <input
+          type="text"
+          id="to"
+          className="border-b-1 py-1 px-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
+        />
+      </div>
+
       {/* Name Field */}
       <div className="flex items-center space-x-3">
         <label htmlFor="name" className="w-24 font-semibold">
@@ -71,7 +83,7 @@ const UserForm = () => {
         <input
           type="text"
           id="name"
-          className="border-b-1 p-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
+          className="border-b-1 py-1 px-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
         />
       </div>
 
@@ -83,7 +95,7 @@ const UserForm = () => {
         <input
           type="text"
           id="address"
-          className="border-b-1 p-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
+          className="border-b-1 py-1 px-2 w-150 focus:ring-2 focus:ring-blue-500 user-input text-start!"
         />
       </div>
 
@@ -95,12 +107,12 @@ const UserForm = () => {
         <input
           type="date"
           id="date"
-          className="p-2 w-48 focus:ring-2 focus:ring-blue-500"
+          className="py-1 px-2 w-48 focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       {/* Editable Text Fields */}
-      <div className="space-y-3 mt-12">
+      <div className="space-y-3 mt-4">
         <EditableText
           value={greeting}
           onChange={setGreeting}

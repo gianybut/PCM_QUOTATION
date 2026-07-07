@@ -28,7 +28,7 @@ const TableRow = ({
 
   return (
     <tr className="">
-      <td className="border p-2">
+      <td className="border py-1 px-2">
         <input
           type="number"
           step="1"
@@ -42,7 +42,7 @@ const TableRow = ({
           className="w-20 p-1 border rounded"
         />
       </td>
-      <td className="border p-2 text-center">
+      <td className="border py-1 px-2 text-center">
         <DropdownMenu
           label="Select Size"
           options={sizes}
@@ -54,7 +54,7 @@ const TableRow = ({
           hasSearch={false}
         />
       </td>
-      <td className="border p-2 text-center">
+      <td className="border py-1 px-2 text-center">
         <DropdownMenu
           label="Select Product"
           options={products}
@@ -63,7 +63,7 @@ const TableRow = ({
           hasSearch={true}
         />
       </td>
-      <td className="border p-1 text-center whitespace-nowrap">
+      <td className="border py-0.5 px-1 text-center whitespace-nowrap">
         <span className="print:ml-4">Php</span>
         <input
           type="number"
@@ -78,8 +78,8 @@ const TableRow = ({
           className="text-center w-auto"
         />
       </td>
-      <td className="border p-2 text-center">Php {total}</td>
-      <td className="border p-2 non-printable">
+      <td className="border py-1 px-2 text-center">Php {total}</td>
+      <td className="border py-1 px-2 non-printable">
         <button
           onClick={() => rowDeleteHandler(rowId)}
           className="px-2 py-1 text-sm text-red-600 hover:text-red-800 non-printable"

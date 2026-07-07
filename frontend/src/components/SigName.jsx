@@ -20,7 +20,7 @@ const SigName = () => {
   };
 
   return (
-    <div className="p-4 sig-name text-center break-inside-avoid page-break">
+    <div className="pt-0 pb-4 px-4 sig-name text-center break-inside-avoid page-break">
       {!isEditing ? (
         <div className="flex items-start break-inside-avoid">
           <div className="flex flex-col items-start break-inside-avoid">

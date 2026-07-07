@@ -48,7 +48,7 @@ const Signature = () => {
   };
 
   return (
-    <div className="p-4 border-none print:mt-30">
+    <div className="pt-4 pb-0 px-4 border-none print:mt-10">
       <div className="mb-4">
         <input
           type="file"
