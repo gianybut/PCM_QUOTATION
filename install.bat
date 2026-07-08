@@ -30,15 +30,17 @@ cd ../frontend && call npm install
 cd ..
 
 echo.
-echo Creating Desktop shortcut...
-powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'PCM Quotation System.lnk')); $Shortcut.TargetPath = '%~dp0startup.bat'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
+echo Creating Desktop shortcuts...
+powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'PCM Quotation System.lnk')); $Shortcut.TargetPath = 'wscript.exe'; $Shortcut.Arguments = '\"%~dp0startup_background.vbs\"'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
+powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Stop PCM Quotation System.lnk')); $Shortcut.TargetPath = '%~dp0stop.bat'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
 
 echo.
 echo ==================================================
 echo          Installation Completed Successfully!     
 echo ==================================================
 echo.
-echo A shortcut "PCM Quotation System" has been created on your Desktop.
-echo You can double-click it anytime to start the system.
+echo Desktop shortcuts have been created:
+echo 1. "PCM Quotation System" (starts the system in the background)
+echo 2. "Stop PCM Quotation System" (stops the system)
 echo.
 pause

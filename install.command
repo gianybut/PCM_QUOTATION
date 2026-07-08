@@ -39,17 +39,35 @@ cd ../frontend && npm install
 cd ..
 
 echo ""
-echo "Creating Desktop shortcut..."
-DESKTOP_SHORTCUT="$HOME/Desktop/PCM Quotation System.command"
-ln -sf "$DIR/startup.command" "$DESKTOP_SHORTCUT"
-chmod +x "$DESKTOP_SHORTCUT"
+echo "Configuring Node environment path..."
+NODE_PATH_DIR=$(dirname "$(command -v node)")
+echo "export PATH=\"$NODE_PATH_DIR:\$PATH\"" > .path_env
+chmod +x startup_background.sh stop.command
+
+echo ""
+echo "Creating Desktop launcher applications..."
+# Remove old shortcuts if they exist
+rm -f "$HOME/Desktop/PCM Quotation System.command"
+rm -rf "$HOME/Desktop/PCM Quotation System.app"
+rm -rf "$HOME/Desktop/Stop PCM Quotation System.app"
+
+# Compile macOS background runner and stopper
+osacompile -o "$HOME/Desktop/PCM Quotation System.app" \
+  -e "display notification \"Starting PCM Quotation System...\" with title \"PCM Quotation System\"" \
+  -e "do shell script \"cd '$DIR' && ./startup_background.sh > /dev/null 2>&1 &\""
+
+osacompile -o "$HOME/Desktop/Stop PCM Quotation System.app" \
+  -e "display notification \"Stopping PCM Quotation System...\" with title \"PCM Quotation System\"" \
+  -e "do shell script \"cd '$DIR' && ./stop.command\"" \
+  -e "display notification \"PCM Quotation System stopped successfully!\" with title \"PCM Quotation System\""
 
 echo ""
 echo "=================================================="
 echo "          Installation Completed Successfully!     "
 echo "=================================================="
 echo ""
-echo "A shortcut \"PCM Quotation System.command\" has been created on your Desktop."
-echo "You can double-click it anytime to start the system."
+echo "Desktop launchers have been created:"
+echo "1. \"PCM Quotation System.app\" (starts the system in the background)"
+echo "2. \"Stop PCM Quotation System.app\" (stops the system)"
 echo ""
 read -n 1 -s -r -p "Press any key to finish..."
