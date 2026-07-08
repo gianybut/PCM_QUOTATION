@@ -34,6 +34,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    axios
+      .get(`${BACKEND_SERVER_URL}/db-status`)
+      .then((response) => {
+        const isConnected = response.data.connected;
+        if (isConnected) {
+          alert("Connected to cloud database successfully.");
+        } else {
+          alert("Cloud database is not connected. The system will use local data.");
+        }
+      })
+      .catch(() => {
+        alert("Unable to check database connection status.");
+      });
+  }, []);
+
+  useEffect(() => {
     document.title = "PCM Quotation System";
 
     const favicon = document.querySelector('link[rel="icon"]');

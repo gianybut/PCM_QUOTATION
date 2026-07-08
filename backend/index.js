@@ -26,6 +26,11 @@ app.post("/heartbeat", (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/db-status", (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
+  res.json({ connected: isConnected });
+});
+
 // Periodically check if heartbeats have stopped (indicating browser has closed)
 setInterval(() => {
   if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 10000) {
