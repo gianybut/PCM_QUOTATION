@@ -7,11 +7,14 @@ import SigName from "./components/SigName.jsx";
 import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
 import AddNewProductBtn from "./components/AddNewProductBtn.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import DeleteProduct from "./components/DeleteProduct.jsx";
 import DeleteSize from "./components/DeleteSize.jsx";
+import DbStatus from "./components/DbStatus.jsx";
 import iconUrl from "./img/pcm_logo.jpg"
+
+let startupAlertShown = false;
 
 const App = () => {
   const BACKEND_SERVER_URL = "http://localhost:6942";
@@ -23,30 +26,26 @@ const App = () => {
   const [sizes, setSizes] = useState([]);
 
   // Send a heartbeat to the backend every 3 seconds to keep servers alive.
-  // If the browser tab is closed, the heartbeats stop and servers will auto-exit.
+  // If the browser tab is closed, the heartbeats stop and servers will auto-exit after 90 seconds.
   useEffect(() => {
     const sendHeartbeat = () => {
       axios.post(`${BACKEND_SERVER_URL}/heartbeat`).catch(() => {});
     };
     sendHeartbeat(); // send immediately
     const interval = setInterval(sendHeartbeat, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
-  useEffect(() => {
-    axios
-      .get(`${BACKEND_SERVER_URL}/db-status`)
-      .then((response) => {
-        const isConnected = response.data.connected;
-        if (isConnected) {
-          alert("Connected to cloud database successfully.");
-        } else {
-          alert("Cloud database is not connected. The system will use local data.");
-        }
-      })
-      .catch(() => {
-        alert("Unable to check database connection status.");
-      });
+    // When tab becomes visible again, immediately re-sync heartbeat
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        sendHeartbeat();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -59,31 +58,94 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Retrieve products
-    axios
-      .get(`${BACKEND_SERVER_URL}/products`)
-      .then((productsRetrieveResult) => {
-        const sortedProducts = productsRetrieveResult.data["data"].sort(
-          (a, b) => a["productType"].localeCompare(b["productType"])
-        );
-        setProducts(sortedProducts);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESHING PAGE.");
-        window.location.reload();
-      });
-    // Retrieve sizes
-    axios
-      .get(`${BACKEND_SERVER_URL}/sizes`)
-      .then((sizesRetrieveResult) => {
-        const sortedSizes = sizesRetrieveResult.data["data"].sort((a, b) =>
-          a["sizeFor"].localeCompare(b["sizeFor"])
-        );
-        setSizes(sortedSizes);
-      })
-      .catch((error) => {
-        alert("ERROR OCCURED! REFRESH PAGE.");
-      });
+    let dbRetries = 0;
+    const dbMaxRetries = 40;
+
+    const fetchData = (dataRetries = 0) => {
+      Promise.all([
+        axios.get(`${BACKEND_SERVER_URL}/products`),
+        axios.get(`${BACKEND_SERVER_URL}/sizes`),
+      ])
+        .then(([productsResponse, sizesResponse]) => {
+          const sortedProducts = productsResponse.data["data"].sort(
+            (a, b) => a["productType"].localeCompare(b["productType"])
+          );
+          setProducts(sortedProducts);
+          const sortedSizes = sizesResponse.data["data"].sort((a, b) =>
+            a["sizeFor"].localeCompare(b["sizeFor"])
+          );
+          setSizes(sortedSizes);
+        })
+        .catch(() => {
+          if (dataRetries < 15) {
+            setTimeout(() => fetchData(dataRetries + 1), 1000);
+          }
+        });
+    };
+
+    const waitForDb = () => {
+      axios
+        .get(`${BACKEND_SERVER_URL}/db-status`)
+        .then((response) => {
+          if (response.data.connected) {
+            if (!startupAlertShown) {
+              startupAlertShown = true;
+              alert("Connected to cloud database successfully.");
+            }
+            fetchData();
+          } else {
+            dbRetries++;
+            if (dbRetries < dbMaxRetries) {
+              setTimeout(waitForDb, 3000);
+            } else {
+              fetchData();
+            }
+          }
+        })
+        .catch(() => {
+          dbRetries++;
+          if (dbRetries < dbMaxRetries) {
+            setTimeout(waitForDb, 3000);
+          } else {
+            fetchData();
+          }
+        });
+    };
+
+    setTimeout(waitForDb, 2000);
+  }, []);
+
+  // Refetch data from cloud when DB reconnects after a disconnect
+  const prevConnected = useRef(null);
+  useEffect(() => {
+    const checkAndRefetch = () => {
+      axios
+        .get(`${BACKEND_SERVER_URL}/db-status`)
+        .then((res) => {
+          const isConnected = res.data.connected;
+          if (isConnected && prevConnected.current === false) {
+            Promise.all([
+              axios.get(`${BACKEND_SERVER_URL}/products`),
+              axios.get(`${BACKEND_SERVER_URL}/sizes`),
+            ])
+              .then(([productsRes, sizesRes]) => {
+                const sortedProducts = productsRes.data["data"].sort(
+                  (a, b) => a["productType"].localeCompare(b["productType"])
+                );
+                setProducts(sortedProducts);
+                const sortedSizes = sizesRes.data["data"].sort((a, b) =>
+                  a["sizeFor"].localeCompare(b["sizeFor"])
+                );
+                setSizes(sortedSizes);
+              })
+              .catch(() => {});
+          }
+          prevConnected.current = isConnected;
+        })
+        .catch(() => {});
+    };
+    const interval = setInterval(checkAndRefetch, 15000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -108,6 +170,7 @@ const App = () => {
       <BottomText />
       <Signature />
       <SigName />
+      <DbStatus />
     </div>
   );
 };

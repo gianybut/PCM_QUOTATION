@@ -21,7 +21,7 @@ class ProductsController {
       const products = await ProductsModel.find({});
       return products || null;
     } catch (error) {
-      throw error;
+      return LocalStore.listProducts();
     }
   }
 
@@ -39,7 +39,7 @@ class ProductsController {
       const productToFind = await ProductsModel.findById(productId);
       return productToFind || null;
     } catch (error) {
-      throw error;
+      return LocalStore.getProduct(productId);
     }
   }
 
@@ -90,7 +90,7 @@ class ProductsController {
       const productToDelete = await ProductsModel.findByIdAndDelete(productId);
       return productToDelete ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 
@@ -144,7 +144,7 @@ class ProductsController {
       );
       return productToUpdate ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 }

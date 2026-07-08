@@ -26,6 +26,14 @@ app.post("/heartbeat", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/shutdown", (req, res) => {
+  console.log("Shutdown signal received. Exiting...");
+  res.sendStatus(200);
+  serverInstance.close();
+  mongoose.disconnect();
+  process.exit(0);
+});
+
 app.get("/db-status", (req, res) => {
   const isConnected = mongoose.connection.readyState === 1;
   res.json({ connected: isConnected });
@@ -33,8 +41,16 @@ app.get("/db-status", (req, res) => {
 
 // Periodically check if heartbeats have stopped (indicating browser has closed)
 setInterval(() => {
-  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 10000) {
-    console.log("No heartbeat received for 10 seconds. Shutting down system...");
+  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 90000) {
+    console.log("No heartbeat received for 90 seconds. Shutting down system...");
+    serverInstance?.close();
+    mongoose.disconnect();
+    process.exit(0);
+  }
+  if (!hasReceivedHeartbeat && Date.now() - lastHeartbeat > 180000) {
+    console.log("No heartbeat ever received after 3 minutes. Shutting down...");
+    serverInstance?.close();
+    mongoose.disconnect();
     process.exit(0);
   }
 }, 5000);
@@ -67,16 +83,31 @@ startServer();
 
 if (MONGODB_URI) {
   mongoose
-    .connect(MONGODB_URI)
+    .connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 15000,
+      socketTimeoutMS: 45000,
+    })
     .then(() => {
       console.log("MongoDB connected successfully.");
     })
     .catch((err) => {
       console.error(
         "MongoDB connection failed. Running with local fallback data:",
-        err
+        err.message
       );
     });
+
+  mongoose.connection.on("disconnected", () => {
+    console.log("MongoDB disconnected. System will use local data until reconnected.");
+  });
+
+  mongoose.connection.on("reconnected", () => {
+    console.log("MongoDB reconnected successfully.");
+  });
+
+  mongoose.connection.on("error", (err) => {
+    console.error("MongoDB connection error:", err.message);
+  });
 } else {
   console.warn(
     "MONGODB_URI is not configured. Running with local fallback data."
@@ -84,12 +115,12 @@ if (MONGODB_URI) {
 }
 
 app.get("/addAllProductsAndSizes", async (req, res) => {
-  PRODUCTS.forEach(async (p) => {
+  for (const p of PRODUCTS) {
     await axios.post("http://localhost:6942/products/create", {productName: p["productName"], productType: p["productType"]});
-  });
+  }
 
-  SIZES.forEach(async (s) => {
+  for (const s of SIZES) {
     await axios.post("http://localhost:6942/sizes/create", {sizeName: s["sizeName"], sizeFor: s["sizeFor"]});
-  });
+  }
   return res.send("OK");
 });

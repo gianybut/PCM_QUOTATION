@@ -21,7 +21,7 @@ class SizesController {
       const sizes = await SizesModel.find({});
       return sizes || null;
     } catch (error) {
-      throw error;
+      return LocalStore.listSizes();
     }
   }
 
@@ -39,7 +39,7 @@ class SizesController {
       const sizeToFind = await SizesModel.findById(sizeId);
       return sizeToFind || null;
     } catch (error) {
-      throw error;
+      return LocalStore.getSize(sizeId);
     }
   }
 
@@ -81,7 +81,7 @@ class SizesController {
       const sizeToDelete = await SizesModel.findByIdAndDelete(sizeId);
       return sizeToDelete ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 
@@ -121,7 +121,7 @@ class SizesController {
       );
       return sizeToUpdate ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 }
