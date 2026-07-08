@@ -42,32 +42,27 @@ echo ""
 echo "Configuring Node environment path..."
 NODE_PATH_DIR=$(dirname "$(command -v node)")
 echo "export PATH=\"$NODE_PATH_DIR:\$PATH\"" > .path_env
-chmod +x startup_background.sh stop.command
+chmod +x startup_background.sh
 
 echo ""
-echo "Creating Desktop launcher applications..."
+echo "Creating Desktop launcher application..."
 # Remove old shortcuts if they exist
 rm -f "$HOME/Desktop/PCM Quotation System.command"
 rm -rf "$HOME/Desktop/PCM Quotation System.app"
 rm -rf "$HOME/Desktop/Stop PCM Quotation System.app"
 
-# Compile macOS background runner and stopper
+# Compile macOS background runner
 osacompile -o "$HOME/Desktop/PCM Quotation System.app" \
   -e "display notification \"Starting PCM Quotation System...\" with title \"PCM Quotation System\"" \
   -e "do shell script \"cd '$DIR' && ./startup_background.sh > /dev/null 2>&1 &\""
-
-osacompile -o "$HOME/Desktop/Stop PCM Quotation System.app" \
-  -e "display notification \"Stopping PCM Quotation System...\" with title \"PCM Quotation System\"" \
-  -e "do shell script \"cd '$DIR' && ./stop.command\"" \
-  -e "display notification \"PCM Quotation System stopped successfully!\" with title \"PCM Quotation System\""
 
 echo ""
 echo "=================================================="
 echo "          Installation Completed Successfully!     "
 echo "=================================================="
 echo ""
-echo "Desktop launchers have been created:"
-echo "1. \"PCM Quotation System.app\" (starts the system in the background)"
-echo "2. \"Stop PCM Quotation System.app\" (stops the system)"
+echo "Desktop launcher has been created:"
+echo "\"PCM Quotation System.app\" (starts the system in the background)"
+echo "Note: The system will automatically shut down when you close the browser tab."
 echo ""
 read -n 1 -s -r -p "Press any key to finish..."

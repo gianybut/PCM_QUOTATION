@@ -6,7 +6,7 @@
   "scripts": {
     "backend_start": "cd backend && npm i && npm run dev",
     "frontend_start": "cd frontend && npm i && npm run dev",
-    "start": "npm i && concurrently \"npm run backend_start\" \"npm run frontend_start\""
+    "start": "npm i && concurrently --kill-others \"npm run backend_start\" \"npm run frontend_start\""
   },
   "repository": {
     "type": "git",

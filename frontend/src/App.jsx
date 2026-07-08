@@ -22,7 +22,16 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
 
-  const [isSettingsOpen, setSettingsOpen] = useState(false);
+  // Send a heartbeat to the backend every 3 seconds to keep servers alive.
+  // If the browser tab is closed, the heartbeats stop and servers will auto-exit.
+  useEffect(() => {
+    const sendHeartbeat = () => {
+      axios.post(`${BACKEND_SERVER_URL}/heartbeat`).catch(() => {});
+    };
+    sendHeartbeat(); // send immediately
+    const interval = setInterval(sendHeartbeat, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     document.title = "PCM Quotation System";

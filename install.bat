@@ -30,17 +30,18 @@ cd ../frontend && call npm install
 cd ..
 
 echo.
-echo Creating Desktop shortcuts...
+echo Creating Desktop shortcut...
+if exist "%userprofile%\Desktop\Stop PCM Quotation System.lnk" del "%userprofile%\Desktop\Stop PCM Quotation System.lnk"
 powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'PCM Quotation System.lnk')); $Shortcut.TargetPath = 'wscript.exe'; $Shortcut.Arguments = '\"%~dp0startup_background.vbs\"'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
-powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Stop PCM Quotation System.lnk')); $Shortcut.TargetPath = '%~dp0stop.bat'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
 
 echo.
 echo ==================================================
 echo          Installation Completed Successfully!     
 echo ==================================================
 echo.
-echo Desktop shortcuts have been created:
-echo 1. "PCM Quotation System" (starts the system in the background)
-echo 2. "Stop PCM Quotation System" (stops the system)
+echo Desktop shortcut has been created:
+echo "PCM Quotation System" (starts the system in the background)
+echo.
+echo Note: The system will automatically shut down when you close the browser tab.
 echo.
 pause

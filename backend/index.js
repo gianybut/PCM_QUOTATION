@@ -14,6 +14,25 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173" }));
+
+// Heartbeat state for auto-shutdown when browser closes
+let lastHeartbeat = Date.now();
+let hasReceivedHeartbeat = false;
+
+app.post("/heartbeat", (req, res) => {
+  lastHeartbeat = Date.now();
+  hasReceivedHeartbeat = true;
+  res.sendStatus(200);
+});
+
+// Periodically check if heartbeats have stopped (indicating browser has closed)
+setInterval(() => {
+  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 10000) {
+    console.log("No heartbeat received for 10 seconds. Shutting down system...");
+    process.exit(0);
+  }
+}, 5000);
+
 app.use("/products", ProductRoute);
 app.use("/sizes", SizesRoute);
 
