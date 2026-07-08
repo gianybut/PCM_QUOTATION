@@ -1,11 +1,22 @@
+import mongoose from "mongoose";
+
 import SizesModel from "../Model/SizesModel.js";
+import { LocalStore } from "../Model/LocalStore.js";
 
 class SizesController {
+  static isDatabaseAvailable() {
+    return mongoose.connection.readyState === 1;
+  }
+
   /**
    * Retrieves all Sizes entries from the database.
    * @returns {Array<JSON> | null} An array containing JSONs, each JSON entry contains one Size details. Returns null instead if no sizes are found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showSizes() {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.listSizes();
+    }
+
     try {
       const sizes = await SizesModel.find({});
       return sizes || null;
@@ -20,6 +31,10 @@ class SizesController {
    * @returns {JSON | null} The JSON entry of the retrieved size. Otherwise returns null if no size has been found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showOneSize(sizeId) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.getSize(sizeId);
+    }
+
     try {
       const sizeToFind = await SizesModel.findById(sizeId);
       return sizeToFind || null;
@@ -35,6 +50,10 @@ class SizesController {
    * @returns {Boolean} true if operation succeeded in adding new size, otherwise false.
    */
   static async createSize(newSizeName, newSizeFor) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.createSize(newSizeName, newSizeFor);
+    }
+
     const newSize = new SizesModel({
       sizeName: newSizeName,
       sizeFor: newSizeFor,
@@ -54,6 +73,10 @@ class SizesController {
    * @returns {Boolean} true if the size is successfully deleted otherwise, returns false. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async deleteSize(sizeId) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.deleteSize(sizeId);
+    }
+
     try {
       const sizeToDelete = await SizesModel.findByIdAndDelete(sizeId);
       return sizeToDelete ? true : false;
@@ -70,6 +93,20 @@ class SizesController {
    * @returns {Boolean} true if the size is successfully update otherwise, returns false.
    */
   static async updateSize(sizeId, newSizeName = null, newSizeFor = null) {
+    if (!this.isDatabaseAvailable()) {
+      const sizeDetails = {};
+
+      if (newSizeName) {
+        sizeDetails["sizeName"] = newSizeName;
+      }
+
+      if (newSizeFor) {
+        sizeDetails["sizeFor"] = newSizeFor;
+      }
+
+      return LocalStore.updateSize(sizeId, sizeDetails);
+    }
+
     let sizeNewDetails = {};
     if (newSizeName) {
       sizeNewDetails["sizeName"] = newSizeName;

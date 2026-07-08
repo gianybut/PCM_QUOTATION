@@ -1,11 +1,22 @@
+import mongoose from "mongoose";
+
 import ProductsModel from "../Model/ProductsModel.js";
+import { LocalStore } from "../Model/LocalStore.js";
 
 class ProductsController {
+  static isDatabaseAvailable() {
+    return mongoose.connection.readyState === 1;
+  }
+
   /**
    * Retrieves all Product entries from the database.
    * @returns {Array<JSON> | null} An array containing JSONs, each JSON entry contains one Product details. Returns null instead if no products are found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showProducts() {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.listProducts();
+    }
+
     try {
       const products = await ProductsModel.find({});
       return products || null;
@@ -20,6 +31,10 @@ class ProductsController {
    * @returns {JSON | null} The JSON entry of the retrieved product. Otherwise returns null if no product has been found. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async showOneProduct(productId) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.getProduct(productId);
+    }
+
     try {
       const productToFind = await ProductsModel.findById(productId);
       return productToFind || null;
@@ -44,6 +59,10 @@ class ProductsController {
    * @returns {Boolean} true if operation succeeded in adding new product, otherwise false.
    */
   static async createProduct(newProductName, newProductType) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.createProduct(newProductName, newProductType);
+    }
+
     const newProduct = new ProductsModel({
       productName: newProductName,
       productType: newProductType,
@@ -63,6 +82,10 @@ class ProductsController {
    * @returns {Boolean} true if the product is successfully deleted otherwise, returns false. WILL THROW ERROR IF OPERATION HAS FAILED.
    */
   static async deleteProduct(productId) {
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.deleteProduct(productId);
+    }
+
     try {
       const productToDelete = await ProductsModel.findByIdAndDelete(productId);
       return productToDelete ? true : false;
@@ -92,6 +115,20 @@ class ProductsController {
     newProductName = null,
     newProductType = null
   ) {
+    if (!this.isDatabaseAvailable()) {
+      const productDetails = {};
+
+      if (newProductName) {
+        productDetails["productName"] = newProductName;
+      }
+
+      if (newProductType) {
+        productDetails["productType"] = newProductType;
+      }
+
+      return LocalStore.updateProduct(productId, productDetails);
+    }
+
     let productNewDetails = {};
     if (newProductName) {
       productNewDetails["productName"] = newProductName;
