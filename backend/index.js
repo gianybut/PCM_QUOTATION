@@ -19,6 +19,7 @@ app.use(cors({ origin: "http://localhost:5173" }));
 // Heartbeat state for auto-shutdown when browser closes
 let lastHeartbeat = Date.now();
 let hasReceivedHeartbeat = false;
+const startupTime = Date.now();
 
 app.post("/heartbeat", (req, res) => {
   lastHeartbeat = Date.now();
@@ -28,9 +29,18 @@ app.post("/heartbeat", (req, res) => {
 
 // Periodically check if heartbeats have stopped (indicating browser has closed)
 setInterval(() => {
-  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 10000) {
-    console.log("No heartbeat received for 10 seconds. Shutting down system...");
-    process.exit(0);
+  const now = Date.now();
+  if (hasReceivedHeartbeat) {
+    if (now - lastHeartbeat > 10000) {
+      console.log("No heartbeat received for 10 seconds. Shutting down system...");
+      process.exit(0);
+    }
+  } else {
+    // If no heartbeat is received within 30 seconds of starting up, shut down
+    if (now - startupTime > 30000) {
+      console.log("No initial heartbeat received within 30 seconds of startup. Shutting down...");
+      process.exit(0);
+    }
   }
 }, 5000);
 
@@ -48,10 +58,10 @@ const startServer = () => {
 
   serverInstance.on("error", (error) => {
     if (error.code === "EADDRINUSE") {
-      console.warn(
-        `Port ${SERVER_PORT} is already in use. Reusing the existing backend process if it belongs to this app.`
+      console.error(
+        `Port ${SERVER_PORT} is already in use. Exiting to prevent duplicate runtimes.`
       );
-      return;
+      process.exit(1);
     }
 
     console.error("Failed to start Express server:", error);

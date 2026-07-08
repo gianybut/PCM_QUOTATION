@@ -1,6 +1,9 @@
 @echo off
 cd /d "%~dp0"
 
+REM Stop any existing instances running on ports 6942 (backend) or 5173 (frontend)
+powershell -Command "Get-NetTCPConnection -LocalPort 6942,5173 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }" >nul 2>&1
+
 REM Create/update Windows Desktop shortcut (.lnk launcher)
 powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'PCM Quotation System.lnk')); $Shortcut.TargetPath = 'wscript.exe'; $Shortcut.Arguments = '\"%~dp0startup_background.vbs\"'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.IconLocation = '%~dp0pcm_icon.ico'; $Shortcut.Save()" >nul 2>&1
 
