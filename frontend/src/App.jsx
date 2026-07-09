@@ -25,8 +25,9 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
 
-  // Send a heartbeat to the backend every 3 seconds to keep servers alive.
-  // If the browser tab is closed, the heartbeats stop and servers will auto-exit after 90 seconds.
+  // Send heartbeats every 3s to keep the backend alive while this tab is open.
+  // When the tab closes, proactively signal shutdown via sendBeacon.
+  // As a safety net, the backend also auto-shuts down after 20s without any heartbeat.
   useEffect(() => {
     const sendHeartbeat = () => {
       axios.post(`${BACKEND_SERVER_URL}/heartbeat`).catch(() => {});
@@ -42,9 +43,18 @@ const App = () => {
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
 
+    // Proactively signal backend to shut down when the page is closed
+    const onBeforeUnload = () => {
+      navigator.sendBeacon(`${BACKEND_SERVER_URL}/shutdown`, "");
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+
     return () => {
       clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("beforeunload", onBeforeUnload);
+      // Also send shutdown in cleanup as a fallback
+      navigator.sendBeacon(`${BACKEND_SERVER_URL}/shutdown`, "");
     };
   }, []);
 

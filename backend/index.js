@@ -41,14 +41,14 @@ app.get("/db-status", (req, res) => {
 
 // Periodically check if heartbeats have stopped (indicating browser has closed)
 setInterval(() => {
-  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 90000) {
-    console.log("No heartbeat received for 90 seconds. Shutting down system...");
+  if (hasReceivedHeartbeat && Date.now() - lastHeartbeat > 20000) {
+    console.log("No heartbeat received for 20 seconds. Shutting down system...");
     serverInstance?.close();
     mongoose.disconnect();
     process.exit(0);
   }
-  if (!hasReceivedHeartbeat && Date.now() - lastHeartbeat > 180000) {
-    console.log("No heartbeat ever received after 3 minutes. Shutting down...");
+  if (!hasReceivedHeartbeat && Date.now() - lastHeartbeat > 60000) {
+    console.log("No heartbeat ever received after 1 minute. Shutting down...");
     serverInstance?.close();
     mongoose.disconnect();
     process.exit(0);
