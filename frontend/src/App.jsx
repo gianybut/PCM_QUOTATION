@@ -10,12 +10,10 @@ import AddNewProductBtn from "./components/AddNewProductBtn.jsx";
 import { useEffect, useState, useRef } from "react";
 import api, { BACKEND_SERVER_URL } from "./config.js";
 import DeleteProduct from "./components/DeleteProduct.jsx";
-import DeleteSize from "./components/DeleteSize.jsx";
 import DbStatus from "./components/DbStatus.jsx";
 import iconUrl from "./img/pcm_logo.jpg"
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [dbConnected, setDbConnected] = useState(false);

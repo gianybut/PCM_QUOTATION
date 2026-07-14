@@ -1,8 +1,6 @@
 import { useState, useRef } from "react";
 
 const Signature = () => {
-  // Default image URL - replace with your default image path
-  const defaultImage = "/api/placeholder/128/128";
   const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -19,31 +17,9 @@ const Signature = () => {
   };
 
   const handleClear = () => {
-    setImage(null); // Reset to default image instead of null
+    setImage(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
-    }
-  };
-
-  const handleUpload = () => {
-    if (image && image !== defaultImage) {
-      const formData = new FormData();
-      formData.append("image", image);
-
-      fetch("/your-api-endpoint", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Image uploaded:", data);
-          handleClear();
-        })
-        .catch((error) => {
-          console.error("Error uploading image:", error);
-        });
-    } else {
-      alert("Please select a new image first.");
     }
   };
 
