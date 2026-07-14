@@ -28,7 +28,7 @@ const DropdownMenu = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [filter]);
+  }, []);
 
   const handleSelect = (option) => {
     setSelected(option);

@@ -36,23 +36,18 @@ const App = () => {
       });
   };
 
-  // Send heartbeats every 3s to keep the backend alive.
-  // On tab close, send shutdown beacon via sendBeacon.
+  // Connect to the backend keepalive stream to prevent automatic shutdown.
+  // The connection is held open indefinitely to support idle background runs,
+  // and closes instantly when the browser tab/window is closed.
   useEffect(() => {
-    const sendHeartbeat = () => {
-      api.post("/heartbeat").catch(() => {});
-    };
-    sendHeartbeat();
-    const interval = setInterval(sendHeartbeat, 3000);
+    const eventSource = new EventSource(`${BACKEND_SERVER_URL}/keepalive`);
 
-    const onBeforeUnload = () => {
-      navigator.sendBeacon(`${BACKEND_SERVER_URL}/shutdown`, "");
+    eventSource.onerror = () => {
+      console.warn("Keepalive stream disconnected. Browser will attempt to reconnect...");
     };
-    window.addEventListener("beforeunload", onBeforeUnload);
 
     return () => {
-      clearInterval(interval);
-      window.removeEventListener("beforeunload", onBeforeUnload);
+      eventSource.close();
     };
   }, []);
 
@@ -65,69 +60,69 @@ const App = () => {
     }
   }, []);
 
+  // Poll database status. Transition from fast polling (3s) during startup retries
+  // to slow polling (15s) in steady-state to avoid redundant network traffic.
   useEffect(() => {
-    let dbRetries = 0;
-    const dbMaxRetries = 40;
+    let timer = null;
+    let retries = 0;
+    const maxRetries = 40;
+    let isInitialFetchDone = false;
+    let isConnectedPreviously = null;
 
-    const fetchDataWithRetry = (dataRetries = 0) => {
-      fetchProductsAndSizes().catch(() => {
-        if (dataRetries < 15) {
-          setTimeout(() => fetchDataWithRetry(dataRetries + 1), 1000);
-        }
-      });
-    };
-
-    const waitForDb = () => {
+    const checkStatus = () => {
       api
         .get("/db-status")
         .then((response) => {
           const isConnected = response.data.connected;
           setDbConnected(isConnected);
+
           if (isConnected) {
+            // Trigger fetch only if connectivity just changed to true, or on initial load
+            if (isConnectedPreviously !== true) {
+              fetchProductsAndSizes().catch(() => {});
+            }
             if (!startupAlertShown.current) {
               startupAlertShown.current = true;
               alert("Connected to cloud database successfully.");
             }
-            fetchProductsAndSizes();
+            isConnectedPreviously = true;
+            timer = setTimeout(checkStatus, 15000);
           } else {
-            dbRetries++;
-            if (dbRetries < dbMaxRetries) {
-              setTimeout(waitForDb, 3000);
+            if (isConnectedPreviously === true) {
+              console.log("Database connection lost. Falling back to local data.");
+            }
+            isConnectedPreviously = false;
+
+            retries++;
+            if (retries < maxRetries) {
+              timer = setTimeout(checkStatus, 3000);
             } else {
-              fetchProductsAndSizes();
+              if (!isInitialFetchDone) {
+                isInitialFetchDone = true;
+                fetchProductsAndSizes().catch(() => {});
+              }
+              timer = setTimeout(checkStatus, 15000);
             }
           }
         })
         .catch(() => {
-          dbRetries++;
-          if (dbRetries < dbMaxRetries) {
-            setTimeout(waitForDb, 3000);
+          isConnectedPreviously = false;
+          retries++;
+          if (retries < maxRetries) {
+            timer = setTimeout(checkStatus, 3000);
           } else {
-            fetchProductsAndSizes();
+            if (!isInitialFetchDone) {
+              isInitialFetchDone = true;
+              fetchProductsAndSizes().catch(() => {});
+            }
+            timer = setTimeout(checkStatus, 15000);
           }
         });
     };
 
-    setTimeout(waitForDb, 2000);
-  }, []);
+    timer = setTimeout(checkStatus, 2000);
 
-  const prevConnected = useRef(null);
-  useEffect(() => {
-    const checkAndRefetch = () => {
-      api
-        .get("/db-status")
-        .then((res) => {
-          const isConnected = res.data.connected;
-          setDbConnected(isConnected);
-          if (isConnected && prevConnected.current === false) {
-            fetchProductsAndSizes();
-          }
-          prevConnected.current = isConnected;
-        })
-        .catch(() => {});
-    };
-    const interval = setInterval(checkAndRefetch, 15000);
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
