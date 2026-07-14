@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "backend_start": "cd backend && npm i && npm run dev",
-    "frontend_start": "cd frontend && npm i && npm run dev",
-    "start": "npm i && concurrently --kill-others \"npm run backend_start\" \"npm run frontend_start\""
+    "backend_start": "cd backend && npm run dev",
+    "frontend_start": "cd frontend && npm run dev",
+    "start": "concurrently --kill-others \"npm run backend_start\" \"npm run frontend_start\""
   },
   "repository": {
     "type": "git",
