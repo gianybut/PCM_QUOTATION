@@ -1,62 +1,35 @@
-import React, { useState } from "react";
-import MOCK_DATA from "../MOCK_DATA.json";
-import axios from "axios";
+import { useState } from "react";
+import api from "../config.js";
 
-const ProductModal = ({ onClose, changeModalSignal }) => {
-  const [products, setProducts] = useState(MOCK_DATA);
+const ProductModal = ({ onClose, changeModalSignal, onProductAdded }) => {
   const [productName, setProductName] = useState("");
-  const [productType, setProductType] = useState("perfume");
-  const [sizes, setSizes] = useState([{ size: "", unit: "ml", price: "" }]);
-
-  const generateProductId = () => {
-    return Math.random().toString(36).substring(2, 15);
-  };
+  const [productType, setProductType] = useState("PERFUME");
 
   const addProduct = async (newProductName, newProductType) => {
-    const addProductResult = await axios
-      .post("http://localhost:6942/products/create", {
+    await api
+      .post("/products/create", {
         productName: newProductName,
         productType: newProductType,
       })
-      .then((result) => {
+      .then(() => {
         alert("ADDED NEW PRODUCT");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("FAILED TO ADD A PRODUCT, REFRESH PAGE.");
       });
   };
 
-  const handleAddSizeUnit = (e) => {
-    e.preventDefault();
-    setSizes([...sizes, { size: "", unit: "ml", price: "" }]);
-  };
-
-  const handleSizeChange = (index, field, value) => {
-    const newSizes = sizes.map((size, i) => {
-      if (i === index) {
-        return { ...size, [field]: value };
-      }
-      return size;
-    });
-    setSizes(newSizes);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const newProduct = {
-      productName: productName,
-      productType: productType,
-    };
     await addProduct(productName, productType);
     resetForm();
     onClose();
-    window.location.reload();
+    if (onProductAdded) onProductAdded();
   };
 
   const resetForm = () => {
     setProductName("");
-    setProductType("perfume");
+    setProductType("PERFUME");
   };
 
   return (
@@ -107,7 +80,6 @@ const ProductModal = ({ onClose, changeModalSignal }) => {
             <button
               type="submit"
               className="flex-1 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              onClick={handleSubmit}
             >
               Create Product
             </button>

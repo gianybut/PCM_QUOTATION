@@ -1,19 +1,22 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import helmet from "helmet";
 import ProductRoute from "./Routes/ProductRoutes.js";
 import SizesRoute from "./Routes/SizesRoute.js";
-import axios from "axios";
+import ProductsModel from "./Model/ProductsModel.js";
+import SizesModel from "./Model/SizesModel.js";
 
 import PRODUCTS from "./PRODUCTS.json" with { type: "json" };
 import SIZES from "./SIZES.json" with { type: "json" };
-// Setup variables
+
 const app = express();
 const SERVER_PORT = process.env.SERVER_PORT || 6942;
 const MONGODB_URI = process.env.MONGODB_URI;
 let serverInstance = null;
 
-app.use(express.json());
+app.use(helmet());
+app.use(express.json({ limit: "1mb" }));
 app.use(cors({ origin: "http://localhost:5173" }));
 
 // Pending shutdown state — shutdown is requested but delayed to allow cancellation on refresh
@@ -107,12 +110,20 @@ if (MONGODB_URI) {
 }
 
 app.get("/addAllProductsAndSizes", async (req, res) => {
-  for (const p of PRODUCTS) {
-    await axios.post("http://localhost:6942/products/create", {productName: p["productName"], productType: p["productType"]});
+  try {
+    await ProductsModel.insertMany(PRODUCTS.map(p => ({ productName: p["productName"], productType: p["productType"] })), { ordered: false }).catch(() => {});
+    await SizesModel.insertMany(SIZES.map(s => ({ sizeName: s["sizeName"], sizeFor: s["sizeFor"] })), { ordered: false }).catch(() => {});
+    return res.send("OK");
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to seed data." });
   }
-
-  for (const s of SIZES) {
-    await axios.post("http://localhost:6942/sizes/create", {sizeName: s["sizeName"], sizeFor: s["sizeFor"]});
-  }
-  return res.send("OK");
 });
+
+const gracefulShutdown = (signal) => {
+  console.log(`${signal} received. Shutting down gracefully...`);
+  if (serverInstance) serverInstance.close();
+  mongoose.disconnect().finally(() => process.exit(0));
+};
+
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));

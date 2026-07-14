@@ -8,33 +8,45 @@ import PrintBtn from "./components/PrintBtn.jsx";
 import MainTable from "./components/MainTable.jsx";
 import AddNewProductBtn from "./components/AddNewProductBtn.jsx";
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import api, { BACKEND_SERVER_URL } from "./config.js";
 import DeleteProduct from "./components/DeleteProduct.jsx";
 import DeleteSize from "./components/DeleteSize.jsx";
 import DbStatus from "./components/DbStatus.jsx";
 import iconUrl from "./img/pcm_logo.jpg"
 
-let startupAlertShown = false;
-
 const App = () => {
-  const BACKEND_SERVER_URL = "http://localhost:6942";
-
-  // open modal sample
   const [isOpen, setIsOpen] = useState(false);
-
   const [products, setProducts] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [dbConnected, setDbConnected] = useState(false);
+  const startupAlertShown = useRef(false);
+
+  const fetchProductsAndSizes = () => {
+    return Promise.all([
+      api.get("/products"),
+      api.get("/sizes"),
+    ])
+      .then(([productsResponse, sizesResponse]) => {
+        const sortedProducts = productsResponse.data["data"].sort(
+          (a, b) => a["productType"].localeCompare(b["productType"])
+        );
+        setProducts(sortedProducts);
+        const sortedSizes = sizesResponse.data["data"].sort((a, b) =>
+          a["sizeFor"].localeCompare(b["sizeFor"])
+        );
+        setSizes(sortedSizes);
+      });
+  };
 
   // Send heartbeats every 3s to keep the backend alive.
   // On tab close, send shutdown beacon via sendBeacon.
   useEffect(() => {
     const sendHeartbeat = () => {
-      axios.post(`${BACKEND_SERVER_URL}/heartbeat`).catch(() => {});
+      api.post("/heartbeat").catch(() => {});
     };
-    sendHeartbeat(); // send immediately (also cancels pending shutdown from refresh)
+    sendHeartbeat();
     const interval = setInterval(sendHeartbeat, 3000);
 
-    // Signal backend to shut down when the page is actually closed
     const onBeforeUnload = () => {
       navigator.sendBeacon(`${BACKEND_SERVER_URL}/shutdown`, "");
     };
@@ -59,44 +71,32 @@ const App = () => {
     let dbRetries = 0;
     const dbMaxRetries = 40;
 
-    const fetchData = (dataRetries = 0) => {
-      Promise.all([
-        axios.get(`${BACKEND_SERVER_URL}/products`),
-        axios.get(`${BACKEND_SERVER_URL}/sizes`),
-      ])
-        .then(([productsResponse, sizesResponse]) => {
-          const sortedProducts = productsResponse.data["data"].sort(
-            (a, b) => a["productType"].localeCompare(b["productType"])
-          );
-          setProducts(sortedProducts);
-          const sortedSizes = sizesResponse.data["data"].sort((a, b) =>
-            a["sizeFor"].localeCompare(b["sizeFor"])
-          );
-          setSizes(sortedSizes);
-        })
-        .catch(() => {
-          if (dataRetries < 15) {
-            setTimeout(() => fetchData(dataRetries + 1), 1000);
-          }
-        });
+    const fetchDataWithRetry = (dataRetries = 0) => {
+      fetchProductsAndSizes().catch(() => {
+        if (dataRetries < 15) {
+          setTimeout(() => fetchDataWithRetry(dataRetries + 1), 1000);
+        }
+      });
     };
 
     const waitForDb = () => {
-      axios
-        .get(`${BACKEND_SERVER_URL}/db-status`)
+      api
+        .get("/db-status")
         .then((response) => {
-          if (response.data.connected) {
-            if (!startupAlertShown) {
-              startupAlertShown = true;
+          const isConnected = response.data.connected;
+          setDbConnected(isConnected);
+          if (isConnected) {
+            if (!startupAlertShown.current) {
+              startupAlertShown.current = true;
               alert("Connected to cloud database successfully.");
             }
-            fetchData();
+            fetchProductsAndSizes();
           } else {
             dbRetries++;
             if (dbRetries < dbMaxRetries) {
               setTimeout(waitForDb, 3000);
             } else {
-              fetchData();
+              fetchProductsAndSizes();
             }
           }
         })
@@ -105,7 +105,7 @@ const App = () => {
           if (dbRetries < dbMaxRetries) {
             setTimeout(waitForDb, 3000);
           } else {
-            fetchData();
+            fetchProductsAndSizes();
           }
         });
     };
@@ -113,30 +113,16 @@ const App = () => {
     setTimeout(waitForDb, 2000);
   }, []);
 
-  // Refetch data from cloud when DB reconnects after a disconnect
   const prevConnected = useRef(null);
   useEffect(() => {
     const checkAndRefetch = () => {
-      axios
-        .get(`${BACKEND_SERVER_URL}/db-status`)
+      api
+        .get("/db-status")
         .then((res) => {
           const isConnected = res.data.connected;
+          setDbConnected(isConnected);
           if (isConnected && prevConnected.current === false) {
-            Promise.all([
-              axios.get(`${BACKEND_SERVER_URL}/products`),
-              axios.get(`${BACKEND_SERVER_URL}/sizes`),
-            ])
-              .then(([productsRes, sizesRes]) => {
-                const sortedProducts = productsRes.data["data"].sort(
-                  (a, b) => a["productType"].localeCompare(b["productType"])
-                );
-                setProducts(sortedProducts);
-                const sortedSizes = sizesRes.data["data"].sort((a, b) =>
-                  a["sizeFor"].localeCompare(b["sizeFor"])
-                );
-                setSizes(sortedSizes);
-              })
-              .catch(() => {});
+            fetchProductsAndSizes();
           }
           prevConnected.current = isConnected;
         })
@@ -155,8 +141,8 @@ const App = () => {
       </div>
 
       <div className="flex justify-center gap-16 items-center mx-auto my-4">
-            <AddNewProductBtn />
-            <DeleteProduct products={products} sizes={sizes} />
+            <AddNewProductBtn onRefresh={fetchProductsAndSizes} />
+            <DeleteProduct products={products} sizes={sizes} onRefresh={fetchProductsAndSizes} />
             <PrintBtn />
       </div>
 
@@ -168,7 +154,7 @@ const App = () => {
       <BottomText />
       <Signature />
       <SigName />
-      <DbStatus />
+      <DbStatus connected={dbConnected} />
     </div>
   );
 };

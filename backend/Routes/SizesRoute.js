@@ -1,11 +1,9 @@
-import express, { query } from "express";
+import express from "express";
 import { StatusCodes } from "http-status-codes";
 import SizesController from "../Controller/SizesController.js";
 import { matchedData, param, validationResult, body } from "express-validator";
 
-// Size routes start with ":/sizes"
 const SizesRoute = express.Router();
-SizesRoute.use(express.json());
 
 // READ ALL
 SizesRoute.get("/", async (req, res) => {
@@ -145,7 +143,6 @@ SizesRoute.patch(
   async (req, res) => {
     // Errors in validation, exit early
     if (!validationResult(req).isEmpty()) {
-      console.log(validationResult(req));
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "One of the required parameters is missing." });
@@ -170,7 +167,7 @@ SizesRoute.patch(
           : "Failed to update one size",
       });
     } catch (error) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: "FAILED TO UPDATE SIZE. Database connection error.",
       });
     }
@@ -208,7 +205,7 @@ SizesRoute.delete(
           : "Failed to delete one size",
       });
     } catch (error) {
-      return res.status(StatusCodes.BAD_GATEWAY).json({
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: "FAILED TO DELETE SIZE. Database connection error.",
       });
     }

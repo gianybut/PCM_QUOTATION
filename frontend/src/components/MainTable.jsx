@@ -1,12 +1,7 @@
-import { useEffect, useId, useState } from "react";
-import Dropdown from "./DropdownMenu";
-import useAddSize from "../hooks/addSize";
-import useAddProductName from "../hooks/addProductName";
+import { useState } from "react";
 import TableRow from "./TableRow.jsx";
-import axios from "axios";
 
 const MainTable = ({ products, sizes }) => {
-  const BACKEND_SERVER_URL = "http://localhost:6942";
   const [rows, setRows] = useState([{ id: crypto.randomUUID(), total: 0 }]);
 
   const addRow = () => {

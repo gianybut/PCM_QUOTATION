@@ -1,11 +1,9 @@
-import express, { query } from "express";
+import express from "express";
 import { StatusCodes } from "http-status-codes";
 import ProductsController from "../Controller/ProductsController.js";
 import { matchedData, param, validationResult, body } from "express-validator";
 
-// Product routes start with ":/products"
 const ProductRoute = express.Router();
-ProductRoute.use(express.json());
 
 // READ ALL
 ProductRoute.get("/", async (req, res) => {
@@ -119,7 +117,6 @@ ProductRoute.patch(
   async (req, res) => {
     // Errors in validation, exit early
     if (!validationResult(req).isEmpty()) {
-      console.log(validationResult(req));
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "One of the required parameters is missing." });
@@ -142,7 +139,7 @@ ProductRoute.patch(
           : "Failed to update one product",
       });
     } catch (error) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: "FAILED TO UPDATE PRODUCT. Database connection error.",
       });
     }
@@ -179,7 +176,7 @@ ProductRoute.delete(
           : "Failed to delete one product",
       });
     } catch (error) {
-      return res.status(StatusCodes.BAD_GATEWAY).json({
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: "FAILED TO DELETE PRODUCT. Database connection error.",
       });
     }
