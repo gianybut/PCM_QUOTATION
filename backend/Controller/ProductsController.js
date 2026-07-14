@@ -115,26 +115,16 @@ class ProductsController {
     newProductName = null,
     newProductType = null
   ) {
-    if (!this.isDatabaseAvailable()) {
-      const productDetails = {};
-
-      if (newProductName) {
-        productDetails["productName"] = newProductName;
-      }
-
-      if (newProductType) {
-        productDetails["productType"] = newProductType;
-      }
-
-      return LocalStore.updateProduct(productId, productDetails);
-    }
-
-    let productNewDetails = {};
+    const productNewDetails = {};
     if (newProductName) {
       productNewDetails["productName"] = newProductName;
     }
     if (newProductType) {
       productNewDetails["productType"] = newProductType;
+    }
+
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.updateProduct(productId, productNewDetails);
     }
 
     try {

@@ -1,13 +1,6 @@
-import { readFileSync } from "fs";
-
 import mongoose from "mongoose";
-
-const PRODUCTS = JSON.parse(
-  readFileSync(new URL("../PRODUCTS.json", import.meta.url), "utf8")
-);
-const SIZES = JSON.parse(
-  readFileSync(new URL("../SIZES.json", import.meta.url), "utf8")
-);
+import PRODUCTS from "../PRODUCTS.json" with { type: "json" };
+import SIZES from "../SIZES.json" with { type: "json" };
 
 const createRecord = (record) => ({
   _id: new mongoose.Types.ObjectId().toString(),
@@ -17,19 +10,17 @@ const createRecord = (record) => ({
 const localProducts = PRODUCTS.map(createRecord);
 const localSizes = SIZES.map(createRecord);
 
-const clone = (value) => JSON.parse(JSON.stringify(value));
-
 const findRecordIndex = (records, recordId) =>
   records.findIndex((record) => record._id === recordId);
 
 export const LocalStore = {
   listProducts() {
-    return clone(localProducts);
+    return [...localProducts];
   },
 
   getProduct(productId) {
     const product = localProducts.find((record) => record._id === productId);
-    return product ? clone(product) : null;
+    return product ? { ...product } : null;
   },
 
   createProduct(productName, productType) {
@@ -78,12 +69,12 @@ export const LocalStore = {
   },
 
   listSizes() {
-    return clone(localSizes);
+    return [...localSizes];
   },
 
   getSize(sizeId) {
     const size = localSizes.find((record) => record._id === sizeId);
-    return size ? clone(size) : null;
+    return size ? { ...size } : null;
   },
 
   createSize(sizeName, sizeFor) {

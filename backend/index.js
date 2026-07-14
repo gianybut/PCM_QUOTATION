@@ -19,36 +19,45 @@ app.use(helmet());
 app.use(express.json({ limit: "1mb" }));
 app.use(cors({ origin: "http://localhost:5173" }));
 
-// Pending shutdown state — shutdown is requested but delayed to allow cancellation on refresh
-let pendingShutdown = false;
-let shutdownRequestedAt = 0;
+let activeClients = 0;
+let shutdownTimer = null;
 
-app.post("/heartbeat", (req, res) => {
-  pendingShutdown = false;
-  res.sendStatus(200);
-});
+app.get("/keepalive", (req, res) => {
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+  res.flushHeaders();
 
-app.post("/shutdown", (req, res) => {
-  console.log("Shutdown signal received. Waiting 5s for possible cancellation...");
-  pendingShutdown = true;
-  shutdownRequestedAt = Date.now();
-  res.sendStatus(200);
+  activeClients++;
+  console.log(`Client connected. Active clients: ${activeClients}`);
+  if (shutdownTimer) {
+    clearTimeout(shutdownTimer);
+    shutdownTimer = null;
+    console.log("Shutdown cancelled (client connected).");
+  }
+
+  // Send initial message
+  res.write(": keepalive\n\n");
+
+  req.on("close", () => {
+    activeClients--;
+    console.log(`Client disconnected. Active clients: ${activeClients}`);
+    if (activeClients <= 0) {
+      console.log("No active clients. Scheduling shutdown in 5 seconds...");
+      shutdownTimer = setTimeout(() => {
+        console.log("No client reconnected. Shutting down...");
+        serverInstance?.close();
+        mongoose.disconnect();
+        process.exit(0);
+      }, 5000);
+    }
+  });
 });
 
 app.get("/db-status", (req, res) => {
   const isConnected = mongoose.connection.readyState === 1;
   res.json({ connected: isConnected });
 });
-
-// Check if a pending shutdown should be executed
-setInterval(() => {
-  if (pendingShutdown && Date.now() - shutdownRequestedAt > 5000) {
-    console.log("No heartbeat received after shutdown signal. Shutting down system...");
-    serverInstance?.close();
-    mongoose.disconnect();
-    process.exit(0);
-  }
-}, 1000);
 
 app.use("/products", ProductRoute);
 app.use("/sizes", SizesRoute);

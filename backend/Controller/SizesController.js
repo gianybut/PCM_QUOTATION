@@ -93,27 +93,18 @@ class SizesController {
    * @returns {Boolean} true if the size is successfully update otherwise, returns false.
    */
   static async updateSize(sizeId, newSizeName = null, newSizeFor = null) {
-    if (!this.isDatabaseAvailable()) {
-      const sizeDetails = {};
-
-      if (newSizeName) {
-        sizeDetails["sizeName"] = newSizeName;
-      }
-
-      if (newSizeFor) {
-        sizeDetails["sizeFor"] = newSizeFor;
-      }
-
-      return LocalStore.updateSize(sizeId, sizeDetails);
-    }
-
-    let sizeNewDetails = {};
+    const sizeNewDetails = {};
     if (newSizeName) {
       sizeNewDetails["sizeName"] = newSizeName;
     }
     if (newSizeFor) {
       sizeNewDetails["sizeFor"] = newSizeFor;
     }
+
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.updateSize(sizeId, sizeNewDetails);
+    }
+
     try {
       const sizeToUpdate = await SizesModel.findByIdAndUpdate(
         sizeId,
