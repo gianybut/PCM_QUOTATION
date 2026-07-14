@@ -1,17 +1,13 @@
-import React, { useId, useState } from "react";
-import axios from "axios";
-import trashIcon from "../img/trash.png";
+import api from "../config.js";
 
-const DeleteSizeModal = ({ onClose, sizes,changeModalSignal }) => {
-  const BACKEND_URL = "http://localhost:6942";
-
+const DeleteSizeModal = ({ onClose, sizes, changeModalSignal, onSizeDeleted }) => {
   const deleteSize = async (sizeId) => {
-    await axios
-      .delete(`${BACKEND_URL}/sizes/delete/${sizeId}`)
-      .then((result) => {
+    await api
+      .delete(`/sizes/delete/${sizeId}`)
+      .then(() => {
         alert("REMOVED SIZE SUCCESSFULLY.");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("ERROR IN DELETING SIZE");
       });
   };
@@ -19,7 +15,7 @@ const DeleteSizeModal = ({ onClose, sizes,changeModalSignal }) => {
   const handleDelete = async (sizeId) => {
     await deleteSize(sizeId);
     onClose();
-    window.location.reload();
+    if (onSizeDeleted) onSizeDeleted();
   };
 
   return (

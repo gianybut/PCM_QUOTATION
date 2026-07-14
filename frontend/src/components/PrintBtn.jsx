@@ -1,5 +1,3 @@
-import React from "react";
-
 const PrintBtn = () => {
   const handlePrint = () => {
     window.print();

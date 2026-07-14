@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DeleteProductModal from "./DeleteProductModal.jsx";
 import DeleteSizeModal from "./DeleteSizeModal.jsx";
 
-const DeleteProduct = ({ products, sizes }) => {
+const DeleteProduct = ({ products, sizes, onRefresh }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentModal, setCurrentModal] = useState("Product");
 
@@ -26,6 +26,7 @@ const DeleteProduct = ({ products, sizes }) => {
                   changeModalSignal={() => {
                     setCurrentModal("Size");
                   }}
+                  onProductDeleted={onRefresh}
                 />
               ) : (
                 <DeleteSizeModal
@@ -34,6 +35,7 @@ const DeleteProduct = ({ products, sizes }) => {
                   changeModalSignal={() => {
                     setCurrentModal("Product");
                   }}
+                  onSizeDeleted={onRefresh}
                 />
               )}
               <button

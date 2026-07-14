@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { useState } from "react";
+import api from "../config.js";
+import { useState } from "react";
 
-const ProductSizeModal = ({ onClose, changeModalSignal }) => {
+const ProductSizeModal = ({ onClose, changeModalSignal, onSizeAdded }) => {
   const [productSize, setProductSize] = useState("");
   const [sizeForType, setSizeForType] = useState("PERFUME");
 
   const addSize = async (newSizeName, newSizeForType) => {
-    await axios
-      .post("http://localhost:6942/sizes/create", {
+    await api
+      .post("/sizes/create", {
         sizeName: newSizeName,
         sizeFor: newSizeForType,
       })
@@ -15,9 +15,8 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
         if (result) alert("ADDED NEW SIZE");
         else alert("Size already exists.");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("FAILED TO ADD NEW SIZE, REFRESH PAGE");
-        window.location.reload();
       });
   };
 
@@ -31,15 +30,13 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
       return;
     }
     await addSize(sizeToAdd, newSizeForType);
-    onClose(); // Close modal or go back
-    window.location.reload();
+    onClose();
+    if (onSizeAdded) onSizeAdded();
   };
 
   const handleClose = () => {
     if (onClose) {
-      onClose(false); // If onClose function is provided, execute it
-    } else {
-      window.location.href = "./App.jsx"; // Otherwise, go back to the previous page
+      onClose(false);
     }
   };
 
@@ -95,7 +92,6 @@ const ProductSizeModal = ({ onClose, changeModalSignal }) => {
             <button
               type="submit"
               className="flex-1 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              onClick={handleSubmit}
             >
               Create Size
             </button>

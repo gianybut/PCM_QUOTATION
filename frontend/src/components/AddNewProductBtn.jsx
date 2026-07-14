@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProductModal from "./ProductModal";
 import ProductSizeModal from "./ProductSizeModal.jsx";
 
-const AddNewProductBtn = () => {
+const AddNewProductBtn = ({ onRefresh }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentModal, setCurrentModal] = useState("Product");
 
@@ -24,6 +24,7 @@ const AddNewProductBtn = () => {
                 changeModalSignal={() => {
                   setCurrentModal("Size");
                 }}
+                onProductAdded={onRefresh}
               />
             ) : (
               <ProductSizeModal
@@ -31,6 +32,7 @@ const AddNewProductBtn = () => {
                 changeModalSignal={() => {
                   setCurrentModal("Product");
                 }}
+                onSizeAdded={onRefresh}
               />
             )}
 

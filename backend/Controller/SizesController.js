@@ -21,7 +21,7 @@ class SizesController {
       const sizes = await SizesModel.find({});
       return sizes || null;
     } catch (error) {
-      throw error;
+      return LocalStore.listSizes();
     }
   }
 
@@ -39,7 +39,7 @@ class SizesController {
       const sizeToFind = await SizesModel.findById(sizeId);
       return sizeToFind || null;
     } catch (error) {
-      throw error;
+      return LocalStore.getSize(sizeId);
     }
   }
 
@@ -81,7 +81,7 @@ class SizesController {
       const sizeToDelete = await SizesModel.findByIdAndDelete(sizeId);
       return sizeToDelete ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 
@@ -93,27 +93,18 @@ class SizesController {
    * @returns {Boolean} true if the size is successfully update otherwise, returns false.
    */
   static async updateSize(sizeId, newSizeName = null, newSizeFor = null) {
-    if (!this.isDatabaseAvailable()) {
-      const sizeDetails = {};
-
-      if (newSizeName) {
-        sizeDetails["sizeName"] = newSizeName;
-      }
-
-      if (newSizeFor) {
-        sizeDetails["sizeFor"] = newSizeFor;
-      }
-
-      return LocalStore.updateSize(sizeId, sizeDetails);
-    }
-
-    let sizeNewDetails = {};
+    const sizeNewDetails = {};
     if (newSizeName) {
       sizeNewDetails["sizeName"] = newSizeName;
     }
     if (newSizeFor) {
       sizeNewDetails["sizeFor"] = newSizeFor;
     }
+
+    if (!this.isDatabaseAvailable()) {
+      return LocalStore.updateSize(sizeId, sizeNewDetails);
+    }
+
     try {
       const sizeToUpdate = await SizesModel.findByIdAndUpdate(
         sizeId,
@@ -121,7 +112,7 @@ class SizesController {
       );
       return sizeToUpdate ? true : false;
     } catch (error) {
-      throw error;
+      return false;
     }
   }
 }

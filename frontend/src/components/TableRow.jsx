@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu.jsx";
 
-const TableRow = ({
+const TableRow = React.memo(({
   rowId,
   rowDeleteHandler,
   updateRowValue,
@@ -89,6 +89,6 @@ const TableRow = ({
       </td>
     </tr>
   );
-};
+});
 
 export default TableRow;

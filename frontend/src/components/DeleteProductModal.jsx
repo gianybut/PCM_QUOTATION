@@ -1,16 +1,13 @@
-import React, { useId, useState } from "react";
-import axios from "axios";
+import api from "../config.js";
 
-const DeleteProductModal = ({ onClose, products, changeModalSignal }) => {
-  const BACKEND_URL = "http://localhost:6942";
-
+const DeleteProductModal = ({ onClose, products, changeModalSignal, onProductDeleted }) => {
   const deleteProduct = async (productId) => {
-    await axios
-      .delete(`${BACKEND_URL}/products/delete/${productId}`)
-      .then((result) => {
+    await api
+      .delete(`/products/delete/${productId}`)
+      .then(() => {
         alert("REMOVED PRODUCT SUCCESSFULLY.");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("ERROR IN DELETING PRODUCT");
       });
   };
@@ -18,7 +15,7 @@ const DeleteProductModal = ({ onClose, products, changeModalSignal }) => {
   const handleDelete = async (productId) => {
     await deleteProduct(productId);
     onClose();
-    window.location.reload();
+    if (onProductDeleted) onProductDeleted();
   };
 
   return (

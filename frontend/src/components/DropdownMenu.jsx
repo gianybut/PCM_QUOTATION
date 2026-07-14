@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const DropdownMenu = ({
   label = "Select",
@@ -28,7 +28,7 @@ const DropdownMenu = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [filter]);
+  }, []);
 
   const handleSelect = (option) => {
     setSelected(option);
